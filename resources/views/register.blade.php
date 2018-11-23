@@ -27,12 +27,12 @@
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
-                height: 100vh;
+                height: 110vh;
                 margin: 0;
             }
 
             .full-height {
-                height: 100vh;
+                height: 120vh;
             }
 
             .flex-center {
@@ -133,7 +133,7 @@
                     <input type="text" class="form-control text-center" id="invitation_code" name="invitation_code">
                   </div>
 
-                  <a href="http://line.me/ti/g/E0tuhiJXuX" target="_blank" title="申請加入無與倫比LINE群組" class="btn btn-success col-lg-4 col-md-4 col-sm-6 col-xs-8">申請邀請碼</a>
+                  <a href="http://line.me/ti/g/E0tuhiJXuX" target="_blank" title="申請加入無與倫比LINE群組" class="btn btn-success col-lg-4 col-md-4 col-sm-6 col-xs-8" style="width: 300px;">申請邀請碼</a>
 
 <!--                   <div class="form-check">
                     <label class="form-check-label">
@@ -141,7 +141,7 @@
                     </label>
                   </div> -->
                   <div style="height: 20px;"></div>
-                  <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-xs-8">確認註冊</button>
+                  <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-xs-8" style="width: 300px;">確認註冊</button>
                 </form>
 
                 <div style="height: 20px;"></div>

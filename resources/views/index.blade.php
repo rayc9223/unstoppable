@@ -28,12 +28,13 @@
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
-                height: 100vh;
+                /*height: 100vh;*/
+                /*padding-top: 30px;*/
                 margin: 0;
             }
 
             .full-height {
-                height: 100vh;
+                /*height: 100vh;*/
             }
 
             .flex-center {
@@ -58,7 +59,7 @@
 
             .title {
                 /*font-size: 84px;*/
-                font-size: 2.5em;
+                font-size: 2em;
             }
 
             .links > a {
@@ -89,6 +90,28 @@
             @media screen and (max-width: 500px) {
                 #pc-block {
                     display: none;
+                }
+
+                #mobile-block {
+                    display: block;
+                }
+                html, body {
+                    padding-top: 30px;
+                    padding-bottom: 20px;
+                }
+                .linear{
+                    width:100%;
+                    height:50px;
+                    background: -webkit-linear-gradient(transparent,black);
+                    background: -o-linear-gradient(transparent,black);
+                    background: -moz-linear-gradient(transparent,black);
+                    background: linear-gradient(transparent,black);
+                    margin:0px;
+                    position: relative;
+                    top:110px;
+                    bottom: 0px;
+                    border-radius: 0px 0px 20px 20px;
+                    padding-right: 10px;
                 }
             }
 
@@ -141,16 +164,49 @@
 
                     <div style="width:16px;"></div>
 
-                    <div id="comment" class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="border-radius: 20px;background-image: url('/images/yan_long.png');background-position:40% 40%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
+                    <div id="comment" class="" style="border-radius: 20px;background-image: url('/images/yan_long.png');background-position:40% 40%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right" style="padding-top: 80px;padding-right: 20px;">
                             <span style="color: white;font-size: 2.4vw;font-weight: bold;"> 留言區
                         </div>
                     </div>
                 </div>
 
+                <div class="row flex-center" id="mobile-block" style="padding-left: 10px;">
+                   
+                    <div id="capability" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:40% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                        <div class="linear text-right">
+                            <span style="color: white;font-size: 26px;font-weight: bold;"> 成員排行
+                        </div>
+                    </div>
+                    <div style="height: 10px;"></div>
+
+                    <div id="news" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                        <div class="linear text-right">
+                            <span style="color: white;font-size: 26px;font-weight: bold;"> 門派公告
+                        </div>
+                    </div>
+                    <div style="height: 10px;"></div>
+
+        
+                    <div id="guildwar" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/princess.png');background-position:35% 20%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                        <div class="linear text-right">
+                            <span style="color: white;font-size: 26px;font-weight: bold;"> 門派爭奪
+                        </div>
+                    </div>
+                    <div style="height: 10px;"></div>
+
+           
+
+                    <div id="comment" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/yan_long.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                        <div class="linear text-right">
+                            <span style="color: white;font-size: 26px;font-weight: bold;"> 留言區
+                        </div>
+                    </div>
+                </div>
+
                 <div style="height: 50px;"></div>
 
-                <div class="row links">
+                <div class="links flex-center">
                     <a href="{{ url('account', Session::get('uid')) }}"><i class="fas fa-user-cog"></i> 個人設定</a>
                     <a href="{{ url('inbox') }}"><i class="fas fa-inbox"></i> 收件匣</a>
                     <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>
