@@ -144,7 +144,7 @@
                                             color: darkgreen;
                                         @else
                                             color: darkblue;
-                                        @endif">1</td>
+                                        @endif">{{ $count }}</td>
                                         <td>{{ $rank->lineid }}</td>
                                         <td>{{ $rank->gameid }} <span class="badge badge-danger">{{ $rank->title }}</span></td>
                                         <td>{{ $rank->level }}</td>
