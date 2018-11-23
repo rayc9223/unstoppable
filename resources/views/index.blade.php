@@ -140,7 +140,7 @@
                 </div>
 
                 <div class="row flex-center" id="pc-block">
-                    <div id="capability" class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:50% 10%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
+                    <div id="capability" class="col-lg-2 col-md-2 hidden-sm hidden-xs" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:50% 10%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right" style="padding-top: 80px;padding-right: 20px;">
                             <span style="color: white;font-size: 2.4vw;font-weight: bold;"> 成員排行
                         </div>
@@ -148,7 +148,7 @@
 
                     <div style="width:16px;"></div>
 
-                    <div id="news" class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:40% 20%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
+                    <div id="news" class="col-lg-2 col-md-2 hidden-sm hidden-xs" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:40% 20%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right" style="padding-top: 80px;padding-right: 20px;">
                             <span style="color: white;font-size: 2.4vw;font-weight: bold;"> 門派公告
                         </div>
@@ -156,7 +156,7 @@
 
                     <div style="width:16px;"></div>
 
-                    <div id="guildwar" class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="border-radius: 20px;background-image: url('/images/princess.png');background-position:38% 40%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
+                    <div id="guildwar" class="col-lg-2 col-md-2 hidden-sm hidden-xs" style="border-radius: 20px;background-image: url('/images/princess.png');background-position:38% 40%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right" style="padding-top: 80px;padding-right: 20px;">
                             <span style="color: white;font-size: 2.4vw;font-weight: bold;"> 門派爭奪
                         </div>
@@ -164,7 +164,7 @@
 
                     <div style="width:16px;"></div>
 
-                    <div id="comment" class="" style="border-radius: 20px;background-image: url('/images/yan_long.png');background-position:40% 40%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
+                    <div id="comment" class="col-lg-2 col-md-2 hidden-sm hidden-xs" style="border-radius: 20px;background-image: url('/images/yan_long.png');background-position:40% 40%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right" style="padding-top: 80px;padding-right: 20px;">
                             <span style="color: white;font-size: 2.4vw;font-weight: bold;"> 留言區
                         </div>
@@ -173,14 +173,14 @@
 
                 <div class="row flex-center" id="mobile-block" style="padding-left: 10px;">
                    
-                    <div id="capability" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:40% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                    <div id="mb-capability" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:40% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
                             <span style="color: white;font-size: 26px;font-weight: bold;"> 成員排行
                         </div>
                     </div>
                     <div style="height: 10px;"></div>
 
-                    <div id="news" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                    <div id="mb-news" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
                             <span style="color: white;font-size: 26px;font-weight: bold;"> 門派公告
                         </div>
@@ -188,7 +188,7 @@
                     <div style="height: 10px;"></div>
 
         
-                    <div id="guildwar" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/princess.png');background-position:35% 20%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                    <div id="mb-guildwar" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/princess.png');background-position:35% 20%; width:350px;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
                             <span style="color: white;font-size: 26px;font-weight: bold;"> 門派爭奪
                         </div>
@@ -197,7 +197,7 @@
 
            
 
-                    <div id="comment" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/yan_long.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                    <div id="mb-comment" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/yan_long.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
                             <span style="color: white;font-size: 26px;font-weight: bold;"> 留言區
                         </div>
@@ -219,7 +219,15 @@
             location.href = `{{ url('capability') }}`;
         });
 
+        $('#mb-capability').on('click', function(){
+            location.href = `{{ url('capability') }}`;
+        });
+
         $('#news').on('click', function(){
+            location.href = `{{ url('news') }}`;
+        });
+
+        $('#mb-news').on('click', function(){
             location.href = `{{ url('news') }}`;
         });
 
@@ -227,7 +235,15 @@
             location.href = `{{ url('guildwar') }}`;
         });
 
+        $('#mb-guildwar').on('click', function(){
+            location.href = `{{ url('guildwar') }}`;
+        });
+
         $('#comment').on('click', function(){
+            location.href = `{{ url('comment') }}`;
+        });
+
+        $('#mb-comment').on('click', function(){
             location.href = `{{ url('comment') }}`;
         });
     </script>
