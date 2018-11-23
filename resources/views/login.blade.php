@@ -123,7 +123,7 @@
                   <!-- <a href="{{ url('forgot') }}">忘記密碼</a> -->
 
                   <div style="height: 20px;"></div>
-                  <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-xs-8">登入</button>
+                  <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-xs-6">登入</button>
                 </form>
 
                 <div style="height: 20px;"></div>

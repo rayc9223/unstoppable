@@ -86,6 +86,12 @@
                 border-radius: 20px;
             }
 
+            @media screen and (max-width: 500px) {
+                #pc-block {
+                    display: none;
+                }
+            }
+
         </style>
     </head>
     <body>
@@ -110,7 +116,7 @@
                     {{ $name }}, 歡迎回到無與倫比
                 </div>
 
-                <div class="row flex-center">
+                <div class="row flex-center" id="pc-block">
                     <div id="capability" class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:50% 10%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right" style="padding-top: 80px;padding-right: 20px;">
                             <span style="color: white;font-size: 2.4vw;font-weight: bold;"> 成員排行
