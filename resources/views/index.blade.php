@@ -173,14 +173,14 @@
 
                 <div class="row flex-center" id="mobile-block" style="padding-left: 10px;">
                    
-                    <div id="mb-capability" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:40% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                    <div id="mb-capability" class="hidden-lg hidden-md col-xs-3" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:40% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
                             <span style="color: white;font-size: 26px;font-weight: bold;"> 成員排行
                         </div>
                     </div>
                     <div style="height: 10px;"></div>
 
-                    <div id="mb-news" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                    <div id="mb-news" class="hidden-lg hidden-md col-xs-3" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
                             <span style="color: white;font-size: 26px;font-weight: bold;"> 門派公告
                         </div>
@@ -188,7 +188,7 @@
                     <div style="height: 10px;"></div>
 
         
-                    <div id="mb-guildwar" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/princess.png');background-position:35% 20%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                    <div id="mb-guildwar" class="hidden-lg hidden-md col-xs-3" style="border-radius: 20px;background-image: url('/images/princess.png');background-position:35% 20%; width:350px;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
                             <span style="color: white;font-size: 26px;font-weight: bold;"> 門派爭奪
                         </div>
@@ -197,7 +197,7 @@
 
            
 
-                    <div id="mb-comment" class="col-xs-3" style="border-radius: 20px;background-image: url('/images/yan_long.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                    <div id="mb-comment" class="hidden-lg hidden-md col-xs-3" style="border-radius: 20px;background-image: url('/images/yan_long.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
                             <span style="color: white;font-size: 26px;font-weight: bold;"> 留言區
                         </div>
