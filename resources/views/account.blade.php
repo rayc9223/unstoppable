@@ -114,6 +114,7 @@
                 <div class="flex-center" style="width:700px;">
                     <form action="" method="post">
                       @csrf
+                      <input type="hidden" name="uid" value="{{ $user->uid }}">
                       <div class="form-group" style="width: 300px;">
                         <label for="capability">戰力</label>
                         <input type="text" class="form-control text-center" id="capability" name="capability" value="{{ $user->capability }}">

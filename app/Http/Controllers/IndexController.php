@@ -34,7 +34,8 @@ class IndexController extends Controller
     }
 
     public function postAccount(Request $request){
-        $user = Auth::user();
+        $user = User::find($request->uid);
+        // $user = DB::table('users')->where('uid', $request->uid)->first();
         if($request->pwd != $request->confirm_pwd){
             Session::flash('error_msg','密碼與確認密碼不一致, 請重新輸入');
             return back()->withInput();
@@ -42,7 +43,6 @@ class IndexController extends Controller
         if($request->pwd == $request->confirm_pwd && !empty($request->pwd)){
             $user->password = bcrypt($request->pwd);
         }       
-        $user->uid               = Auth::user()->uid;
         $user->gameid            = $request->gameid;
         $user->lineid            = $request->lineid;
         $user->title             = $request->title;
