@@ -21,7 +21,7 @@ class AnalyticsController extends Controller
             return redirect('index');
         }
         $gameid = User::find($request->uid)->value('gameid');
-        // dd($request->all());
+        dd($request->all());
         // $user = User::find($request->uid);
         $user = new Guildwar();
         $user->uid           = $request->uid;
