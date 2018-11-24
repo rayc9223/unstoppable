@@ -24,7 +24,6 @@ class CreateGuildwarsTable extends Migration
             $table->string('guildwar_date');
             $table->tinyInteger('is_delete')->default(0);
         });
-        // 'id', 'uid', 'rank', 'gameid', 'attack_times', 'contribution', 'reward'
 
     }
 

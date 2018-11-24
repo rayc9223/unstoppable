@@ -12,7 +12,7 @@ use Session;
 class AnalyticsController extends Controller
 {
     public function guildwarData(){
-        $users = DB::table('users')->select('uid', 'gameid')->where('is_delete','<>',1)->get();
+        $users = DB::table('users')->select('uid', 'gameid')->get();
         return view('guildwar_data', ['users'=>$users]);
     }
 
