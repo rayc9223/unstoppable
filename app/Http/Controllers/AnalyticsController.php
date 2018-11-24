@@ -122,7 +122,9 @@ class AnalyticsController extends Controller
 
         foreach($users as $record){
             $modify = User::find($record->uid);
-            echo $modify->gameid, '-', $record->attack_times,'<br>';
+            $modify->guildwar_times = $record->attack_times;
+            $modify->save();
+            echo $modify->gameid, '-', $record->attack_times,'<br>';  
         }
     }
 }
