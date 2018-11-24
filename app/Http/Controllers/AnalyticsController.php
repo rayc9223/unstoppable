@@ -17,7 +17,7 @@ class AnalyticsController extends Controller
 
         $lowest_roll_qty = DB::table('users')->min('roll_qty');
 
-        $approx_case_1 = DB::table('users')->where('approx_entry_time', '準時進場')->get();
+        $approx_case_1 = DB::table('users')->where('approx_entry_time', '準時參加')->get();
 
         $approx_case_2 = DB::table('users')->where('approx_entry_time', '晚到10分鐘')->get();
 
