@@ -87,20 +87,6 @@
                 border-radius: 20px;
             }
 
-            @media screen and (max-width: 812px) {
-                #pc-block {
-                    /*display: block;*/
-                }
-
-                #mobile-block {
-                    display: none;
-                }
-
-                html, body {
-                    padding-bottom: 30px;
-                }
-            }
-
             @media screen and (max-width: 500px) {
                 #pc-block {
                     display: none;
@@ -126,6 +112,21 @@
                     bottom: 0px;
                     border-radius: 0px 0px 20px 20px;
                     padding-right: 10px;
+                }
+            }
+
+            @media screen and (min-width: 812px) {
+                #pc-block {
+                    /*display: block;*/
+                }
+
+                #mobile-block {
+                    display: none;
+                }
+
+                html, body {
+                    padding-top: 30px;
+                    padding-bottom: 30px;
                 }
             }
 
@@ -185,7 +186,7 @@
                     </div>
                 </div>
 
-                <div class="row flex-center" id="mobile-block" style="padding-left: 10px;">
+                <div class="row flex-center hidden-lg hidden-md" id="mobile-block" style="padding-left: 10px;">
                    
                     <div id="mb-capability" class="hidden-lg hidden-md hidden-sm col-xs-3" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:40% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
