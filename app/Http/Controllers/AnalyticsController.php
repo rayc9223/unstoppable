@@ -34,7 +34,7 @@ class AnalyticsController extends Controller
 
         $user->save();
 
-        Session::flash('success_msg', '已成功錄入: ' . $request->gameid);
+        Session::flash('success_msg', '已成功錄入: ' . $gameid);
         return redirect('insert_success');
     }
 

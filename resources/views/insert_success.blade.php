@@ -103,8 +103,12 @@
                 @if(Session::has('success_msg'))
                     {{ Session::get('success_msg')}}
                 @endif
-                <div style="height: 30px;">
+                <div>
                     <a href="{{ url('guildwar_update') }}" target="_self" class="btn btn-primary col-4">點此繼續錄入</a>
+                </div>
+                <div style="height: 30px;"></div>
+                <div>
+                    <a href="{{ url('guildwar_data_list') }}" target="_self" class="btn btn-warning col-4">前往數據統計</a>
                 </div>
 
                 <div style="height: 40px;"></div>
