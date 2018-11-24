@@ -228,7 +228,7 @@
                                 <td>{{ count($approx_case_2) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($approx_case_2 as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -237,7 +237,7 @@
                                 <td>{{ count($approx_case_3) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($approx_case_3 as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -246,7 +246,7 @@
                                 <td>{{ count($approx_case_4) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($approx_case_4 as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -255,7 +255,7 @@
                                 <td>{{ count($absent) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($absent as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -264,7 +264,7 @@
                                 <td>{{ count($approx_undefined) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($approx_undefined as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -273,7 +273,7 @@
                                 <td>{{ count($guildwar_p1_registered) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($guildwar_p1_registered as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -282,7 +282,7 @@
                                 <td>{{ count($guildwar_p1_buff) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($guildwar_p1_buff as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -291,7 +291,7 @@
                                 <td>{{ count($taiho) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($taiho as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -300,7 +300,7 @@
                                 <td>{{ count($linmo) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($linmo as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -309,7 +309,7 @@
                                 <td>{{ count($choilo) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($choilo as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -318,7 +318,7 @@
                                 <td>{{ count($guildwar_p1_undefined) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($guildwar_p1_undefined as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -327,7 +327,7 @@
                                 <td>{{ count($guildwar_p2_registered) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($guildwar_p2_registered as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -336,7 +336,7 @@
                                 <td>{{ count($guildwar_p2_urban) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($guildwar_p2_urban as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -345,7 +345,7 @@
                                 <td>{{ count($guildwar_p2_forbidden) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($guildwar_p2_forbidden as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -354,7 +354,7 @@
                                 <td>{{ count($guildwar_p2_palace) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($guildwar_p2_palace as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
@@ -363,7 +363,7 @@
                                 <td>{{ count($guildwar_p2_undefined) }} / {{ $total_users }}</td>
                                 <td>
                                     @foreach($guildwar_p2_undefined as $member)
-                                        {{ $member->lineid }}
+                                        {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
