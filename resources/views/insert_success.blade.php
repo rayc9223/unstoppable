@@ -104,7 +104,7 @@
                     {{ Session::get('success_msg')}}
                 @endif
                 <div style="height: 30px;">
-                    <a href="{{ url('guildwar_data')}}" target="_self" class="btn btn-primary col-4">點此繼續錄入</a>
+                    <a href="{{ url('guildwar_update') }}" target="_self" class="btn btn-primary col-4">點此繼續錄入</a>
                 </div>
 
                 <div style="height: 40px;"></div>

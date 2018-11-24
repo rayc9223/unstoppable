@@ -12,11 +12,14 @@ use Session;
 class AnalyticsController extends Controller
 {
     public function guildwarData(){
-        $users = DB::table('users')->select('uid', 'gameid')->get();
+        $users = DB::table('users')->select('uid', 'gameid')->where('is_delete','<>',1)->get();
         return view('guildwar_data', ['users'=>$users]);
     }
 
     public function postGuildwarData(Request $request){
+        if(!in_array(Auth::user()->uid, array(1,2,3,10,12,13,27))){
+            return redirect('index');
+        }
         $gameid = User::find($request->uid)->value('gameid');
         // dd($request->all());
         // $user = User::find($request->uid);
@@ -42,6 +45,13 @@ class AnalyticsController extends Controller
     public function guildwarDataList(){
         $data = DB::table('guildwars')->orderBy('guildwar_date','DESC')->orderBy('rank','ASC')->get();
         return view('guildwar_data_list', ['records'=>$data]);
+    }
+
+    public function toggleDeleteFlag(Request $request){
+        $record_id = $request->id;
+        $record = Guildwar::find($record_id);
+        $record->is_delete = 1;
+        $record->save();
     }
 
     public function analysisAll(){
