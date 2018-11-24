@@ -21,7 +21,7 @@ class IndexController extends Controller
 
     public function account(){
         if(Auth::user()){
-            $titles = array('門派成員', '長老', '幹部', '門主');
+            $titles = array('門派成員', '長老', '幹部','副門主', '門主');
             $guildwar_phase_1 = array('增益：鬼怪組', '大豪城', '蓮慕城', '賽羅城');
             $guildwar_phase_2 = array('皇宮組', '皇城內組', '城外郊區組');
             $reasons = array('準時參加', '晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上', '無法參加本次爭奪');
