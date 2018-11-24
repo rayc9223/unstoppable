@@ -58,8 +58,8 @@ Route::get('insert_success', 'AnalyticsController@insertSuccess');
 Route::get('guildwar_data_list', 'AnalyticsController@guildwarDataList');
 
 
-// test routes
-Route::get('test', 'AnalyticsController@updateUserGuildwarTimes');
+// test routes - DO NOT UNCOMMENT 
+// Route::get('test', 'AnalyticsController@updateUserGuildwarTimes');
 
 
 

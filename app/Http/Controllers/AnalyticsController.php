@@ -12,14 +12,14 @@ use Session;
 class AnalyticsController extends Controller
 {
     public function guildwarData(){
+        if(!in_array(Auth::user()->uid, array(1,2,3,10,12,13,27))){
+            return redirect('index');
+        }
         $users = DB::table('users')->select('uid', 'gameid')->get();
         return view('guildwar_data', ['users'=>$users]);
     }
 
     public function postGuildwarData(Request $request){
-        if(!in_array(Auth::user()->uid, array(1,2,3,10,12,13,27))){
-            return redirect('index');
-        }
         $gameid = DB::table('users')->where('uid',$request->uid)->value('gameid');
 
         $user = new Guildwar();
@@ -33,6 +33,12 @@ class AnalyticsController extends Controller
 
         $user->save();
 
+        // update users.guildwar_times
+        $old_value = DB::table('users')->where('uid', $request->uid)->value('guildwar_times');
+        $new_value = $old_value + $request->attack_times;
+
+        DB::table('users')->where('uid', $request->uid)->update(['guildwar_times'=>$new_value]);
+
         Session::flash('success_msg', '已成功錄入: ' . $gameid);
         return redirect('insert_success');
     }
@@ -42,7 +48,7 @@ class AnalyticsController extends Controller
     }
 
     public function guildwarDataList(){
-        $data = DB::table('guildwars')->orderBy('guildwar_date','DESC')->orderBy('rank','ASC')->get();
+        $data = DB::table('guildwars')->where('is_delete', '<>', 1)->orderBy('guildwar_date','DESC')->orderBy('rank','ASC')->get();
         return view('guildwar_data_list', ['records'=>$data]);
     }
 
@@ -117,14 +123,16 @@ class AnalyticsController extends Controller
         ]);
     }
 
-    public function updateUserGuildwarTimes(){
-        $users = DB::table('guildwars')->select('uid', 'attack_times')->get();
+    // TEST METHOD - DO NOT UNCOMMENT !!
 
-        foreach($users as $record){
-            $modify = User::find($record->uid);
-            $modify->guildwar_times = $record->attack_times;
-            $modify->save();
-            echo $modify->gameid, '-', $record->attack_times,'<br>';  
-        }
-    }
+    // public function updateUserGuildwarTimes(){
+    //     $users = DB::table('guildwars')->select('uid', 'attack_times')->get();
+
+    //     foreach($users as $record){
+    //         $modify = User::find($record->uid);
+    //         $modify->guildwar_times = $record->attack_times;
+    //         $modify->save();
+    //         echo $modify->gameid, '-', $record->attack_times,'<br>';  
+    //     }
+    // }
 }
