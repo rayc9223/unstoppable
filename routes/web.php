@@ -50,6 +50,12 @@ Route::get('modified_success', 'IndexController@modifiedSuccess');
 // analysis
 Route::get('analysis', 'AnalyticsController@analysisAll');
 
+// save guildwar data
+Route::get('guildwar_update', 'AnalyticsController@guildwarData');
+Route::post('guildwar_update', 'AnalyticsController@postGuildwarData');
+Route::get('insert_success', 'AnalyticsController@insertSuccess');
+
+Route::get('guildwar_data_list', 'AnalyticsController@guildwarDataList');
 
 
 

@@ -19,6 +19,8 @@ class IndexController extends Controller
         }
     }
 
+    // in_array(needle, haystack)
+
     public function account(){
         if(Auth::user()){
             $titles = array('門派成員', '長老', '幹部','副門主', '門主');

@@ -163,9 +163,9 @@
 
                     <div style="width:16px;"></div>
 
-                    <div id="news" class="col-lg-2 col-md-2 hidden-sm hidden-xs" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:40% 20%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
+                    <div id="datalist" class="col-lg-2 col-md-2 hidden-sm hidden-xs" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:40% 20%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right" style="padding-top: 80px;padding-right: 20px;">
-                            <span style="color: white;font-size: 2.4vw;font-weight: bold;"> 門派公告
+                            <span style="color: white;font-size: 2.4vw;font-weight: bold;"> 數據統計
                         </div>
                     </div>
 
@@ -195,9 +195,9 @@
                     </div>
                     <div style="height: 10px;"></div>
 
-                    <div id="mb-news" class="hidden-lg hidden-md hidden-sm col-xs-3" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                    <div id="mb-datalist" class="hidden-lg hidden-md hidden-sm col-xs-3" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
-                            <span style="color: white;font-size: 26px;font-weight: bold;"> 門派公告
+                            <span style="color: white;font-size: 26px;font-weight: bold;"> 數據統計
                         </div>
                     </div>
                     <div style="height: 10px;"></div>
@@ -224,6 +224,9 @@
                 <div class="links flex-center">
                     <a href="{{ url('account', Session::get('uid')) }}"><i class="fas fa-user-cog"></i> 個人設定</a>
                     <!-- <a href="{{ url('inbox') }}"><i class="fas fa-inbox"></i> 收件匣</a> -->
+                    @if(in_array(Auth::user()->uid, array(1,2,3,10,12,13,27)))
+                        <a href="{{ url('guildwar_update') }}"><i class="fas fa-pencil-alt"></i> 數據錄入</a>
+                    @endif
                     <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>
                 </div>
             </div>
@@ -238,13 +241,13 @@
             location.href = `{{ url('capability') }}`;
         });
 
-        // $('#news').on('click', function(){
-        //     location.href = `{{ url('news') }}`;
-        // });
+        $('#datalist').on('click', function(){
+            location.href = `{{ url('guildwar_data_list') }}`;
+        });
 
-        // $('#mb-news').on('click', function(){
-        //     location.href = `{{ url('news') }}`;
-        // });
+        $('#mb-datalist').on('click', function(){
+            location.href = `{{ url('guildwar_data_list') }}`;
+        });
 
         $('#guildwar').on('click', function(){
             location.href = `{{ url('analysis') }}`;

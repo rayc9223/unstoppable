@@ -4,12 +4,46 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Guildwar;
 use Auth;
 use DB;
 use Session;
 
 class AnalyticsController extends Controller
 {
+    public function guildwarData(){
+        $users = DB::table('users')->select('uid', 'gameid')->get();
+        return view('guildwar_data', ['users'=>$users]);
+    }
+
+    public function postGuildwarData(Request $request){
+        $gameid = User::find($request->uid)->value('gameid');
+        // dd($request->all());
+        // $user = User::find($request->uid);
+        $user = new Guildwar();
+        $user->uid           = $request->uid;
+        $user->gameid        = $gameid;
+        $user->rank          = $request->rank;
+        $user->attack_times  = $request->attack_times;
+        $user->contribution  = $request->contribution;
+        $user->reward        = $request->reward;
+        $user->guildwar_date = $request->guildwar_date;
+
+        $user->save();
+
+        Session::flash('success_msg', '已成功錄入: ' . $request->gameid);
+        return redirect('insert_success');
+    }
+
+    public function insertSuccess(){
+        return view('insert_success');
+    }
+
+    public function guildwarDataList(){
+        $data = DB::table('guildwars')->orderBy('guildwar_date','DESC')->orderBy('rank','ASC')->get();
+        return view('guildwar_data_list', ['records'=>$data]);
+    }
+
     public function analysisAll(){
         $total_users = DB::table('users')->count();
 
