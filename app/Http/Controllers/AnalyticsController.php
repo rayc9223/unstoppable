@@ -21,7 +21,7 @@ class AnalyticsController extends Controller
             return redirect('index');
         }
         $gameid = DB::table('users')->where('uid',$request->uid)->value('gameid');
-        
+
         $user = new Guildwar();
         $user->uid           = $request->uid;
         $user->gameid        = $gameid;
@@ -115,5 +115,14 @@ class AnalyticsController extends Controller
                                 'guildwar_p2_palace'=>$guildwar_p2_palace,
                                 'guildwar_p2_undefined'=>$guildwar_p2_undefined
         ]);
+    }
+
+    public function updateUserGuildwarTimes(){
+        $users = DB::table('guildwars')->select('uid', 'attack_times')->get();
+
+        foreach($users as $record){
+            $modify = User::find($record->uid);
+            echo $modify->gameid, '-', $record->attack_times,'<br>';
+        }
     }
 }
