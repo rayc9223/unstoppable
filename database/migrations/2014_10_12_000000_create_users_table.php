@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('gameid',40)->default('');
             $table->string('lineid',40)->default('');
             $table->string('title',20)->default('');
+            $table->string('guildwar_phase_1',30)->default('');
+            $table->string('guildwar_phase_2',30)->default('');
             $table->string('thumbnail')->default('');
             $table->string('team_line_up')->default('');
             $table->string('approx_entry_time',20)->nullable();

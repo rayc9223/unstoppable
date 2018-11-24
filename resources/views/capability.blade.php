@@ -79,12 +79,13 @@
 
             .linear{
                 width:100%;
-                height:100px;
+                height:50px;
                 background: -webkit-linear-gradient(transparent,black);
                 background: -o-linear-gradient(transparent,black);
                 background: -moz-linear-gradient(transparent,black);
                 background: linear-gradient(transparent,black);
-                margin-top: 500px;
+                position: relative;
+                top:110px;
                 border-radius: 0 0 20px 20px;
             }
 
@@ -106,7 +107,7 @@
                 }
 
                 html, body {
-                    padding-top: 30px;
+                    padding-top: 10px;
                     padding-bottom: 20px;
                 }
                 .linear{
@@ -130,22 +131,22 @@
                     /*display: block;*/
                 }
 
-                #mb-capability {
+              /*  #mb-capability {
                     display: none;
-                }
+                }*/
 
                 html, body {
-                    padding-top: 30px;
+                    padding-top: 10px;
                     padding-bottom: 30px;
                 }
 
-                .dropdown {
+              /*  .dropdown {
                     display: none;
-                }
-
+                }*/
+/*
                 .mb-title {
                     display: none;
-                }
+                }*/
             }
 
         </style>
@@ -160,6 +161,7 @@
                     @if(Session::get('uid'))
                         <a href="{{ url('account', Session::get('uid')) }}" class="dropdown-item"><i class="fas fa-user-cog"></i> 個人設定</a>
                         <a href="{{ url('inbox') }}" class="dropdown-item"><i class="fas fa-inbox" class="dropdown-item"></i> 收件匣</a>
+                        <div class="dropdown-divider"></div>
                         <a href="{{ url('logout') }}" class="dropdown-item"><i class="fas fa-sign-out-alt" class="dropdown-item"></i> 登出賬號</a>
                     @else
                         <a href="{{ url('login') }}"><i class="fas fa-sign-in-alt" class="dropdown-item"></i> 會員登入</a>
@@ -183,9 +185,9 @@
                 </div>
             @endif
 
-            <div class="content">
+            <div class="content" style="width: 90%">
                 <div class="title m-b-md flex-center">
-                    <div class="mb-title hidden-lg hidden-md hidden-sm col-xs-3" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:40% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                    <div class="mb-title col-md-10" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:40% 10%; width:90%;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
                             <span style="color: white;font-size: 26px;font-weight: bold;"> 成員排行
                         </div>
@@ -197,10 +199,10 @@
                         $count = 1;
                     @endphp
                     @foreach($ranking as $rank)
-                    <div id="mb-capability" class="row flex-center" style="width: 90%;box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:0px;margin-bottom: 10px;">
+                    <div id="mb-capability" class="row flex-center" style="width: 100%;box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:0px;margin-bottom: 10px;">
                         <table width="100%">
                             <tr>
-                                <td rowspan="2" width="10%">
+                                <td rowspan="4" width="10%">
                                     <span style="font-weight: bold;
                                         @if($count == 1)
                                             color:red;
@@ -214,26 +216,59 @@
                                         ">{{ $count }}
                                     </span>
                                 </td>
-                                <td width="40%" style="text-align: left;">
+                                <td width="40%" style="text-align: left;font-weight: bold;">
                                     {{ $rank->lineid }}({{ $rank->gameid }})
                                 </td>
-                                <td rowspan="2" width="50%" style="font-size: 28px;
-                                @if($rank->capability > 3500000)
-                                    color:red;
-                                @elseif(3000000 < $rank->capability)
-                                    color:orange;
-                                @elseif(2500000 < $rank->capability)
-                                    color:darkgreen;
-                                @else
-                                    color:darkblue;
-                                @endif
-                                font-weight: bold">
-                                    {{ number_format($rank->capability) }}
+                                <td rowspan="2" width="50%" style="padding-right: 8px; text-align: right; font-size: 28px;
+                                    @if($rank->capability > 3500000)
+                                        color:red;
+                                    @elseif(3000000 < $rank->capability)
+                                        color:orange;
+                                    @elseif(2500000 < $rank->capability)
+                                        color:darkgreen;
+                                    @else
+                                        color:darkblue;
+                                    @endif
+                                    font-weight: bold">
+                                        {{ number_format($rank->capability) }}
                                 </td>
                             </tr>
                             <tr>
                                 <td width="40%" style="text-align: left;">
-                                    Lv.{{ $rank->level }} <span class="badge badge-danger" style="font-size: 10px;">{{ $rank->title }}</span>
+                                    Lv.{{ $rank->level }} <span class="badge badge-danger" style="font-size: 10px;">
+                                        @if($rank->title != '')
+                                            {{ $rank->title }}
+                                        @else
+                                            未設定
+                                        @endif</span>
+                                <td class="hidden-sm hidden-xs">
+                                    
+                                </td>
+                                </td>
+                            </tr>
+                            <tr id="tr-detail" class="hidden-sm hidden-xs">
+                                <td colspan="2" style="text-align: left;">
+                                    參與爭奪次數: {{ $rank->guildwar_times }} ｜ 本次爭奪入場時間: 
+                                    @if($rank->approx_entry_time != '')
+                                        {{ $rank->approx_entry_time }}
+                                    @else
+                                        未設定
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr id="guildwar_available" class="hidden-sm hidden-xs">
+                                <td colspan="2" style="text-align: left;">
+                                    進攻所屬分組: @if($rank->guildwar_phase_1 != '')
+                                        {{ $rank->guildwar_phase_1 }}
+                                    @else
+                                        未設定
+                                    @endif
+                                     - 
+                                    @if($rank->guildwar_phase_2 != '')
+                                        {{ $rank->guildwar_phase_2 }}
+                                    @else
+                                        未設定
+                                    @endif
                                 </td>
                             </tr>
                         </table>
@@ -243,70 +278,9 @@
                         @endphp
                     @endforeach
 
-                    
-                    <div id="capability" class="col-lg-2 col-md-2 hidden-sm hidden-xs" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:50% 10%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
-                        <div class="linear text-right">
-                            <span style="color:white;font-size: 2.4vw;font-weight: bold;"> 戰力排行
-                        </div>
-                    </div>
+                    <div style="height: 20px;"></div>
 
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 pc-table" style="width:600px;overflow-y:auto;max-height: 600px;">
-                    <div class="container" style="vertical-align: top;">
-                            
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>排名</th>
-                                    <th>LineID</th>
-                                    <th>遊戲ID</th>
-                                    <th>等級</th>
-                                    <th>戰力</th>
-                                    <th>爭奪總次數</th>
-                                    @if(Session::has('senior'))
-                                        <th>編輯成員資料</th>
-                                    @endif
-                                </tr>
-                            </thead>
-                            <tbody style="font-weight: 400;">
-                                @php
-                                    $count = 1;
-                                @endphp
-                                @foreach($ranking as $rank)
-                                    <tr>
-                                        <td style="font-weight: bold;
-                                        @if($count == 1)
-                                            color: red;
-                                        @elseif($count == 2)
-                                            color: orange;
-                                        @elseif($count == 3)
-                                            color: darkgreen;
-                                        @else
-                                            color: darkblue;
-                                        @endif">{{ $count }}</td>
-                                        <td>{{ $rank->lineid }}</td>
-                                        <td>{{ $rank->gameid }} <span class="badge badge-danger">{{ $rank->title }}</span></td>
-                                        <td>{{ $rank->level }}</td>
-                                        <td style="font-weight: bold;color: red;">{{ number_format($rank->capability) }}</td>
-                                        <td style="font-weight: bold;">{{ number_format($rank->guildwar_times) }}</td>
-
-                                        @if(Session::has('senior'))
-                                            <td><a class="btn btn-primary" href="{{ url('account', $rank->uid) }}" target="_blank" title="編輯"><i class="fa fa-pencil"></i></a></td>
-                                        @endif
-                                    </tr>
-                                    @php
-                                        $count += 1;
-                                    @endphp
-                                @endforeach
-                            </tbody>
-
-                            <tfoot></tfoot>
-                        </table>
-                    </div>
-                </div>
-
-                <div style="height: 50px;"></div>
-
-                <div class="links hidden-sm hidden-xs">
+                <!-- <div class="links hidden-sm hidden-xs">
                     <a href="{{ url('index') }}"><i class="fas fa-home"></i> 回到首頁</a>
                     @if(Session::get('uid'))
                         <a href="{{ url('account', Session::get('uid')) }}"><i class="fas fa-user-cog"></i> 個人設定</a>
@@ -316,8 +290,10 @@
                         <a href="{{ url('login') }}"><i class="fas fa-sign-in-alt"></i> 會員登入</a>
                         <a href="{{ url('register')}}"><i class="fas fa-hands-helping"></i> 加入我們</a>
                     @endif
-                </div>
+                </div> -->
+
             </div>
+
         </div>
     </body>
     <script>

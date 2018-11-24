@@ -22,10 +22,12 @@ class IndexController extends Controller
     public function account(){
         if(Auth::user()){
             $titles = array('門派成員', '長老', '幹部', '門主');
+            $guildwar_phase_1 = array('增益：鬼怪組', '大豪城', '蓮慕城', '賽羅城');
+            $guildwar_phase_2 = array('皇宮組', '皇城內組', '城外郊區組');
             $reasons = array('準時參加', '晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上', '無法參加本次爭奪');
-            $user = DB::table('users')->select('uid','email', 'gameid', 'lineid', 'title', 'approx_entry_time', 'level', 'capability', 'roll_qty', 'last_update')->where('uid', Auth::user()->uid)->first();
+            $user = DB::table('users')->select('uid','email', 'gameid', 'lineid', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'approx_entry_time', 'level', 'capability', 'roll_qty', 'last_update')->where('uid', Auth::user()->uid)->first();
             // $approx = $user->approx_entry_time;
-            return view('account', ['titles'=>$titles, 'reasons'=>$reasons, 'user'=>$user]);
+            return view('account', ['titles'=>$titles, 'reasons'=>$reasons, 'user'=>$user, 'phase1'=>$guildwar_phase_1, 'phase2'=>$guildwar_phase_2]);
         }else{
             return redirect('login');
         } 
@@ -48,6 +50,8 @@ class IndexController extends Controller
         $user->level             = $request->level;
         $user->capability        = $request->capability;
         $user->roll_qty          = $request->roll_qty;
+        $user->guildwar_phase_1  = $request->guildwar_phase_1;
+        $user->guildwar_phase_2  = $request->guildwar_phase_2;
         $user->last_update       = time();
         $user->save();
 
@@ -55,7 +59,7 @@ class IndexController extends Controller
     }
 
     public function capability(){
-        $ranking = DB::table('users')->select('uid', 'gameid', 'lineid', 'title', 'capability', 'level','thumbnail', 'guildwar_times')->orderBy('capability', 'DESC')->get();
+        $ranking = DB::table('users')->select('uid', 'gameid', 'lineid', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->get();
         // $userinfo = DB::table('users')->select('uid')->where('email', 'rayc9223@gmail.com')->value('uid');
         return view('capability', ['ranking'=>$ranking]);
 

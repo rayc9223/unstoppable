@@ -154,15 +154,10 @@
                         <input type="text" class="form-control text-center" id="roll_qty" name="roll_qty" value="{{ $user->roll_qty }}">
                       </div>
 
-                      <!-- <div class="form-group">
-                        <label for="invitation_code">邀請碼(新會員請透過以下連結申請邀請碼)</label>
-                        <input type="text" class="form-control text-center" id="invitation_code" name="invitation_code">
-                      </div> -->
-
                       <div class="form-group">
                         <label for="title">職務</label>
                         <select name="title" id="title" class="form-control">
-                            <option value="請選擇職務">請選擇職務</option>
+                            <option value="">請選擇職務</option>
                             @foreach($titles as $title)
                                 @if($title==$user->title)
                                     <option value="{{ $title }}" selected="selected">{{ $title }}</option>
@@ -176,12 +171,40 @@
                       <div class="form-group">
                         <label for="reason">門派爭奪</label>
                         <select name="reason" id="reason" class="form-control">
-                            <option value="請選擇爭奪進場時間">請選擇爭奪進場時間</option>
+                            <option value="">請選擇爭奪進場時間</option>
                             @foreach($reasons as $reason)
                                 @if($reason==$user->approx_entry_time)
                                     <option value="{{ $reason }}" selected="selected">{{ $reason }}</option>
                                 @else
                                     <option value="{{ $reason }}">{{ $reason }}</option>
+                                @endif
+                            @endforeach
+                        </select>                    
+                      </div>
+
+                      <div class="form-group">
+                        <label for="guildwar_phase_1">搶城階段分組</label>
+                        <select name="guildwar_phase_1" id="title" class="form-control">
+                            <option value="">請選擇所屬進攻分組</option>
+                            @foreach($phase1 as $group1)
+                                @if($group1==$user->guildwar_phase_1)
+                                    <option value="{{ $group1 }}" selected="selected">{{ $group1 }}</option>
+                                @else
+                                    <option value="{{ $group1 }}">{{ $group1 }}</option>
+                                @endif
+                            @endforeach
+                        </select>                    
+                      </div>
+
+                      <div class="form-group">
+                        <label for="guildwar_phase_2">第二階段分組</label>
+                        <select name="guildwar_phase_2" id="title" class="form-control">
+                            <option value="">請選擇所屬進攻分組</option>
+                            @foreach($phase2 as $group2)
+                                @if($group2==$user->guildwar_phase_2)
+                                    <option value="{{ $group2 }}" selected="selected">{{ $group2 }}</option>
+                                @else
+                                    <option value="{{ $group2 }}">{{ $group2 }}</option>
                                 @endif
                             @endforeach
                         </select>                    

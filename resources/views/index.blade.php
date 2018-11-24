@@ -84,7 +84,7 @@
                 background: -moz-linear-gradient(transparent,black);
                 background: linear-gradient(transparent,black);
                 margin-top: 450px;
-                border-radius: 20px;
+                border-radius: 0 0 20px 20px;
             }
 
             @media screen and (max-width: 500px) {
@@ -223,7 +223,7 @@
 
                 <div class="links flex-center">
                     <a href="{{ url('account', Session::get('uid')) }}"><i class="fas fa-user-cog"></i> 個人設定</a>
-                    <a href="{{ url('inbox') }}"><i class="fas fa-inbox"></i> 收件匣</a>
+                    <!-- <a href="{{ url('inbox') }}"><i class="fas fa-inbox"></i> 收件匣</a> -->
                     <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>
                 </div>
             </div>
@@ -238,28 +238,28 @@
             location.href = `{{ url('capability') }}`;
         });
 
-        $('#news').on('click', function(){
-            location.href = `{{ url('news') }}`;
-        });
+        // $('#news').on('click', function(){
+        //     location.href = `{{ url('news') }}`;
+        // });
 
-        $('#mb-news').on('click', function(){
-            location.href = `{{ url('news') }}`;
-        });
+        // $('#mb-news').on('click', function(){
+        //     location.href = `{{ url('news') }}`;
+        // });
 
         $('#guildwar').on('click', function(){
-            location.href = `{{ url('guildwar') }}`;
+            location.href = `{{ url('analysis') }}`;
         });
 
         $('#mb-guildwar').on('click', function(){
-            location.href = `{{ url('guildwar') }}`;
+            location.href = `{{ url('analysis') }}`;
         });
 
-        $('#comment').on('click', function(){
-            location.href = `{{ url('comment') }}`;
-        });
+        // $('#comment').on('click', function(){
+        //     location.href = `{{ url('comment') }}`;
+        // });
 
-        $('#mb-comment').on('click', function(){
-            location.href = `{{ url('comment') }}`;
-        });
+        // $('#mb-comment').on('click', function(){
+        //     location.href = `{{ url('comment') }}`;
+        // });
     </script>
 </html>

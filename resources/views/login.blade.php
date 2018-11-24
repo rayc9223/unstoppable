@@ -27,7 +27,7 @@
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
-                padding-top: 70px;
+                padding-top: 50px;
                 /*height: 100vh;*/
                 margin: 0;
             }

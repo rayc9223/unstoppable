@@ -135,11 +135,6 @@
 
                   <a href="http://line.me/ti/g/E0tuhiJXuX" target="_blank" title="申請加入無與倫比LINE群組" class="btn btn-success col-lg-4 col-md-4 col-sm-6 col-xs-8" style="width: 300px;">申請邀請碼</a>
 
-<!--                   <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox">保持登入
-                    </label>
-                  </div> -->
                   <div style="height: 20px;"></div>
                   <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-xs-8" style="width: 300px;">確認註冊</button>
                 </form>
@@ -148,7 +143,6 @@
 
                 <div class="links">
                     <a href="{{ url('login') }}"><i class="fas fa-sign-in-alt"></i> 會員登入</a>
-                    <a href="{{ url('news') }}"><i class="fas fa-newspaper"></i> 遊戲新聞</a>
                 </div>
 
                 <div style="height: 50px;"></div>

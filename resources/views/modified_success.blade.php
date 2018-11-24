@@ -104,7 +104,6 @@
                 <div style="height: 40px;"></div>
 
                 <div class="links">
-                    <a href="{{ url('news') }}"><i class="fas fa-newspaper"></i> 遊戲新聞</a>
                     <a href="{{ url('index') }}"><i class="fas fa-home"></i> 門派首頁</a>
                     <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>
                 </div>

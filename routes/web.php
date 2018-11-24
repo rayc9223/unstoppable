@@ -42,10 +42,13 @@ Route::get('announce', 'IndexController@announce');
 Route::get('guildwar', 'IndexController@guildwar');
 Route::get('commemt', 'IndexController@commemt');
 
-
+// account settings
 Route::get('account/{uid}', 'IndexController@account');
 Route::post('account/{uid}', 'IndexController@postAccount');
 Route::get('modified_success', 'IndexController@modifiedSuccess');
+
+// analysis
+Route::get('analysis', 'AnalyticsController@analysisAll');
 
 
 
