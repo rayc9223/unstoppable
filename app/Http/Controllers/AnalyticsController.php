@@ -20,11 +20,8 @@ class AnalyticsController extends Controller
         if(!in_array(Auth::user()->uid, array(1,2,3,10,12,13,27))){
             return redirect('index');
         }
-        // $gameid = User::find($request->uid)->value('gameid');
         $gameid = DB::table('users')->where('uid',$request->uid)->value('gameid');
-        echo $gameid;
-        dd($request->all());
-        // $user = User::find($request->uid);
+        
         $user = new Guildwar();
         $user->uid           = $request->uid;
         $user->gameid        = $gameid;
