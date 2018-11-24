@@ -164,8 +164,8 @@
                         <div class="dropdown-divider"></div>
                         <a href="{{ url('logout') }}" class="dropdown-item"><i class="fas fa-sign-out-alt" class="dropdown-item"></i> 登出賬號</a>
                     @else
-                        <a href="{{ url('login') }}"><i class="fas fa-sign-in-alt" class="dropdown-item"></i> 會員登入</a>
-                        <a href="{{ url('register')}}"><i class="fas fa-hands-helping" class="dropdown-item"></i> 加入我們</a>
+                        <a href="{{ url('login') }}" class="dropdown-item"><i class="fas fa-sign-in-alt" class="dropdown-item"></i> 會員登入</a>
+                        <a href="{{ url('register')}}" class="dropdown-item"><i class="fas fa-hands-helping" class="dropdown-item"></i> 加入我們</a>
                     @endif
             </div>
           </div>

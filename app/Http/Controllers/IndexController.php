@@ -42,7 +42,7 @@ class IndexController extends Controller
         if($request->pwd == $request->confirm_pwd && !empty($request->pwd)){
             $user->password = bcrypt($request->pwd);
         }       
-        $user->uid               = $request->uid;
+        $user->uid               = Auth::user()->uid;
         $user->gameid            = $request->gameid;
         $user->lineid            = $request->lineid;
         $user->title             = $request->title;
