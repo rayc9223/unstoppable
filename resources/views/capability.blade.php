@@ -203,7 +203,7 @@
                         <table width="100%">
                             <tr>
                                 <td rowspan="4" width="10%">
-                                    <span style="font-weight: bold;
+                                    <span style="font-weight: bold;font-size: 18px;
                                         @if($count == 1)
                                             color:red;
                                         @elseif($count == 2)
@@ -247,7 +247,7 @@
                                 </td>
                             </tr>
                             <tr id="tr-detail" class="hidden-sm hidden-xs">
-                                <td colspan="2" style="text-align: left;">
+                                <td colspan="2" style="text-align: left;font-size: 14px;">
                                     參與爭奪次數: {{ $rank->guildwar_times }} ｜ 本次爭奪入場時間: 
                                     @if($rank->approx_entry_time != '')
                                         {{ $rank->approx_entry_time }}
@@ -257,7 +257,7 @@
                                 </td>
                             </tr>
                             <tr id="guildwar_available" class="hidden-sm hidden-xs">
-                                <td colspan="2" style="text-align: left;">
+                                <td colspan="2" style="text-align: left;font-size: 14px;">
                                     進攻所屬分組: @if($rank->guildwar_phase_1 != '')
                                         {{ $rank->guildwar_phase_1 }}
                                     @else
@@ -269,6 +269,7 @@
                                     @else
                                         未設定
                                     @endif
+                                     | 可用爭奪卷數: {{ $rank->roll_qty }}
                                 </td>
                             </tr>
                         </table>

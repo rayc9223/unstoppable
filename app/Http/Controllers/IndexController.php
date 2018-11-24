@@ -59,7 +59,7 @@ class IndexController extends Controller
     }
 
     public function capability(){
-        $ranking = DB::table('users')->select('uid', 'gameid', 'lineid', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->get();
+        $ranking = DB::table('users')->select('uid', 'gameid', 'lineid', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->get();
         // $userinfo = DB::table('users')->select('uid')->where('email', 'rayc9223@gmail.com')->value('uid');
         return view('capability', ['ranking'=>$ranking]);
 
