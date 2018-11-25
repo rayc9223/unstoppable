@@ -66,8 +66,8 @@ Route::post('contact_us', 'IndexController@postContactUs');
 // Route::get('test', 'AnalyticsController@updateUserGuildwarTimes');
 
 // TestController
-Route::get('list', 'TestController@list');
-Route::post('list', 'TestController@postData');
+// Route::get('list', 'TestController@list');
+// Route::post('list', 'TestController@postData');
 
 
 
