@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>門派爭奪數據錄入</title>
+        <title>聯繫我們</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -27,7 +27,7 @@
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
-                padding-top: 10px;
+                padding-bottom: 70px;
                 /*height: 110vh;*/
                 margin: 0;
             }
@@ -83,7 +83,7 @@
             <div class="content">
                 <img src="/images/final_blade_title.png" class="img-fluid" width="50%">
                 <div class="title m-b-md">
-                    門派爭奪 | 數據錄入
+                    聯繫無與倫比
                 </div>
 
                 @if(Session::has('error_msg')) 
@@ -93,50 +93,56 @@
                 <form action="" method="post">
                   @csrf
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
-                    <!-- <label for="gameid">遊戲ID</label> -->
-                    <select name="uid" id="uid" class="form-control">
-                        <option value="">請選擇要錄入的遊戲ID</option>
-                        @foreach($users as $user)
-                            <option value="{{ $user->uid }}">{{ $user->gameid }}</option>
-                        @endforeach
+                    <label for="email">電郵地址*</label>
+                    <input type="email" class="form-control text-center" id="email" name="email" required="required">
+                  </div>
+
+                  <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
+                    <label for="gameid">遊戲ID*</label>
+                    <input type="text" class="form-control text-center" id="gameid" name="gameid" required="required">
+                  </div>
+
+                  <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
+                    <label for="lineid">LINE名稱</label>
+                    <input type="text" class="form-control text-center" id="lineid" name="lineid">
+                  </div>
+
+                  <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
+                    <label for="capability">戰力*</label>
+                    <input type="text" class="form-control text-center" id="capability" name="capability" required="required">
+                  </div>
+
+                  <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
+                    <label for="area">請選擇所屬地區</label>
+                    <!-- <input type="text" class="form-control text-center" id="area" name="area"> -->
+                    <select name="area" id="area" class="form-control">
+                        <option value="">請選擇所屬地區</option>
+                        <option value="台灣">台灣</option>
+                        <option value="香港">香港</option>
+                        <option value="澳門">澳門</option>
+                        <option value="其他國家或地區">其他國家或地區</option>
                     </select>
                   </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
-                    <label for="rank">排名</label>
-                    <input type="text" class="form-control text-center" id="rank" name="rank">
-                  </div>
-
-                  <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
-                    <label for="attack_times">參與次數</label>
-                    <input type="text" class="form-control text-center" id="attack_times" name="attack_times">
-                  </div>
-
-                  <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
-                    <label for="contribution">貢獻度</label>
-                    <input type="text" class="form-control text-center" id="contribution" name="contribution">
-                  </div>
-
-                  <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
-                    <label for="reward">獎勵勾玉</label>
-                    <input type="text" class="form-control text-center" id="reward" name="reward">
-                  </div>
-
-                  <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
-                    <label for="guildwar_date">爭奪日期</label>
-                    <input type="text" class="form-control text-center" id="guildwar_date" name="guildwar_date" value="{{ date('Y-m-d', time()) }}" readonly>
+                    <label for="message">留言內容</label>
+                    <!-- <input type="text" class="form-control text-center" id="message" name="message"> -->
+                    <textarea name="message" id="message" cols="30" rows="5" style="resize: none;" class="form-control"></textarea>
                   </div>
 
                   <div style="height: 20px;"></div>
-                  <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-xs-8" style="width: 300px;">保存數據</button>
-
+                  @if(Session::has('contact_sent'))
+                  <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-xs-8 disabled" style="width: 300px;"><i class="fa fa-paper-plane"></i> 您的請求已送出</button>
+                  @else
+                  <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-xs-8" style="width: 300px;"><i class="fa fa-paper-plane"></i> 確認送出</button>
+                  @endif
                 </form>
 
                 <div style="height: 20px;"></div>
 
                 <div class="links">
-                    <a href="{{ url('account', Session::get('uid')) }}"><i class="fas fa-user-cog"></i> 個人設定</a>
-                    <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>
+                    <a href="{{ url('/') }}"><i class="fas fa-home"></i> 回到首頁</a>
+                    <a href="{{ url('login') }}"><i class="fas fa-sign-in-alt"></i> 會員登入</a>
                 </div>
 
                 <div style="height: 50px;"></div>

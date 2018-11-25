@@ -91,19 +91,6 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
 
             <div class="content">
                 <img src="/images/final_blade_title.png" class="img-fluid" width="30%">
@@ -156,6 +143,34 @@
                       </div>
 
                       <div class="form-group">
+                        <label for="guildwar_phase_1">搶城階段分組</label>
+                        <select name="guildwar_phase_1" id="title" class="form-control">
+                            <option value="">請選擇所屬進攻分組</option>
+                            @foreach($phase1 as $group1)
+                                @if($group1==$user->guildwar_phase_1)
+                                    <option value="{{ $group1 }}" selected="selected">{{ $group1 }}</option>
+                                @else
+                                    <option value="{{ $group1 }}">{{ $group1 }}</option>
+                                @endif
+                            @endforeach
+                        </select>                    
+                      </div>
+
+                      <div class="form-group">
+                        <label for="guildwar_phase_2">第二階段分組</label>
+                        <select name="guildwar_phase_2" id="title" class="form-control">
+                            <option value="">請選擇所屬進攻分組</option>
+                            @foreach($phase2 as $group2)
+                                @if($group2==$user->guildwar_phase_2)
+                                    <option value="{{ $group2 }}" selected="selected">{{ $group2 }}</option>
+                                @else
+                                    <option value="{{ $group2 }}">{{ $group2 }}</option>
+                                @endif
+                            @endforeach
+                        </select>                    
+                      </div>
+
+                      <div class="form-group">
                         <label for="title">職務</label>
                         <select name="title" id="title" class="form-control">
                             <option value="">請選擇職務</option>
@@ -184,32 +199,9 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="guildwar_phase_1">搶城階段分組</label>
-                        <select name="guildwar_phase_1" id="title" class="form-control">
-                            <option value="">請選擇所屬進攻分組</option>
-                            @foreach($phase1 as $group1)
-                                @if($group1==$user->guildwar_phase_1)
-                                    <option value="{{ $group1 }}" selected="selected">{{ $group1 }}</option>
-                                @else
-                                    <option value="{{ $group1 }}">{{ $group1 }}</option>
-                                @endif
-                            @endforeach
-                        </select>                    
-                      </div>
-
-                      <div class="form-group">
-                        <label for="guildwar_phase_2">第二階段分組</label>
-                        <select name="guildwar_phase_2" id="title" class="form-control">
-                            <option value="">請選擇所屬進攻分組</option>
-                            @foreach($phase2 as $group2)
-                                @if($group2==$user->guildwar_phase_2)
-                                    <option value="{{ $group2 }}" selected="selected">{{ $group2 }}</option>
-                                @else
-                                    <option value="{{ $group2 }}">{{ $group2 }}</option>
-                                @endif
-                            @endforeach
-                        </select>                    
-                      </div>
+                        <label for="explain">如無法參加，請注明原因</label>
+                        <input type="text" class="form-control text-center" id="explain" name="explain" value="">
+                      </div>          
 
                       <div style="height: 20px;"></div>
                       <button type="submit" class="btn btn-primary col-lg-8">保存資料</button>

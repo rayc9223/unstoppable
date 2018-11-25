@@ -77,19 +77,6 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
 
             <div class="content">
                 <img src="/images/final_blade_title.png" class="img-fluid">
@@ -100,6 +87,7 @@
                 <div class="links">
                     <a href="{{ url('login') }}"><i class="fas fa-sign-in-alt"></i> 會員登入</a>
                     <a href="{{ url('register')}}"><i class="fas fa-hands-helping"></i> 加入我們</a>
+                    <a href="{{ url('contact_us')}}"><i class="fas fa-envelope"></i> 聯繫我們</a>
                 </div>
             </div>
         </div>

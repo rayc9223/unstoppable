@@ -57,9 +57,17 @@ Route::get('insert_success', 'AnalyticsController@insertSuccess');
 
 Route::get('guildwar_data_list', 'AnalyticsController@guildwarDataList');
 
+// contact us
+Route::get('contact_us', 'IndexController@contactUs');
+Route::post('contact_us', 'IndexController@postContactUs');
+
 
 // test routes - DO NOT UNCOMMENT 
 // Route::get('test', 'AnalyticsController@updateUserGuildwarTimes');
+
+// TestController
+Route::get('list', 'TestController@list');
+Route::post('list', 'TestController@postData');
 
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Config;
 use DB;
 use Session;
 use Nette\Mail\Message;
@@ -50,15 +51,15 @@ class LoginController extends Controller
             Session::put('reset_password_token', $token);
             $body = "請透過以下連結重置密碼<br>" . url('reset_password') . '?email=' . $email .'&token=' . $token;
             $mail = new Message;
-            $mail->setFrom('無與倫比門派網站 <rayc9223@gmail.com>')
+            $mail->setFrom('無與倫比門派網站 <' . Config::get('my_smtp.sender') . '>')
                  ->addTo($email)
-                 ->setSubject('重置密碼電郵 - 無與倫比')
+                 ->setSubject('重置密碼電郵 - 本電郵透過無與倫比網站送出，請勿回覆')
                  ->setHTMLBody($body);
 
             $mailer = new SmtpMailer([
                 'host' => 'smtp.gmail.com',
-                'username' => 'rayc9223@gmail.com',
-                'password' => 'Edi55009@',
+                'username' => Config::get('my_smtp.sender'),
+                'password' => Config::get('my_smtp.pwd'),
                 'secure' => 'ssl',
                 // 'context' =>  [
                 //     'ssl' => [

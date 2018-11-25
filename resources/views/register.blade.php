@@ -78,19 +78,6 @@
     <body>
         <!-- {{ csrf_field() }} -->
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
 
             <div class="content">
                 <img src="/images/final_blade_title.png" class="img-fluid" width="50%">
@@ -133,7 +120,8 @@
                     <input type="text" class="form-control text-center" id="invitation_code" name="invitation_code">
                   </div>
 
-                  <a href="http://line.me/ti/g/E0tuhiJXuX" target="_blank" title="申請加入無與倫比LINE群組" class="btn btn-success col-lg-4 col-md-4 col-sm-6 col-xs-8" style="width: 300px;">申請邀請碼</a>
+                  <a href="{{ url('contact_us') }}" target="_blank" title="申請加入無與倫比" class="btn btn-success col-lg-4 col-md-4 col-sm-6 col-xs-8" style="width: 300px;">申請邀請碼</a>
+                  {{-- <a href="http://line.me/ti/g/E0tuhiJXuX" target="_blank" title="申請加入無與倫比LINE群組" class="btn btn-success col-lg-4 col-md-4 col-sm-6 col-xs-8 disabled" style="width: 300px;">申請邀請碼</a> --}}
 
                   <div style="height: 20px;"></div>
                   <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-xs-8" style="width: 300px;">確認註冊</button>

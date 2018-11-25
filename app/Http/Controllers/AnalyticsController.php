@@ -86,7 +86,7 @@ class AnalyticsController extends Controller
 
         $guildwar_p1_linmo = DB::table('users')->where('guildwar_phase_1', '蓮慕城')->get();
 
-        $guildwar_p1_choilo = DB::table('users')->where('guildwar_phase_1', '賽羅城')->get();
+        $guildwar_p1_choilo = DB::table('users')->where('guildwar_phase_1', '塞羅城')->get();
 
         $guildwar_p1_undefined = DB::table('users')->where('guildwar_phase_1', '')->get();
 

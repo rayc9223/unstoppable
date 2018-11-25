@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('guildwar_phase_2',30)->default('');
             $table->string('thumbnail')->default('');
             $table->string('team_line_up')->default('');
-            $table->string('approx_entry_time',20)->nullable();
+            $table->string('approx_entry_time',40)->default('');
             $table->tinyInteger('level')->default(1);
             $table->integer('capability')->default(0);
             $table->integer('roll_qty')->default(0);
