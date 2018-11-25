@@ -88,7 +88,7 @@ class IndexController extends Controller
     public function postContactUs(Request $request){
         Session::put('contact_sent', 'true');
 
-        $sendTo = 'rayc9223@gmail.com';
+        $sendTo = 'icheng0117@gmail.com';
 
         $body = "申請人資料:<br>電郵: $request->email<br>遊戲ID: $request->gameid<br>LineID: $request->lineid<br>戰力: number_format($request->capability)<br>所屬地區: $request->area<br>留言內容: $request->message";
         $mail = new Message;
