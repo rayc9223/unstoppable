@@ -192,7 +192,12 @@
                     <table width="100%">
                         <tr>
                             <td style="font-size: 18px;font-weight:500;" class="text-left">門派公告</td>
-                            <td class="text-right">26 Nov 2018</td>
+                            <td class="text-right">
+                            @if(isset($announcement->last_update))
+                                    {{ date('d M Y',$announcement->last_update) }}
+                            @else
+                                未設定
+                            @endif</td>
                         </tr>
                         <tr>
                             <td colspan="2" style="font-size: 15px;font-weight:500;" class="text-left">
