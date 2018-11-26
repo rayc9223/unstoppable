@@ -196,7 +196,7 @@
                         </tr>
                         <tr>
                             <td colspan="2" style="font-size: 15px;font-weight:500;" class="text-left">
-                                @if($announcement->content)
+                                @if(isset($announcement->content))
                                     {{ $announcement->content }}
                                 @else
                                     未設定
