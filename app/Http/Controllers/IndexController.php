@@ -112,6 +112,68 @@ class IndexController extends Controller
         return redirect('contact_us');
     }
 
+    public function adminModify(){
+        if(!in_array(Auth::user()->uid, array(1,2,3,10,12,13,27))){
+            return redirect('capability');
+        }
+        $users = DB::table('users')->select('uid', 'gameid')->orderBy('capability', 'DESC')->get();
+        return view('modify', ['users'=>$users]);
+    }
+
+    public function postAdminModify(Request $request){
+        // dd($request->all());
+        if(!isset($request->uid)){
+            Session::flash('error_msg','請選擇成員');
+            return back();
+        }
+        $user = User::find($request->uid);
+        $titles = array('門派成員', '長老', '幹部','副門主', '門主');
+        $guildwar_phase_1 = array('增益：鬼怪組', '大豪城', '蓮慕城', '塞羅城');
+        $guildwar_phase_2 = array('皇宮組', '皇城內組', '城外郊區組');
+        $reasons = array('準時參加', '晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上', '無法參加本次爭奪');
+        return view('modify2', ['user'=>$user, 'titles'=>$titles, 'reasons'=>$reasons, 'phase1'=>$guildwar_phase_1, 'phase2'=>$guildwar_phase_2]);
+    }
+
+    public function postAdminConfirm(Request $request){
+        // dd($request->all());
+  //       "_token" => "mSUriX4HbpsgMiAG4tlQoQ2tB2KVVN3vVtu5lN9t"
+  // "uid" => "1"
+  // "capability" => "2600000"
+  // "gameid" => "rayc9223"
+  // "lineid" => "Ray"
+  // "level" => "76"
+  // "roll_qty" => "61"
+  // "guildwar_phase_1" => "蓮慕城"
+  // "guildwar_phase_2" => "城外郊區組"
+  // "title" => "幹部"
+  // "reason" => "無法參加本次爭奪"
+  // "explain" => null
+        $user = User::find($request->uid);
+        $user->capability = $request->capability;
+        $user->level = $request->level;
+        $user->roll_qty = $request->roll_qty;
+        $user->guildwar_phase_1 = $request->guildwar_phase_1;
+        $user->guildwar_phase_2 = $request->guildwar_phase_2;
+        $user->title = $request->title;
+        $user->approx_entry_time = $request->reason;
+        $user->save();
+
+        if($request->reason == '無法參加本次爭奪'){
+            $call_leave = new Leave();
+            $call_leave->uid = $request->uid;
+            $call_leave->gameid = $request->gameid;
+            $call_leave->reason = isset($request->explain)? $request->explain : '未注明';
+            $call_leave->call_leave_time = time();
+            $call_leave->save();
+        }
+
+        return redirect('admin_modified_success');
+    }
+
+    public function adminModifiedSuccess(){
+        return view('admin_modified_success');
+    }
+
     public function announce(){
         return view('announce');
     }

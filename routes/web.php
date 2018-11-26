@@ -61,7 +61,13 @@ Route::get('guildwar_data_list', 'AnalyticsController@guildwarDataList');
 Route::get('contact_us', 'IndexController@contactUs');
 Route::post('contact_us', 'IndexController@postContactUs');
 
+// admin edit
+Route::get('modify', 'IndexController@adminModify');
+Route::post('modify', 'IndexController@postAdminModify');
 
+Route::get('modify2', 'IndexController@adminConfirm');
+Route::post('modify2', 'IndexController@postAdminConfirm');
+Route::get('admin_modified_success', 'IndexController@adminModifiedSuccess');
 // test routes - DO NOT UNCOMMENT 
 // Route::get('test', 'AnalyticsController@updateUserGuildwarTimes');
 
