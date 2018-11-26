@@ -196,7 +196,11 @@
                         </tr>
                         <tr>
                             <td colspan="2" style="font-size: 15px;font-weight:500;" class="text-left">
-                                {{ $announcement->content }}
+                                @if($announcement->content)
+                                    {{ $announcement->content }}
+                                @else
+                                    未設定
+                                @endif
                             </td>
                         </tr>
                     </table>
