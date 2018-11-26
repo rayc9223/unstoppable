@@ -68,6 +68,22 @@ Route::post('modify', 'IndexController@postAdminModify');
 Route::get('modify2', 'IndexController@adminConfirm');
 Route::post('modify2', 'IndexController@postAdminConfirm');
 Route::get('admin_modified_success', 'IndexController@adminModifiedSuccess');
+
+// announcements
+Route::get('announcement/edit', 'IndexController@editAnnouncement');
+Route::post('announcement/edit', 'IndexController@postEditAnnouncement');
+
+Route::get('updated_success', 'IndexController@updateSuccess');
+
+
+
+
+
+
+
+
+
+
 // test routes - DO NOT UNCOMMENT 
 // Route::get('test', 'AnalyticsController@updateUserGuildwarTimes');
 

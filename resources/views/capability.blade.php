@@ -165,6 +165,7 @@
 
                         @if(in_array(Auth::user()->uid, array(1,2,3,10,12,13,27)))
                         <a href="{{ url('modify') }}" class="dropdown-item"><i class="fas fa-pen" class="dropdown-item"></i> 編輯成員資料</a>
+                        <a href="{{ url('announcement/edit') }}" class="dropdown-item"><i class="fas fa-gopuram" class="dropdown-item"></i> 編輯門派公告</a>
                         <div class="dropdown-divider"></div>
                         @endif
 
@@ -182,9 +183,24 @@
                 <div class="title m-b-md flex-center">
                     <div class="mb-title col-md-10" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:40% 10%; width:90%;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
-                            <span style="color: white;font-size: 26px;font-weight: bold;"> 成員排行
+                            <span style="color: white;font-size: 26px;font-weight: bold;"> 成員排行</span>
                         </div>
                     </div>
+                    
+                </div>
+                <div class="row" style="box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:10px;margin-bottom: 10px;">
+                    <table width="100%">
+                        <tr>
+                            <td style="font-size: 18px;font-weight:500;" class="text-left">門派公告</td>
+                            <td class="text-right">26 Nov 2018</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="font-size: 15px;font-weight:500;" class="text-left">
+                                {{ $announcement->content }}
+                            </td>
+                        </tr>
+                    </table>
+                        
                 </div>
 
                 <div class="row flex-center">

@@ -9,6 +9,7 @@ use DB;
 use Session;
 use App\User;
 use App\Leave;
+use App\Announcement;
 use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
 use Nette\Mail\SmtpMailer;
@@ -77,8 +78,8 @@ class IndexController extends Controller
 
     public function capability(){
         $ranking = DB::table('users')->select('uid', 'gameid', 'lineid', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->get();
-        // $userinfo = DB::table('users')->select('uid')->where('email', 'rayc9223@gmail.com')->value('uid');
-        return view('capability', ['ranking'=>$ranking]);
+        $announcement = DB::table('announcements')->where('type', 1)->select('content')->orderBy('last_update', 'DESC')->first();
+        return view('capability', ['ranking'=>$ranking, 'announcement'=>$announcement]);
     }
 
     public function contactUs(){
@@ -121,7 +122,6 @@ class IndexController extends Controller
     }
 
     public function postAdminModify(Request $request){
-        // dd($request->all());
         if(!isset($request->uid)){
             Session::flash('error_msg','請選擇成員');
             return back();
@@ -135,19 +135,7 @@ class IndexController extends Controller
     }
 
     public function postAdminConfirm(Request $request){
-        // dd($request->all());
-  //       "_token" => "mSUriX4HbpsgMiAG4tlQoQ2tB2KVVN3vVtu5lN9t"
-  // "uid" => "1"
-  // "capability" => "2600000"
-  // "gameid" => "rayc9223"
-  // "lineid" => "Ray"
-  // "level" => "76"
-  // "roll_qty" => "61"
-  // "guildwar_phase_1" => "蓮慕城"
-  // "guildwar_phase_2" => "城外郊區組"
-  // "title" => "幹部"
-  // "reason" => "無法參加本次爭奪"
-  // "explain" => null
+        
         $user = User::find($request->uid);
         $user->capability = $request->capability;
         $user->level = $request->level;
@@ -174,8 +162,35 @@ class IndexController extends Controller
         return view('admin_modified_success');
     }
 
-    public function announce(){
-        return view('announce');
+    public function editAnnouncement(){
+        return view('announcement');
+    }
+
+    public function postEditAnnouncement(Request $request){
+        if(!in_array(Auth::user()->uid, array(1,2,3,10,12,13,27))){
+            return redirect('capability');
+        }
+
+        if(!isset($request->type)){
+            Session::flash('error_msg','請選擇文章類別');
+            return back()->withInput($request->input());
+        }
+
+        $author = DB::table('users')->where('uid', Auth::user()->uid)->value('lineid');
+
+        $announcement = new Announcement();
+        $announcement->type = $request->type;
+        $announcement->uid  = Auth::user()->uid;
+        $announcement->content = $request->content;
+        $announcement->updated_by = $author;
+        $announcement->last_update = time();
+        $announcement->save();
+
+        return redirect('updated_success');
+    }
+
+    public function updateSuccess(){
+        return view('updated_success');
     }
 
     public function guildwar(){
