@@ -182,7 +182,7 @@ class IndexController extends Controller
         $announcement = new Announcement();
         $announcement->type = $request->type;
         $announcement->uid  = Auth::user()->uid;
-        $announcement->content = $request->content;
+        $announcement->content = str_replace(["\r\n", "\n", "\r"], '<br>', $request->content);
         $announcement->updated_by = $author;
         $announcement->last_update = time();
         $announcement->save();

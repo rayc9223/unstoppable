@@ -202,7 +202,7 @@
                         <tr>
                             <td colspan="2" style="font-size: 15px;font-weight:bold;" class="text-left">
                                 @if(isset($announcement->content))
-                                    {{ $announcement->content }}
+                                    {!! $announcement->content !!}
                                 @else
                                     未設定
                                 @endif
