@@ -48,18 +48,19 @@ class LoginController extends Controller
             return back()->withInput($request->input());
         }else{
             $token = $this->genToken(18);
+            $credentials = DB::table('credentials')->select('username', 'password')->first();
             Session::put('reset_password_token', $token);
             $body = "請透過以下連結重置密碼<br>" . url('reset_password') . '?email=' . $email .'&token=' . $token;
             $mail = new Message;
-            $mail->setFrom('無與倫比門派網站 <' . Config::get('my_smtp.sender') . '>')
+            $mail->setFrom('無與倫比門派網站 <' . $credentials->username . '>')
                  ->addTo($email)
                  ->setSubject('重置密碼電郵 - 本電郵透過無與倫比網站送出，請勿回覆')
                  ->setHTMLBody($body);
 
             $mailer = new SmtpMailer([
                 'host' => 'smtp.gmail.com',
-                'username' => Config::get('my_smtp.sender'),
-                'password' => Config::get('my_smtp.pwd'),
+                'username' => $credentials->username,
+                'password' => decrypt($credentials->password),
                 'secure' => 'ssl',
                 // 'context' =>  [
                 //     'ssl' => [

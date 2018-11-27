@@ -188,11 +188,11 @@
                     </div>
                     
                 </div>
-                <div class="row" style="box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:10px;margin-bottom: 10px;">
+                <div class="row bg-info text-white" style="box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:10px;margin-bottom: 10px;">
                     <table width="100%">
                         <tr>
-                            <td style="font-size: 18px;font-weight:500;" class="text-left">門派公告</td>
-                            <td class="text-right">
+                            <td style="font-size: 24px;font-weight:500;" class="text-left">門派公告</td>
+                            <td class="text-right" style="font-weight: bold;">
                             @if(isset($announcement->last_update))
                                     {{ date('d M Y',$announcement->last_update) }}
                             @else
@@ -200,7 +200,7 @@
                             @endif</td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="font-size: 15px;font-weight:500;" class="text-left">
+                            <td colspan="2" style="font-size: 15px;font-weight:bold;" class="text-left">
                                 @if(isset($announcement->content))
                                     {{ $announcement->content }}
                                 @else

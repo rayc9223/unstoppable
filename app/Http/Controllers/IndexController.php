@@ -31,7 +31,7 @@ class IndexController extends Controller
         }
         if(Auth::user()){
             $titles = array('門派成員', '長老', '幹部','副門主', '門主');
-            $guildwar_phase_1 = array('增益：鬼怪組', '大豪城', '蓮慕城', '塞羅城');
+            $guildwar_phase_1 = array('增益：鬼怪組', '大豪城', '蓮慕城', '塞羅城', '支援組');
             $guildwar_phase_2 = array('皇宮組', '皇城內組', '城外郊區組');
             $reasons = array('準時參加', '晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上', '無法參加本次爭奪');
             $user = DB::table('users')->select('uid','email', 'gameid', 'lineid', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'approx_entry_time', 'level', 'capability', 'roll_qty', 'last_update')->where('uid', Auth::user()->uid)->first();
@@ -78,7 +78,7 @@ class IndexController extends Controller
 
     public function capability(){
         $ranking = DB::table('users')->select('uid', 'gameid', 'lineid', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->get();
-        $announcement = DB::table('announcements')->where('type', 1)->select('content')->orderBy('last_update', 'DESC')->first();
+        $announcement = DB::table('announcements')->where('type', 1)->select('content', 'last_update')->orderBy('last_update', 'DESC')->first();
         return view('capability', ['ranking'=>$ranking, 'announcement'=>$announcement]);
     }
 
@@ -89,19 +89,20 @@ class IndexController extends Controller
     public function postContactUs(Request $request){
         Session::put('contact_sent', 'true');
 
+        $credentials = DB::table('credentials')->select('username', 'password')->first();
         $sendTo = 'icheng0117@gmail.com';
 
         $body = "申請人資料:<br>電郵: $request->email<br>遊戲ID: $request->gameid<br>LineID: $request->lineid<br>戰力: number_format($request->capability)<br>所屬地區: $request->area<br>留言內容: $request->message";
         $mail = new Message;
-        $mail->setFrom("無與倫比門派網站 <". Config::get('my_smtp.sender') . ">")
+        $mail->setFrom("無與倫比門派網站 <". $credentials->username . ">")
              ->addTo($sendTo)
              ->setSubject('申請邀請碼 | 加入門派請求 - 本電郵透過無與倫比網站送出，請勿回覆')
              ->setHTMLBody($body);
 
         $mailer = new SmtpMailer([
             'host' => 'smtp.gmail.com',
-            'username' => Config::get('my_smtp.sender'),
-            'password' => Config::get('my_smtp.pwd'),
+            'username' => $credentials->username,
+            'password' => decrypt($credentials->password),
             'secure' => 'ssl',
             // 'context' =>  [
             //     'ssl' => [
@@ -128,7 +129,7 @@ class IndexController extends Controller
         }
         $user = User::find($request->uid);
         $titles = array('門派成員', '長老', '幹部','副門主', '門主');
-        $guildwar_phase_1 = array('增益：鬼怪組', '大豪城', '蓮慕城', '塞羅城');
+        $guildwar_phase_1 = array('增益：鬼怪組', '大豪城', '蓮慕城', '塞羅城', '支援組');
         $guildwar_phase_2 = array('皇宮組', '皇城內組', '城外郊區組');
         $reasons = array('準時參加', '晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上', '無法參加本次爭奪');
         return view('modify2', ['user'=>$user, 'titles'=>$titles, 'reasons'=>$reasons, 'phase1'=>$guildwar_phase_1, 'phase2'=>$guildwar_phase_2]);
@@ -181,7 +182,7 @@ class IndexController extends Controller
         $announcement = new Announcement();
         $announcement->type = $request->type;
         $announcement->uid  = Auth::user()->uid;
-        $announcement->content = $request->content;
+        $announcement->content = str_replace(["\r\n", "\n", "\r"], '<br>', $request->content);
         $announcement->updated_by = $author;
         $announcement->last_update = time();
         $announcement->save();

@@ -135,6 +135,7 @@
                 <div style="height: 20px;"></div>
 
                 <div class="links">
+                    <a href="{{ url('/') }}"><i class="fas fa-home"></i> 回到首頁</a>
                     <a href="{{ url('account', Session::get('uid')) }}"><i class="fas fa-user-cog"></i> 個人設定</a>
                     <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>
                 </div>
