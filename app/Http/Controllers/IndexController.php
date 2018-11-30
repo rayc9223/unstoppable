@@ -52,15 +52,15 @@ class IndexController extends Controller
         if($request->pwd == $request->confirm_pwd && !empty($request->pwd)){
             $user->password = bcrypt($request->pwd);
         }       
-        $user->gameid            = $request->gameid;
-        $user->lineid            = $request->lineid;
-        $user->title             = $request->title;
-        $user->approx_entry_time = $request->reason;
-        $user->level             = $request->level;
-        $user->capability        = $request->capability;
-        $user->roll_qty          = $request->roll_qty;
-        $user->guildwar_phase_1  = $request->guildwar_phase_1;
-        $user->guildwar_phase_2  = $request->guildwar_phase_2;
+        $user->gameid            = $request->filled('gameid') ? $request->gameid : '';
+        $user->lineid            = $request->filled('lineid') ? $request->lineid : '';
+        $user->title             = $request->filled('title') ? $request->title : '';
+        $user->approx_entry_time = $request->filled('reason') ? $request->reason : '';
+        $user->level             = $request->filled('level') ? $request->level : 1;
+        $user->capability        = $request->filled('capability') ? $request->capability : 0;
+        $user->roll_qty          = $request->filled('roll_qty') ? $request->roll_qty : 0;
+        $user->guildwar_phase_1  = $request->filled('guildwar_phase_1') ? $request->guildwar_phase_1 : '';
+        $user->guildwar_phase_2  = $request->filled('guildwar_phase_2') ? $request->guildwar_phase_2 : '';
         $user->last_update       = time();
         $user->save();
 
@@ -68,7 +68,7 @@ class IndexController extends Controller
             $call_leave = new Leave();
             $call_leave->uid = $request->uid;
             $call_leave->gameid = $request->gameid;
-            $call_leave->reason = isset($request->explain)? $request->explain : '未注明';
+            $call_leave->reason = $request->filled('explain') ? $request->explain : '未注明';
             $call_leave->call_leave_time = time();
             $call_leave->save();
         }
@@ -182,7 +182,7 @@ class IndexController extends Controller
         $announcement = new Announcement();
         $announcement->type = $request->type;
         $announcement->uid  = Auth::user()->uid;
-        $announcement->content = str_replace(["\r\n", "\n", "\r"], '<br>', $request->content);
+        $announcement->content = strip_tags(str_replace(["\r\n", "\n", "\r"], '<br>', $request->content), '<p><a><b><br>');
         $announcement->updated_by = $author;
         $announcement->last_update = time();
         $announcement->save();
