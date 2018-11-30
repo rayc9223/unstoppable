@@ -41,10 +41,11 @@ class User extends Authenticatable
     public function isAdmin()
     {
         foreach ($this->roles()->get() as $role){
-            if ($role->name == 'Admin') {
-                return true;
-            }
+            // if ($role->name == 'Admin') {
+            //     return true;
+            // }
+            echo $role->name,'<br>';
         }
-        return false;
+        // return false;
     }
 }
