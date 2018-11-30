@@ -57,7 +57,7 @@ class IndexController extends Controller
             $user->password = bcrypt($request->pwd);
         }
         if(!$request->filled('gameid') || !$request->filled('lineid')){
-            Session::flash('error_msg','請務必填寫遊戲ID及LINEID');
+            Session::flash('error_msg','請填寫遊戲ID及LINE-ID');
             return back()->withInput($request->input());
         }
         // $user->gameid            = $request->filled('gameid') ? $request->gameid : '';

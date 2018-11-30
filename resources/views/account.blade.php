@@ -97,6 +97,9 @@
                 <div class="title m-b-md">
                     個人設定
                 </div>
+                @if(Session::has('error_msg'))
+                    <span class="text-danger" style="font-weight: 400;color: red;">{{ Session::get('error_msg') }}</span>
+                @endif
 
                 <div class="flex-center" style="width:700px;">
                     <form action="" method="post">
