@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Auth;
+use App\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -31,4 +33,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isAdmin(){
+        if(Role::where('uid', Auth::user()->uid)->value('role') == 'Admin'){
+            return true;
+        }
+        return false;
+    }
 }

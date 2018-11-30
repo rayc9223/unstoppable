@@ -12,8 +12,7 @@ use Session;
 class AnalyticsController extends Controller
 {
     public function guildwarData(){
-        // if(!in_array(Auth::user()->uid, array(1,2,3,10,12,13,27))){
-        if(!Auth::user()->isAdmin())
+        if(!Auth::user()->isAdmin()){
             return redirect('index');
         }
         $users = User::select('uid', 'gameid')->get();
@@ -24,7 +23,7 @@ class AnalyticsController extends Controller
         $gameid = User::where('uid',$request->uid)->value('gameid');
 
         $user = new Guildwar();
-        $user->uid           = $request->$request->uid;
+        $user->uid           = $request->uid;
         $user->gameid        = $gameid;
         $user->rank          = $request->filled('rank') ? $request->rank : 0;
         $user->attack_times  = $request->filled('attack_times') ? $request->attack_times : 0;

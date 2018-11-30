@@ -23,6 +23,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             // Authentication passed...
             $uid = DB::table('users')->select('uid')->where('email', $request->email)->value('uid');
+            // Session::flush();
             Session::put('uid', $uid);
             return redirect()->intended('index');
         }else{

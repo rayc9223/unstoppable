@@ -163,11 +163,11 @@
                         
                         <div class="dropdown-divider"></div>
 
-                        @if(in_array(Auth::user()->uid, array(1,2,3,12,13,27)))
-                        <a href="{{ url('modify') }}" class="dropdown-item"><i class="fas fa-pen" class="dropdown-item"></i> 編輯成員資料</a>
-                        <a href="{{ url('announcement/edit') }}" class="dropdown-item"><i class="fas fa-gopuram" class="dropdown-item"></i> 編輯門派公告</a>
-                        <a href="{{ url('leave/list') }}" class="dropdown-item"><i class="fas fa-gopuram" class="dropdown-item"></i> 檢視請假記錄</a>
-                        <div class="dropdown-divider"></div>
+                        @if(Auth::user()->isAdmin())
+                            <a href="{{ url('modify') }}" class="dropdown-item"><i class="fas fa-pen" class="dropdown-item"></i> 編輯成員資料</a>
+                            <a href="{{ url('announcement/edit') }}" class="dropdown-item"><i class="fas fa-gopuram" class="dropdown-item"></i> 編輯門派公告</a>
+                            <a href="{{ url('leave/list') }}" class="dropdown-item"><i class="fas fa-file-alt" class="dropdown-item"></i> 檢視請假記錄</a>
+                            <div class="dropdown-divider"></div>
                         @endif
 
                         <a href="{{ url('logout') }}" class="dropdown-item"><i class="fas fa-sign-out-alt" class="dropdown-item"></i> 登出賬號</a>

@@ -75,6 +75,9 @@ Route::post('announcement/edit', 'IndexController@postEditAnnouncement');
 
 Route::get('updated_success', 'IndexController@updateSuccess');
 
+// leave record
+Route::get('leave/list', 'LeaveController@leaveRecord');
+
 
 
 

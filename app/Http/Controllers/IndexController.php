@@ -17,17 +17,19 @@ use Nette\Mail\SmtpMailer;
 class IndexController extends Controller
 {
     public function index(){
+        // var_dump(Auth::user());exit;
         if(Auth::user()){
             $name = User::find(Auth::user()->uid)->value('lineid');
-            return view('index', ['name'=>$name]);
+            Session::put('welcome', $name);
+            return view('index');
         }else{
             return redirect('login');
         }
     }
 
     public function account(Request $request){
-        if(Auth::user()->uid != $request->uid){
-            return redirect('index');
+        if(!Auth::user()){
+            return redirect('login');
         }
         if(Auth::user()){
             $titles = array('門派成員', '長老', '幹部','副門主', '門主');
@@ -42,17 +44,24 @@ class IndexController extends Controller
     }
 
     public function postAccount(Request $request){
+        if(Auth::user()->uid != $request->uid){
+            return redirect('index');
+        }
         $user = User::find($request->uid);
         // $user = DB::table('users')->where('uid', $request->uid)->first();
         if($request->pwd != $request->confirm_pwd){
             Session::flash('error_msg','密碼與確認密碼不一致, 請重新輸入');
-            return back()->withInput();
+            return back()->withInput($request->input());
         }
         if($request->pwd == $request->confirm_pwd && !empty($request->pwd)){
             $user->password = bcrypt($request->pwd);
-        }       
-        $user->gameid            = $request->filled('gameid') ? $request->gameid : '';
-        $user->lineid            = $request->filled('lineid') ? $request->lineid : '';
+        }
+        if(!$request->filled('gameid') || !$request->filled('lineid')){
+            Session::flash('error_msg','請務必填寫遊戲ID及LINEID');
+            return back()->withInput($request->input());
+        }
+        // $user->gameid            = $request->filled('gameid') ? $request->gameid : '';
+        // $user->lineid            = $request->filled('lineid') ? $request->lineid : '';
         $user->title             = $request->filled('title') ? $request->title : '';
         $user->approx_entry_time = $request->filled('reason') ? $request->reason : '';
         $user->level             = $request->filled('level') ? $request->level : 1;
@@ -134,16 +143,15 @@ class IndexController extends Controller
         return view('modify2', ['user'=>$user, 'titles'=>$titles, 'reasons'=>$reasons, 'phase1'=>$guildwar_phase_1, 'phase2'=>$guildwar_phase_2]);
     }
 
-    public function postAdminConfirm(Request $request){
-        
+    public function postAdminConfirm(Request $request){ 
         $user = User::find($request->uid);
-        $user->capability = $request->capability;
-        $user->level = $request->level;
-        $user->roll_qty = $request->roll_qty;
-        $user->guildwar_phase_1 = $request->guildwar_phase_1;
-        $user->guildwar_phase_2 = $request->guildwar_phase_2;
-        $user->title = $request->title;
-        $user->approx_entry_time = $request->reason;
+        $user->capability = $request->filled('capability') ? $request->capability : 0;
+        $user->level = $request->filled('level') ? $request->level : 1;
+        $user->roll_qty = $request->filled('roll_qty') ? $request->roll_qty : 0;
+        $user->guildwar_phase_1 = $request->filled('guildwar_phase_1') ? $request->guildwar_phase_1 : '';
+        $user->guildwar_phase_2 = $request->filled('guildwar_phase_2') ? $request->guildwar_phase_2 : '';
+        $user->title = $request->filled('title') ? $request->title : '';
+        $user->approx_entry_time = $request->filled('reason') ? $request->reason : '';
         $user->save();
 
         if($request->reason == '無法參加本次爭奪'){

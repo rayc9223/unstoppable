@@ -134,11 +134,13 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-
+            @csrf
             <div class="content">
-                <!-- <img src="/images/final_blade_title.png" class="img-fluid"> -->
                 <div class="title m-b-md">
-                    {{ $name }}, 歡迎回到無與倫比
+                    @if(Session::has('welcome'))
+                        {{ Session::get('welcome') }}, 
+                    @endif
+                    歡迎回到無與倫比
                 </div>
 
                 <div class="row flex-center" id="pc-block">
@@ -211,7 +213,7 @@
                 <div class="links flex-center">
                     <a href="{{ url('account', Session::get('uid')) }}"><i class="fas fa-user-cog"></i> 個人設定</a>
                     <!-- <a href="{{ url('inbox') }}"><i class="fas fa-inbox"></i> 收件匣</a> -->
-                    @if(in_array(Auth::user()->uid, array(1,2,3,10,12,13,27)))
+                    @if(Auth::user()->isAdmin())
                         <a href="{{ url('guildwar_update') }}"><i class="fas fa-pencil-alt"></i> 數據錄入</a>
                     @endif
                     <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>

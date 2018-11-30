@@ -19,6 +19,11 @@ class RegisterController extends Controller
     }
 
     public function postRegister(Request $request){
+        $email = User::where('email', $request->email)->first();
+        if($email){
+            Session::flash('error_msg','此電郵地址已被使用');
+            return back()->withInput($request->input());
+        }
         if($request->pwd!=$request->confirm_pwd){
             Session::flash('error_msg','密碼與確認密碼不一致, 請重新輸入');
             return back()->withInput();
@@ -45,11 +50,13 @@ class RegisterController extends Controller
         $uid = DB::table('users')->select('uid')->where('email', $request->email)->value('uid');
         Session::put('uid', $uid);
 
+        Auth::attempt(['email'=>$request->email, 'password'=>$request->pwd]);
+
         return redirect('register_success');
             
         }else{
             Session::flash('error_msg','邀請碼錯誤, 請重新確認');
-            return back()->withInput();
+            return back()->withInput($request->input());
         }
 
         

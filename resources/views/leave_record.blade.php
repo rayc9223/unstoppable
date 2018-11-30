@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>門派爭奪數據統計</title>
+        <title>請假記錄</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -165,8 +165,7 @@
 
                         @if(Auth::user()->isAdmin())
                             <a href="{{ url('modify') }}" class="dropdown-item"><i class="fas fa-pen" class="dropdown-item"></i> 編輯成員資料</a>
-                            <a href="{{ url('announcement/edit') }}" class="dropdown-item"><i class="fas fa-gopuram" class="dropdown-item"></i> 編輯門派公告</a>
-                            <a href="{{ url('leave/list') }}" class="dropdown-item"><i class="fas fa-gopuram" class="dropdown-item"></i> 檢視請假記錄</a>
+                            <a href="{{ url('announcement/edit') }}" class="dropdown-item"><i class="fas fa-file-alt" class="dropdown-item"></i> 編輯門派公告</a>
                             
                             <div class="dropdown-divider"></div>
                         @endif
@@ -183,41 +182,31 @@
 
             <div class="content" style="width: 90%">
                 <div class="title m-b-md flex-center">
-                    <div class="mb-title col-md-10" style="border-radius: 20px;background-image: url('/images/princess.png');background-position:40% 20%; width:90%;height:160px;padding: 0px;cursor: pointer;">
+                    <div class="mb-title col-md-10" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:40% 20%; width:90%;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
-                            <span style="color: white;font-size: 26px;font-weight: bold;"> 數據統計
+                            <span style="color: white;font-size: 26px;font-weight: bold;"> 請假記錄
                         </div>
                     </div>
                 </div>
 
                 <div class="row flex-center">
-                    <div id="mb-capability" class="row flex-center" style="width: 100%;box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:0px;margin-bottom: 10px;">
+                    <div class="row flex-center" style="width: 100%;box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:0px;margin-bottom: 10px;">
                     <table class="table" style="font-weight: 600;">
                         <thead>
                             <tr>
-                                <th width="10%">排名</th>
+                                <th width="10%">記錄ID</th>
                                 <th width="15%">遊戲ID</th>
-                                <th width="10%">參與次數</th>
-                                <th width="20%">貢獻度</th>
-                                <th width="15%">獎勵勾玉數</th>
-                                <th width="20%">爭奪日期</th>
+                                <th width="10%">請假事由</th>
+                                <th width="20%">申請時間</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($records as $record)
                                 <tr>
-                                    <td>
-                                        @if($record->rank == 0)
-                                            未參與該次爭奪
-                                        @else
-                                            {{ $record->rank }}
-                                        @endif
-                                    </td>
+                                    <td>{{ $record->lid }}</td>
                                     <td>{{ $record->gameid }}</td>
-                                    <td>{{ $record->attack_times }}</td>
-                                    <td>{{ $record->contribution }}</td>
-                                    <td>{{ $record->reward }}</td>
-                                    <td>{{ $record->guildwar_date }}</td>
+                                    <td>{{ $record->reason }}</td>
+                                    <td>{{ date('Y-m-d H:i:s', $record->call_leave_time) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

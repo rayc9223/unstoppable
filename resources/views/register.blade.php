@@ -93,7 +93,7 @@
                   @csrf
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
                     <label for="email">電郵地址*</label>
-                    <input type="email" class="form-control text-center" id="email" name="email" required="required">
+                    <input type="email" class="form-control text-center" id="email" name="email" required="required" value="{{ old('email') }}">
                   </div>
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
                     <label for="pwd">密碼*</label>
@@ -107,17 +107,17 @@
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
                     <label for="gameid">遊戲ID</label>
-                    <input type="text" class="form-control text-center" id="gameid" name="gameid">
+                    <input type="text" class="form-control text-center" id="gameid" name="gameid" value="{{ old('gameid') }}">
                   </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
                     <label for="lineid">LINE名稱</label>
-                    <input type="text" class="form-control text-center" id="lineid" name="lineid">
+                    <input type="text" class="form-control text-center" id="lineid" name="lineid" value="{{ old('lineid') }}">
                   </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
                     <label for="invitation_code">邀請碼(新會員請透過以下連結申請邀請碼)</label>
-                    <input type="text" class="form-control text-center" id="invitation_code" name="invitation_code">
+                    <input type="text" class="form-control text-center" id="invitation_code" name="invitation_code" value="{{ old('invitation_code') }}">
                   </div>
 
                   <a href="{{ url('contact_us') }}" target="_blank" title="申請加入無與倫比" class="btn btn-success col-lg-4 col-md-4 col-sm-6 col-xs-8" style="width: 300px;">申請邀請碼</a>

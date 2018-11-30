@@ -78,7 +78,7 @@
     <body>
         <!-- {{ csrf_field() }} -->
         <div class="flex-center position-ref full-height">
-
+            @csrf
             <div class="content">
                 <img src="/images/final_blade_title.png" class="img-fluid" width="50%">
                 <div class="title m-b-md">
