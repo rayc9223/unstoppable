@@ -204,7 +204,6 @@
                     <table class="table" style="font-weight: 600;">
                         <thead>
                             <tr>
-                                <th width="10%">Record ID</th>
                                 <th width="10%">排名</th>
                                 <th width="15%">遊戲ID</th>
                                 <th width="10%">參與次數</th>
@@ -216,8 +215,13 @@
                         <tbody>
                             @foreach($records as $record)
                                 <tr>
-                                    <td>{{ $record->id }}</td>
-                                    <td>{{ $record->rank }}</td>
+                                    <td>
+                                        @if($record->rank == 0)
+                                            未參與該次爭奪
+                                        @else
+                                            {{ $record->rank }}
+                                        @endif
+                                    </td>
                                     <td>{{ $record->gameid }}</td>
                                     <td>{{ $record->attack_times }}</td>
                                     <td>{{ $record->contribution }}</td>
