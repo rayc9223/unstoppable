@@ -18,7 +18,7 @@ class IndexController extends Controller
 {
     public function index(){
         if(Auth::user()){
-            $name = DB::table('users')->select('lineid')->where('uid', Auth::user()->uid)->value('lineid');
+            $name = User::find(Auth::user()->uid)->value('lineid');
             return view('index', ['name'=>$name]);
         }else{
             return redirect('login');
@@ -34,8 +34,7 @@ class IndexController extends Controller
             $guildwar_phase_1 = array('增益：鬼怪組', '大豪城', '蓮慕城', '塞羅城', '支援組');
             $guildwar_phase_2 = array('皇宮組', '皇城內組', '城外郊區組');
             $reasons = array('準時參加', '晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上', '無法參加本次爭奪');
-            $user = DB::table('users')->select('uid','email', 'gameid', 'lineid', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'approx_entry_time', 'level', 'capability', 'roll_qty', 'last_update')->where('uid', Auth::user()->uid)->first();
-            // $approx = $user->approx_entry_time;
+            $user = User::find(Auth::user()->uid);
             return view('account', ['titles'=>$titles, 'reasons'=>$reasons, 'user'=>$user, 'phase1'=>$guildwar_phase_1, 'phase2'=>$guildwar_phase_2]);
         }else{
             return redirect('login');
@@ -77,8 +76,8 @@ class IndexController extends Controller
     }
 
     public function capability(){
-        $ranking = DB::table('users')->select('uid', 'gameid', 'lineid', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->get();
-        $announcement = DB::table('announcements')->where('type', 1)->select('content', 'last_update')->orderBy('last_update', 'DESC')->first();
+        $ranking = User::select('uid', 'gameid', 'lineid', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->get();
+        $announcement = Announcement::where('type', 1)->select('content', 'last_update')->orderBy('last_update', 'DESC')->first();
         return view('capability', ['ranking'=>$ranking, 'announcement'=>$announcement]);
     }
 
@@ -115,10 +114,10 @@ class IndexController extends Controller
     }
 
     public function adminModify(){
-        if(!in_array(Auth::user()->uid, array(1,2,3,10,12,13,27))){
+        if(!Auth::user()->isAdmin()){
             return redirect('capability');
         }
-        $users = DB::table('users')->select('uid', 'gameid')->orderBy('capability', 'DESC')->get();
+        $users = User::select('uid', 'gameid')->orderBy('capability', 'DESC')->get();
         return view('modify', ['users'=>$users]);
     }
 
@@ -164,20 +163,19 @@ class IndexController extends Controller
     }
 
     public function editAnnouncement(){
+        if(!Auth::user()->isAdmin){
+            return redirect('capability');
+        }
         return view('announcement');
     }
 
     public function postEditAnnouncement(Request $request){
-        if(!in_array(Auth::user()->uid, array(1,2,3,10,12,13,27))){
-            return redirect('capability');
-        }
-
         if(!isset($request->type)){
             Session::flash('error_msg','請選擇文章類別');
             return back()->withInput($request->input());
         }
 
-        $author = DB::table('users')->where('uid', Auth::user()->uid)->value('lineid');
+        $author = User::find(Auth::user()->uid)->value('lineid');
 
         $announcement = new Announcement();
         $announcement->type = $request->type;

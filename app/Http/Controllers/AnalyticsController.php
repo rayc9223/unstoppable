@@ -12,7 +12,8 @@ use Session;
 class AnalyticsController extends Controller
 {
     public function guildwarData(){
-        if(!in_array(Auth::user()->uid, array(1,2,3,10,12,13,27))){
+        // if(!in_array(Auth::user()->uid, array(1,2,3,10,12,13,27))){
+        if(!Auth::user()->isAdmin())
             return redirect('index');
         }
         $users = User::select('uid', 'gameid')->get();

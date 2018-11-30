@@ -88,7 +88,7 @@ Route::get('updated_success', 'IndexController@updateSuccess');
 // Route::get('test', 'AnalyticsController@updateUserGuildwarTimes');
 
 // TestController
-// Route::get('list', 'TestController@list');
+Route::get('list', 'TestController@list');
 // Route::post('list', 'TestController@postData');
 
 

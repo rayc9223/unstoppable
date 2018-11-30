@@ -101,8 +101,8 @@
                     @endif
                         <option value="">請選擇內容分類</option>
                         <option value="1">門派公告</option>
-                        <option value="2">招募規則</option>
-                        <option value="3">門派爭奪規則</option>
+                        <!-- <option value="2">招募規則</option> -->
+                        <!-- <option value="3">門派爭奪規則</option> -->
                     </select>
                   </div>
 

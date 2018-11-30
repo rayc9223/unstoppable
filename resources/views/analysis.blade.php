@@ -160,8 +160,17 @@
                 <a href="{{ url('index') }}" class="dropdown-item"><i class="fas fa-home"></i> 回到首頁</a>
                     @if(Session::get('uid'))
                         <a href="{{ url('account', Session::get('uid')) }}" class="dropdown-item"><i class="fas fa-user-cog"></i> 個人設定</a>
-                        <a href="{{ url('inbox') }}" class="dropdown-item"><i class="fas fa-inbox" class="dropdown-item"></i> 收件匣</a>
+                        
                         <div class="dropdown-divider"></div>
+
+                        @if(Auth::user()->isAdmin())
+                            <a href="{{ url('modify') }}" class="dropdown-item"><i class="fas fa-pen" class="dropdown-item"></i> 編輯成員資料</a>
+                            <a href="{{ url('announcement/edit') }}" class="dropdown-item"><i class="fas fa-gopuram" class="dropdown-item"></i> 編輯門派公告</a>
+                            <a href="{{ url('leave/list') }}" class="dropdown-item"><i class="fas fa-gopuram" class="dropdown-item"></i> 檢視請假記錄</a>
+                            
+                            <div class="dropdown-divider"></div>
+                        @endif
+
                         <a href="{{ url('logout') }}" class="dropdown-item"><i class="fas fa-sign-out-alt" class="dropdown-item"></i> 登出賬號</a>
                     @else
                         <a href="{{ url('login') }}" class="dropdown-item"><i class="fas fa-sign-in-alt" class="dropdown-item"></i> 會員登入</a>

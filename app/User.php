@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -31,4 +32,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function roles()
+    {
+        return $this->hasOne('App\Role', 'uid');
+    }
+
+    public function isAdmin()
+    {
+        foreach ($this->roles()->get() as $role){
+            if ($role->name == 'Admin') {
+                return true;
+            }
+        }
+        return false;
+    }
 }
