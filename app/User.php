@@ -35,17 +35,16 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->hasOne('App\Role', 'uid');
+        return $this->hasMany('App\Role', 'uid');
     }
 
     public function isAdmin()
     {
         foreach ($this->roles()->get() as $role){
-            // if ($role->name == 'Admin') {
-            //     return true;
-            // }
-            echo $role->name,'<br>';
+            if ($role->name == 'Admin') {
+                return true;
+            }
         }
-        // return false;
+        return false;
     }
 }
