@@ -15,29 +15,29 @@ class AnalyticsController extends Controller
         if(!in_array(Auth::user()->uid, array(1,2,3,10,12,13,27))){
             return redirect('index');
         }
-        $users = DB::table('users')->select('uid', 'gameid')->get();
+        $users = User::select('uid', 'gameid')->get();
         return view('guildwar_data', ['users'=>$users]);
     }
 
     public function postGuildwarData(Request $request){
-        $gameid = DB::table('users')->where('uid',$request->uid)->value('gameid');
+        $gameid = User::where('uid',$request->uid)->value('gameid');
 
         $user = new Guildwar();
-        $user->uid           = $request->uid;
+        $user->uid           = $request->$request->uid;
         $user->gameid        = $gameid;
-        $user->rank          = $request->rank;
-        $user->attack_times  = $request->attack_times;
-        $user->contribution  = $request->contribution;
-        $user->reward        = $request->reward;
+        $user->rank          = $request->filled('rank') ? $request->rank : 0;
+        $user->attack_times  = $request->filled('attack_times') ? $request->attack_times : 0;
+        $user->contribution  = $request->filled('contribution') ? $request->contribution : 0;
+        $user->reward        = $request->filled('reward') ? $request->reward : 0;
         $user->guildwar_date = $request->guildwar_date;
 
         $user->save();
 
         // update users.guildwar_times
-        $old_value = DB::table('users')->where('uid', $request->uid)->value('guildwar_times');
+        $old_value = User::find($request->uid)->value('guildwar_times');
         $new_value = $old_value + $request->attack_times;
 
-        DB::table('users')->where('uid', $request->uid)->update(['guildwar_times'=>$new_value]);
+        User::find($request->uid)->update(['guildwar_times'=>$new_value]);
 
         Session::flash('success_msg', '已成功錄入: ' . $gameid);
         return redirect('insert_success');
@@ -48,7 +48,7 @@ class AnalyticsController extends Controller
     }
 
     public function guildwarDataList(){
-        $data = DB::table('guildwars')->where('is_delete', '<>', 1)->orderBy('guildwar_date','DESC')->orderBy('rank','ASC')->get();
+        $data = Guildwar::where('is_delete', '<>', 1)->orderBy('guildwar_date','DESC')->orderBy('rank','ASC')->get();
         return view('guildwar_data_list', ['records'=>$data]);
     }
 
@@ -60,45 +60,45 @@ class AnalyticsController extends Controller
     }
 
     public function analysisAll(){
-        $total_users = DB::table('users')->count();
+        $total_users = User::count();
 
-        $highest_roll_qty = DB::table('users')->max('roll_qty');
+        $highest_roll_qty = User::max('roll_qty');
 
-        $lowest_roll_qty = DB::table('users')->min('roll_qty');
+        $lowest_roll_qty = User::min('roll_qty');
 
-        $approx_case_1 = DB::table('users')->where('approx_entry_time', '準時參加')->get();
+        $approx_case_1 = User::where('approx_entry_time', '準時參加')->get();
 
-        $approx_case_2 = DB::table('users')->where('approx_entry_time', '晚到10分鐘')->get();
+        $approx_case_2 = User::where('approx_entry_time', '晚到10分鐘')->get();
 
-        $approx_case_3 = DB::table('users')->where('approx_entry_time', '晚到11~20分鐘')->get();
+        $approx_case_3 = User::where('approx_entry_time', '晚到11~20分鐘')->get();
 
-        $approx_case_4 = DB::table('users')->where('approx_entry_time', '晚到30分鐘以上')->get();
+        $approx_case_4 = User::where('approx_entry_time', '晚到30分鐘以上')->get();
 
-        $approx_case_5 = DB::table('users')->where('approx_entry_time', '無法參加本次爭奪')->get();
+        $approx_case_5 = User::where('approx_entry_time', '無法參加本次爭奪')->get();
 
-        $approx_case_6 = DB::table('users')->where('approx_entry_time', '')->get();
+        $approx_case_6 = User::where('approx_entry_time', '')->get();
 
-        $guildwar_p1 = DB::table('users')->where('guildwar_phase_1','<>', '')->get();
+        $guildwar_p1 = User::where('guildwar_phase_1','<>', '')->get();
 
-        $guildwar_p1_buff = DB::table('users')->where('guildwar_phase_1', '增益：鬼怪組')->get();
+        $guildwar_p1_buff = User::where('guildwar_phase_1', '增益：鬼怪組')->get();
 
-        $guildwar_p1_taiho = DB::table('users')->where('guildwar_phase_1', '大豪城')->get();
+        $guildwar_p1_taiho = User::where('guildwar_phase_1', '大豪城')->get();
 
-        $guildwar_p1_linmo = DB::table('users')->where('guildwar_phase_1', '蓮慕城')->get();
+        $guildwar_p1_linmo = User::where('guildwar_phase_1', '蓮慕城')->get();
 
-        $guildwar_p1_choilo = DB::table('users')->where('guildwar_phase_1', '塞羅城')->get();
+        $guildwar_p1_choilo = User::where('guildwar_phase_1', '塞羅城')->get();
 
-        $guildwar_p1_undefined = DB::table('users')->where('guildwar_phase_1', '')->get();
+        $guildwar_p1_undefined = User::where('guildwar_phase_1', '')->get();
 
-        $guildwar_p2 = DB::table('users')->where('guildwar_phase_2','<>', '')->get();
+        $guildwar_p2 = User::where('guildwar_phase_2','<>', '')->get();
 
-        $guildwar_p2_urban = DB::table('users')->where('guildwar_phase_2', '城外郊區組')->get();
+        $guildwar_p2_urban = User::where('guildwar_phase_2', '城外郊區組')->get();
 
-        $guildwar_p2_forbidden = DB::table('users')->where('guildwar_phase_2', '皇城內組')->get();
+        $guildwar_p2_forbidden = User::where('guildwar_phase_2', '皇城內組')->get();
 
-        $guildwar_p2_palace = DB::table('users')->where('guildwar_phase_2', '皇宮組')->get();
+        $guildwar_p2_palace = User::where('guildwar_phase_2', '皇宮組')->get();
 
-        $guildwar_p2_undefined = DB::table('users')->where('guildwar_phase_2', '')->get();
+        $guildwar_p2_undefined = User::where('guildwar_phase_2', '')->get();
 
         return view('analysis', ['total_users'=>$total_users,
                                 'max_roll'=>$highest_roll_qty,
