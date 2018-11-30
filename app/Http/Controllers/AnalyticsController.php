@@ -48,7 +48,7 @@ class AnalyticsController extends Controller
     }
 
     public function guildwarDataList(){
-        $data = Guildwar::where('is_delete', '<>', 1)->orderBy('guildwar_date','DESC')->orderBy('rank','ASC')->get();
+        $data = Guildwar::where('is_delete', '<>', 1)->orderBy('guildwar_date','DESC')->orderBy('contribution','DESC')->get();
         return view('guildwar_data_list', ['records'=>$data]);
     }
 
