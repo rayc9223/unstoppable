@@ -38,8 +38,7 @@ class RegisterController extends Controller
         fNvQJ46GBcPnGkIT2C
 
         */
-
-        // dd($req);
+        
         $user = new User();
         $user->gameid = $request->gameid;
         $user->lineid = $request->lineid;

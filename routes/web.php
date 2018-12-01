@@ -56,6 +56,7 @@ Route::post('guildwar_update', 'AnalyticsController@postGuildwarData');
 Route::get('insert_success', 'AnalyticsController@insertSuccess');
 
 Route::get('guildwar_data_list', 'AnalyticsController@guildwarDataList');
+Route::get('raise_delete_flag/{record_id}', 'AnalyticsController@raiseDeleteFlag');
 
 // contact us
 Route::get('contact_us', 'IndexController@contactUs');

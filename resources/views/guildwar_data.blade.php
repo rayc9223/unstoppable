@@ -14,8 +14,6 @@
         <script defer src="/js/solid.js"></script>
         <script defer src="/js/fontawesome.js"></script>
 
-
-
         <script type="text/javascript" src="/js/app.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/js/jquery.3.3.1.min.js"></script>
@@ -104,22 +102,22 @@
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
                     <label for="rank">排名</label>
-                    <input type="text" class="form-control text-center" id="rank" name="rank">
+                    <input type="text" class="form-control text-center" id="rank" name="rank" value="{{ old('rank')}}">
                   </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
                     <label for="attack_times">參與次數</label>
-                    <input type="text" class="form-control text-center" id="attack_times" name="attack_times">
+                    <input type="text" class="form-control text-center" id="attack_times" name="attack_times" value="{{ old('attack_times') }}">
                   </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
                     <label for="contribution">貢獻度</label>
-                    <input type="text" class="form-control text-center" id="contribution" name="contribution">
+                    <input type="text" class="form-control text-center" id="contribution" name="contribution" value="{{ old('contribution') }}">
                   </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
                     <label for="reward">獎勵勾玉</label>
-                    <input type="text" class="form-control text-center" id="reward" name="reward">
+                    <input type="text" class="form-control text-center" id="reward" name="reward" value="{{ old('reward') }}">
                   </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">

@@ -17,11 +17,6 @@
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/js/jquery.3.3.1.min.js"></script>
 
-       <!--  <link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css">
-        <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
-        <script type="text/javascript" src="/easyui/jquery.min.js"></script>
-        <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script> -->
-
         <!-- Styles -->
         <style>
             html, body {
@@ -131,22 +126,10 @@
                     /*display: block;*/
                 }
 
-              /*  #mb-capability {
-                    display: none;
-                }*/
-
                 html, body {
                     padding-top: 10px;
                     padding-bottom: 30px;
                 }
-
-              /*  .dropdown {
-                    display: none;
-                }*/
-/*
-                .mb-title {
-                    display: none;
-                }*/
             }
 
         </style>
@@ -197,10 +180,11 @@
                             <tr>
                                 <th width="10%">排名</th>
                                 <th width="15%">遊戲ID</th>
-                                <th width="10%">參與次數</th>
+                                <th width="5%">參與次數</th>
                                 <th width="20%">貢獻度</th>
                                 <th width="15%">獎勵勾玉數</th>
                                 <th width="20%">爭奪日期</th>
+                                <th width="5%">操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -218,6 +202,9 @@
                                     <td>{{ $record->contribution }}</td>
                                     <td>{{ $record->reward }}</td>
                                     <td>{{ $record->guildwar_date }}</td>
+                                    <td><a name="toggleTag_{{ $record->id }}" data-id="{{ $record->id }}" data-link="{{ url('raise_delete_flag', ['record_id'=>$record->id])}}" data-gameid="{{ $record->gameid }}" class="btn btn-danger btn-sm text-white" data-toggle="modal" data-target="#raiseDeleteModal"><i class="fa fa-trash"></i></td>
+
+                                        <!-- <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#raiseDeleteModal"><i class="fas fa-trash"></i></a> -->
                                 </tr>
                             @endforeach
                         </tbody>
@@ -226,23 +213,41 @@
 
             </div>
 
+            <!-- Reset Warning Here -->
+                <div class="modal fade" id="raiseDeleteModal" style="margin-top: 200px;">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                 
+                      <div class="modal-header">
+                        <h4 class="modal-title"><i class="fa fa-exclamation-circle text-danger"></i> 數據删除警告</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                 
+                      <div id="delete-content" class="modal-body text-left">
+                        
+                      </div>
+                 
+                      <div class="modal-footer">
+                        <button id="confirm-delete" type="button" class="btn btn-danger" data-dismiss="modal">確認删除</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                      </div>
+                 
+                    </div>
+                  </div>
+                </div>
+
         </div>
     </body>
     <script>
-        $('#capability').on('click', function(){
-            location.href = `{{ url('capability') }}`;
-        });
+        $("a[name^=\'toggleTag_\']").on('click', function(e){
+            var id = $(this).attr("data-id");
+            var link = $(this).attr("data-link");
+            var gameid = $(this).attr("data-gameid");
+            $('#delete-content').html('以下數據將於確認後進行删除:<br><br><span class="text-danger" style="font-weight: 600">記錄編號: ' + id + '<br>遊戲ID為: ' + gameid + ' 的門派爭奪數據</span><br><br>確認要執行嗎?');
 
-        $('#news').on('click', function(){
-            location.href = `{{ url('news') }}`;
-        });
-
-        $('#guildwar').on('click', function(){
-            location.href = `{{ url('guildwar') }}`;
-        });
-
-        $('#comment').on('click', function(){
-            location.href = `{{ url('comment') }}`;
-        });
+            $('#confirm-delete').on('click', function(){
+                location.href = link;
+            })
+        })
     </script>
 </html>

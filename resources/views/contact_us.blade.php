@@ -14,8 +14,6 @@
         <script defer src="/js/solid.js"></script>
         <script defer src="/js/fontawesome.js"></script>
 
-
-
         <script type="text/javascript" src="/js/app.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/js/jquery.3.3.1.min.js"></script>
@@ -126,7 +124,6 @@
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
                     <label for="message">留言內容</label>
-                    <!-- <input type="text" class="form-control text-center" id="message" name="message"> -->
                     <textarea name="message" id="message" cols="30" rows="5" style="resize: none;" class="form-control"></textarea>
                   </div>
 
