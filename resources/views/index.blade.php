@@ -137,8 +137,8 @@
             @csrf
             <div class="content">
                 <div class="title m-b-md">
-                    @if(Session::has('welcome'))
-                        {{ Session::get('welcome') }}, 
+                    @if($name)
+                        {{ $name }}, 
                     @endif
                     歡迎回到無與倫比
                 </div>

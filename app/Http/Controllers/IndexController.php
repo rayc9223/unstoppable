@@ -17,11 +17,9 @@ use Nette\Mail\SmtpMailer;
 class IndexController extends Controller
 {
     public function index(){
-        // var_dump(Auth::user());exit;
         if(Auth::user()){
             $name = User::find(Auth::user()->uid)->value('lineid');
-            Session::put('welcome', $name);
-            return view('index');
+            return view('index', ['name'=>$name]);
         }else{
             return redirect('login');
         }
