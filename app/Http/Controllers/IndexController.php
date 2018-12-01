@@ -18,8 +18,8 @@ class IndexController extends Controller
 {
     public function index(){
         if(Auth::user()){
-            $name = User::find(Auth::user()->uid)->value('lineid');
-            return view('index', ['name'=>$name]);
+            $user = User::find(Auth::user()->uid);
+            return view('index', ['user'=>$user]);
         }else{
             return redirect('login');
         }
@@ -181,7 +181,7 @@ class IndexController extends Controller
             return back()->withInput($request->input());
         }
 
-        $author = User::find(Auth::user()->uid)->value('lineid');
+        $author = User::find(Auth::user()->uid)->lineid;
 
         $announcement = new Announcement();
         $announcement->type = $request->type;

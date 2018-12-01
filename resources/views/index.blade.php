@@ -137,8 +137,8 @@
             @csrf
             <div class="content">
                 <div class="title m-b-md">
-                    @if($name)
-                        {{ $name }}, 
+                    @if($user)
+                        {{ $user->lineid }}, 
                     @endif
                     歡迎回到無與倫比
                 </div>
