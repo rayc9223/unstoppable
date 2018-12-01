@@ -7,6 +7,7 @@ use Auth;
 use DB;
 use Session;
 use App\User;
+use App\Invitation;
 
 class RegisterController extends Controller
 {
@@ -20,6 +21,7 @@ class RegisterController extends Controller
 
     public function postRegister(Request $request){
         $email = User::where('email', $request->email)->first();
+        $verify = Invitation::where('invitation_code', $request->invitation_code)->first();
         if($email){
             Session::flash('error_msg','此電郵地址已被使用');
             return back()->withInput($request->input());
@@ -27,17 +29,7 @@ class RegisterController extends Controller
         if($request->pwd!=$request->confirm_pwd){
             Session::flash('error_msg','密碼與確認密碼不一致, 請重新輸入');
             return back()->withInput();
-        }elseif($request->invitation_code=='2z9L0YnSN6pu409WEt' || $request->invitation_code=='6SvFGsNU4VgKBaFFPu' || $request->invitation_code=='fNvQJ46GBcPnGkIT2C'){
-
-        /* invitation_code
-
-        2z9L0YnSN6pu409WEt
-
-        6SvFGsNU4VgKBaFFPu
-
-        fNvQJ46GBcPnGkIT2C
-
-        */
+        }elseif($verify){
         
         $user = new User();
         $user->gameid = $request->gameid;
