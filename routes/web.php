@@ -78,6 +78,10 @@ Route::get('updated_success', 'IndexController@updateSuccess');
 // leave record
 Route::get('leave/list', 'LeaveController@leaveRecord');
 
+// confirm-reset
+Route::get('confirm-reset/{uid}', 'AnalyticsController@confirmReset');
+Route::get('reset_success', 'AnalyticsController@resetSuccess');
+
 
 
 

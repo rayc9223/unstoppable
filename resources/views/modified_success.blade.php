@@ -87,7 +87,11 @@
                 <i class="fas fa-check-circle lg text-success" style="font-size: 80px;"></i><br>
                 <div style="height: 40px;"></div>
                 您已成功修改個人設定
-
+                
+                <div style="height: 30px;"></div>
+                <div>
+                    <a href="{{ url('capability') }}" target="_self" class="btn btn-primary col-4">返回成員列表</a>
+                </div>
                 <div style="height: 40px;"></div>
 
                 <div class="links">

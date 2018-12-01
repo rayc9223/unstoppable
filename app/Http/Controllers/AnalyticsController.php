@@ -123,6 +123,25 @@ class AnalyticsController extends Controller
         ]);
     }
 
+    public function confirmReset(Request $request){
+        // $pass_uid = $request->get('uid');
+        // $auth_uid = Auth::user()->uid;
+        $verify = Auth::user()->isAdmin();
+        if($verify){
+            $users = User::get();
+            foreach ($users as $user) {
+                $user->update(['approx_entry_time'=>'']);
+            }
+        }else{
+            return redirect('capability');
+        }
+        return redirect('reset_success');
+    }
+
+    public function resetSuccess(){
+        return view('reset_success');
+    }
+
     // TEST METHOD - DO NOT UNCOMMENT !!
 
     // public function updateUserGuildwarTimes(){

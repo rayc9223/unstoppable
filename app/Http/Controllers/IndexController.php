@@ -60,8 +60,8 @@ class IndexController extends Controller
             Session::flash('error_msg','請填寫遊戲ID及LINE-ID');
             return back()->withInput($request->input());
         }
-        // $user->gameid            = $request->filled('gameid') ? $request->gameid : '';
-        // $user->lineid            = $request->filled('lineid') ? $request->lineid : '';
+        $user->gameid            = $request->filled('gameid') ? $request->gameid : '';
+        $user->lineid            = $request->filled('lineid') ? $request->lineid : '';
         $user->title             = $request->filled('title') ? $request->title : '';
         $user->approx_entry_time = $request->filled('reason') ? $request->reason : '';
         $user->level             = $request->filled('level') ? $request->level : 1;

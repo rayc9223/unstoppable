@@ -3,8 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>無與倫比 | 門派專頁</title>
+        <title>數據重置成功</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -12,8 +13,8 @@
         <script defer src="/js/brands.js"></script>
         <script defer src="/js/solid.js"></script>
         <script defer src="/js/fontawesome.js"></script>
-        <!-- <link href="/css/fontawesome.css" rel="stylesheet" type="text/css"> -->
-        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
+
+
 
         <script type="text/javascript" src="/js/app.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
@@ -26,13 +27,12 @@
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
-                padding-top: 80px;
-                /*height: 100vh;*/
+                height: 100vh;
                 margin: 0;
             }
 
             .full-height {
-                /*height: 100vh;*/
+                height: 100vh;
             }
 
             .flex-center {
@@ -57,12 +57,12 @@
 
             .title {
                 /*font-size: 84px;*/
-                font-size: 2.5em;
+                font-size: 2em;
             }
 
             .links > a {
                 color: #636b6f;
-                padding: 0 20px;
+                padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
                 letter-spacing: .1rem;
@@ -76,26 +76,31 @@
         </style>
     </head>
     <body>
+        <!-- {{ csrf_field() }} -->
         <div class="flex-center position-ref full-height">
             @csrf
             <div class="content">
-                <img src="/images/final_blade_title.png" class="img-fluid">
+                <img src="/images/final_blade_title.png" class="img-fluid" width="50%">
                 <div class="title m-b-md">
-                    歡迎來到無與倫比
+                    數據重置成功
+                </div>
+                <i class="fas fa-check-circle lg text-success" style="font-size: 80px;"></i><br>
+                <div style="height: 40px;"></div>
+                您已成功重置門派進場數據
+
+                <div style="height: 30px;"></div>
+                <div>
+                    <a href="{{ url('capability') }}" target="_self" class="btn btn-primary col-4">返回成員列表</a>
                 </div>
 
+                <div style="height: 40px;"></div>
+
                 <div class="links">
-                    @if(Auth::user())
-                        <a href="{{ url('index') }}"><i class="fas fa-home"></i> 首頁</a>
-                    @else
-                        <a href="{{ url('login') }}"><i class="fas fa-sign-in-alt"></i> 會員登入</a>
-                        <a href="{{ url('register')}}"><i class="fas fa-hands-helping"></i> 加入我們</a>
-                    @endif
-                    <a href="{{ url('contact_us')}}"><i class="fas fa-envelope"></i> 聯繫我們</a>
-                    @if(Auth::user())
-                        <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>
-                    @endif
+                    <a href="{{ url('index') }}"><i class="fas fa-home"></i> 門派首頁</a>
+                    <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>
                 </div>
+
+                <div style="height: 50px;"></div>
             </div>
         </div>
     </body>

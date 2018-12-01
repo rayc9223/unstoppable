@@ -17,11 +17,6 @@
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/js/jquery.3.3.1.min.js"></script>
 
-       <!--  <link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css">
-        <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
-        <script type="text/javascript" src="/easyui/jquery.min.js"></script>
-        <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script> -->
-
         <!-- Styles -->
         <style>
             html, body {
@@ -168,6 +163,8 @@
                             <a href="{{ url('announcement/edit') }}" class="dropdown-item"><i class="fas fa-gopuram" class="dropdown-item"></i> 編輯門派公告</a>
                             <a href="{{ url('leave/list') }}" class="dropdown-item"><i class="fas fa-file-alt" class="dropdown-item"></i> 檢視請假記錄</a>
                             <div class="dropdown-divider"></div>
+                            <a class="dropdown-item bg-danger text-white" data-toggle="modal" data-target="#resetWarningModal"><i class="fas fa-exclamation-circle" class="dropdown-item"></i> 重置入場時間</a>
+                            <div class="dropdown-divider"></div>
                         @endif
 
                         <a href="{{ url('logout') }}" class="dropdown-item"><i class="fas fa-sign-out-alt" class="dropdown-item"></i> 登出賬號</a>
@@ -300,17 +297,32 @@
 
                     <div style="height: 20px;"></div>
 
-                <!-- <div class="links hidden-sm hidden-xs">
-                    <a href="{{ url('index') }}"><i class="fas fa-home"></i> 回到首頁</a>
-                    @if(Session::get('uid'))
-                        <a href="{{ url('account', Session::get('uid')) }}"><i class="fas fa-user-cog"></i> 個人設定</a>
-                        <a href="{{ url('inbox') }}"><i class="fas fa-inbox"></i> 收件匣</a>
-                        <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>
-                    @else
-                        <a href="{{ url('login') }}"><i class="fas fa-sign-in-alt"></i> 會員登入</a>
-                        <a href="{{ url('register')}}"><i class="fas fa-hands-helping"></i> 加入我們</a>
-                    @endif
-                </div> -->
+                <div class="links hidden-sm hidden-xs">
+                    <a href="{{ url('index') }}">無與倫比 &copy; 2018</a>
+                </div>
+                 
+                <!-- Reset Warning Here -->
+                <div class="modal fade" id="resetWarningModal" style="margin-top: 200px;">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                 
+                      <div class="modal-header">
+                        <h4 class="modal-title"><i class="fa fa-exclamation-circle text-danger"></i> 數據删除警告</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                 
+                      <div class="modal-body text-left">
+                        以下數據將於確認後進行删除:<br><br><span class="text-danger" style="font-weight: 600"> - 現有門派爭奪進場數據 - </span><br><br>清除後將無法恢復, 確認要執行嗎?
+                      </div>
+                 
+                      <div class="modal-footer">
+                        <button id="reset-entry" type="button" class="btn btn-danger" data-dismiss="modal">確認删除</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                      </div>
+                 
+                    </div>
+                  </div>
+                </div>
 
             </div>
 
@@ -331,6 +343,10 @@
 
         $('#comment').on('click', function(){
             location.href = `{{ url('comment') }}`;
+        });
+
+        $('#reset-entry').on('click', function(){
+            location.href = `{{ url('confirm-reset', ['uid'=>Auth::user()->uid])}}`;
         });
     </script>
 </html>
