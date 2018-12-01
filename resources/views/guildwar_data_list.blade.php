@@ -184,7 +184,9 @@
                                 <th width="20%">貢獻度</th>
                                 <th width="15%">獎勵勾玉數</th>
                                 <th width="20%">爭奪日期</th>
+                                @if(Auth::user()->isAdmin())
                                 <th width="5%">操作</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -202,7 +204,11 @@
                                     <td>{{ $record->contribution }}</td>
                                     <td>{{ $record->reward }}</td>
                                     <td>{{ $record->guildwar_date }}</td>
-                                    <td><a name="toggleTag_{{ $record->id }}" data-id="{{ $record->id }}" data-link="{{ url('raise_delete_flag', ['record_id'=>$record->id])}}" data-gameid="{{ $record->gameid }}" class="btn btn-danger btn-sm text-white" data-toggle="modal" data-target="#raiseDeleteModal"><i class="fa fa-trash"></i></td>
+                                    @if(Auth::user()->isAdmin())
+                                    <td>
+                                    <a name="toggleTag_{{ $record->id }}" data-id="{{ $record->id }}" data-link="{{ url('raise_delete_flag', ['record_id'=>$record->id])}}" data-gameid="{{ $record->gameid }}" class="btn btn-danger btn-sm text-white" data-toggle="modal" data-target="#raiseDeleteModal"><i class="fa fa-trash"></i>
+                                    </td>
+                                    @endif
 
                                         <!-- <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#raiseDeleteModal"><i class="fas fa-trash"></i></a> -->
                                 </tr>
