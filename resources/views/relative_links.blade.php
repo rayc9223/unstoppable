@@ -213,7 +213,7 @@
                 <div class="row flex-center">
                     <div id="bahamut" class="row flex-center" style="width: 100%;box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:0px;margin-bottom: 20px;cursor: pointer;">
                         <table width="100%" style="padding: 0px;">
-                            <tr>
+                            <tr style="font-weight: bold;">
                                 <td class="text-left bg-info text-white" style="padding: 10px;">
                                     巴哈姆特 - 英雄不滅 哈啦區
                                 </td>
@@ -231,7 +231,7 @@
 
                     <div id="final-blade-youtube" class="row flex-center" style="width: 100%;box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:0px;margin-bottom: 20px;cursor: pointer;">
                         <table width="100%" style="padding: 0px;">
-                            <tr>
+                            <tr style="font-weight: bold;">
                                 <td class="text-left bg-danger text-white" style="padding: 10px;">
                                     YOUTUBE - 英雄不滅 TV
                                 </td>
