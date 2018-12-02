@@ -231,6 +231,14 @@ class IndexController extends Controller
         return redirect('updated_success');
     }
 
+    public function flyer(){
+        return view('flyer');
+    }
+
+    public function relativeLinks(){
+        return view('relative_links');
+    }
+
     public function updateSuccess(){
         return view('updated_success');
     }

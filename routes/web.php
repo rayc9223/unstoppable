@@ -83,8 +83,11 @@ Route::get('leave/list', 'LeaveController@leaveRecord');
 Route::get('confirm-reset/{uid}', 'AnalyticsController@confirmReset');
 Route::get('reset_success', 'AnalyticsController@resetSuccess');
 
+// flyer
+Route::get('flyer', 'IndexController@flyer');
 
-
+// relative links
+Route::get('relative_links', 'IndexController@relativeLinks');
 
 
 

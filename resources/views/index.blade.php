@@ -148,17 +148,17 @@
 
                     <div style="width:16px;"></div>
 
-                    <div id="datalist" class="col-lg-2 col-md-2 hidden-sm hidden-xs" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:40% 20%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
+                    <div id="flyer" class="col-lg-2 col-md-2 hidden-sm hidden-xs" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:40% 20%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right" style="padding-top: 80px;padding-right: 20px;">
-                            <span style="color: white;font-size: 2.4vw;font-weight: bold;"> 數據統計
+                            <span style="color: white;font-size: 2.4vw;font-weight: bold;"> 門派爭奪
                         </div>
                     </div>
 
                     <div style="width:16px;"></div>
 
-                    <div id="guildwar" class="col-lg-2 col-md-2 hidden-sm hidden-xs" style="border-radius: 20px;background-image: url('/images/princess.png');background-position:38% 40%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
+                    <div id="relative-links" class="col-lg-2 col-md-2 hidden-sm hidden-xs" style="border-radius: 20px;background-image: url('/images/princess.png');background-position:38% 40%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right" style="padding-top: 80px;padding-right: 20px;">
-                            <span style="color: white;font-size: 2.4vw;font-weight: bold;"> 門派爭奪
+                            <span style="color: white;font-size: 2.4vw;font-weight: bold;"> 相關連結
                         </div>
                     </div>
 
@@ -180,7 +180,7 @@
                     </div>
                     <div style="height: 10px;"></div>
 
-                    <div id="mb-datalist" class="hidden-lg hidden-md hidden-sm col-xs-3" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                    <div id="mb-flyer" class="hidden-lg hidden-md hidden-sm col-xs-3" style="border-radius: 20px;background-image: url('/images/prince.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
                             <span style="color: white;font-size: 26px;font-weight: bold;"> 數據統計
                         </div>
@@ -188,7 +188,7 @@
                     <div style="height: 10px;"></div>
 
         
-                    <div id="mb-guildwar" class="hidden-lg hidden-md hidden-sm col-xs-3" style="border-radius: 20px;background-image: url('/images/princess.png');background-position:35% 20%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                    <div id="mb-relative-links" class="hidden-lg hidden-md hidden-sm col-xs-3" style="border-radius: 20px;background-image: url('/images/princess.png');background-position:35% 20%; width:350px;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
                             <span style="color: white;font-size: 26px;font-weight: bold;"> 門派爭奪
                         </div>
@@ -226,20 +226,20 @@
             location.href = `{{ url('capability') }}`;
         });
 
-        $('#datalist').on('click', function(){
-            location.href = `{{ url('guildwar_data_list') }}`;
+        $('#flyer').on('click', function(){
+            location.href = `{{ url('flyer') }}`;
         });
 
-        $('#mb-datalist').on('click', function(){
-            location.href = `{{ url('guildwar_data_list') }}`;
+        $('#mb-flyer').on('click', function(){
+            location.href = `{{ url('flyer') }}`;
         });
 
-        $('#guildwar').on('click', function(){
-            location.href = `{{ url('analysis') }}`;
+        $('#relative-links').on('click', function(){
+            location.href = `{{ url('relative_links') }}`;
         });
 
-        $('#mb-guildwar').on('click', function(){
-            location.href = `{{ url('analysis') }}`;
+        $('#mb-relative-links').on('click', function(){
+            location.href = `{{ url('relative_links') }}`;
         });
 
         // $('#comment').on('click', function(){

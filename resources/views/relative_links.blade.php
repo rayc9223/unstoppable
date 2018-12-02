@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>戰力排行</title>
+        <title>相關連結</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -26,7 +26,7 @@
                 font-weight: 200;
                 /*height: 100vh;*/
                 /*padding-top: 30px;*/
-                margin: 0;
+                margin: 0 auto;
             }
 
             .full-height {
@@ -146,7 +146,7 @@
 
         </style>
     </head>
-    <body>
+    <body class="flex-center">
         <div class="dropdown hidden-lg hidden-md hidden-sm" style="margin-left: 10px;">
             <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bars"></i>
@@ -173,37 +173,37 @@
                         <a href="{{ url('register')}}" class="dropdown-item"><i class="fas fa-hands-helping" class="dropdown-item"></i> 加入我們</a>
                     @endif
             </div>
-          </div>
 
-        <div class="flex-center position-ref full-height">
+        <div class="flex-center position-ref full-height" style="max-width: 1250px;">
 
             <div class="content" style="width: 90%">
                 <div class="title m-b-md flex-center">
-                    <div class="mb-title col-md-10" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:40% 10%; width:90%;height:160px;padding: 0px;cursor: pointer;">
+                    <div class="mb-title col-md-10" style="border-radius: 20px;background-image: url('/images/princess.png');background-position:40% 20%; width:90%;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
-                            <span style="color: white;font-size: 26px;font-weight: bold;margin-right: 10px;"> 成員排行</span>
+                            <span style="color: white;font-size: 26px;font-weight: bold;margin-right: 10px;"> 遊戲相關連結</span>
                         </div>
                     </div>
                     
                 </div>
-                <div class="row bg-info text-white" style="box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:10px;margin-bottom: 10px;">
+                <div class="row bg-warning text-white" style="box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:10px;margin-bottom: 10px;">
                     <table width="100%">
-                        <tr>
-                            <td style="font-size: 24px;font-weight:500;" class="text-left"> 門派公告</td>
+                        <!-- <tr>
+                            <td style="font-size: 24px;font-weight:500;" class="text-left"> 未設定</td>
                             <td class="text-right" style="font-weight: bold;">
                             @if(isset($announcement->last_update))
                                     {{ date('d M Y',$announcement->last_update) }}
                             @else
                                 未設定
                             @endif</td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td colspan="2" style="font-size: 15px;font-weight:bold;" class="text-left">
-                                @if(isset($announcement->content))
+                                <!-- @if(isset($announcement->content))
                                     {!! $announcement->content !!}
                                 @else
                                     未設定
-                                @endif
+                                @endif -->
+                                歡迎大家提供遊戲相關連結
                             </td>
                         </tr>
                     </table>
@@ -211,142 +211,57 @@
                 </div>
 
                 <div class="row flex-center">
-                    @php
-                        $count = 1;
-                    @endphp
-                    @foreach($ranking as $rank)
-                    <div id="mb-capability" class="row flex-center" style="width: 100%;box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:0px;margin-bottom: 10px;">
-                        <table width="100%">
+                    <div id="bahamut" class="row flex-center" style="width: 100%;box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:0px;margin-bottom: 20px;cursor: pointer;">
+                        <table width="100%" style="padding: 0px;">
                             <tr>
-                                <td rowspan="4" width="10%">
-                                    <span style="font-weight: bold;font-size: 18px;
-                                        @if($count == 1)
-                                            color:red;
-                                        @elseif($count == 2)
-                                            color:orange;
-                                        @elseif($count == 3)
-                                            color:darkgreen;
-                                        @else
-                                            color:darkblue;
-                                        @endif
-                                        ">{{ $count }}
-                                    </span>
+                                <td class="text-left bg-info text-white" style="padding: 10px;">
+                                    巴哈姆特 - 英雄不滅 哈啦區
                                 </td>
-                                <td width="40%" style="text-align: left;font-weight: bold;">
-                                    {{ $rank->lineid }}({{ $rank->gameid }})
-                                </td>
-                                <td rowspan="2" width="50%" style="padding-right: 8px; text-align: right; font-size: 28px;
-                                    @if($rank->capability > 3500000)
-                                        color:red;
-                                    @elseif(3000000 < $rank->capability)
-                                        color:orange;
-                                    @elseif(2500000 < $rank->capability)
-                                        color:darkgreen;
-                                    @else
-                                        color:darkblue;
-                                    @endif
-                                    font-weight: bold">
-                                        {{ number_format($rank->capability) }}
+                                <td class="text-right bg-info text-white" style="padding: 10px;">
+                                    <a href="https://forum.gamer.com.tw/B.php?bsn=33969&subbsn=0" target="_blank" style="text-decoration: none;color: white;">點此前往</a>
                                 </td>
                             </tr>
                             <tr>
-                                <td width="40%" style="text-align: left;">
-                                    Lv.{{ $rank->level }} <span class="badge badge-danger" style="font-size: 10px;">
-                                        @if($rank->title != '')
-                                            {{ $rank->title }}
-                                        @else
-                                            未設定
-                                        @endif</span>
-                                <td class="hidden-sm hidden-xs">
-                                    
-                                </td>
-                                </td>
-                            </tr>
-                            <tr id="tr-detail" class="hidden-sm hidden-xs">
-                                <td colspan="2" style="text-align: left;font-size: 14px;">
-                                    參與爭奪次數: {{ $rank->guildwar_times }} ｜ 本次爭奪入場時間: 
-                                    @if($rank->approx_entry_time != '')
-                                        {{ $rank->approx_entry_time }}
-                                    @else
-                                        未設定
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr id="guildwar_available" class="hidden-sm hidden-xs">
-                                <td colspan="2" style="text-align: left;font-size: 14px;">
-                                    進攻所屬分組: @if($rank->guildwar_phase_1 != '')
-                                        {{ $rank->guildwar_phase_1 }}
-                                    @else
-                                        未設定
-                                    @endif
-                                     - 
-                                    @if($rank->guildwar_phase_2 != '')
-                                        {{ $rank->guildwar_phase_2 }}
-                                    @else
-                                        未設定
-                                    @endif
-                                     | 可用爭奪卷數: {{ $rank->roll_qty }}
+                                <td colspan="2" style="text-align: left;padding: 0px;">
+                                    <img src="/images/bahamut.JPG" class="img-fluid float-center">
                                 </td>
                             </tr>
                         </table>
                     </div>
-                        @php
-                            $count+=1;
-                        @endphp
-                    @endforeach
+
+                    <div id="final-blade-youtube" class="row flex-center" style="width: 100%;box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:0px;margin-bottom: 20px;cursor: pointer;">
+                        <table width="100%" style="padding: 0px;">
+                            <tr>
+                                <td class="text-left bg-danger text-white" style="padding: 10px;">
+                                    YOUTUBE - 英雄不滅 TV
+                                </td>
+                                <td class="text-right bg-danger text-white" style="padding: 10px;">
+                                    <a href="https://www.youtube.com/channel/UC5TrEKbNJEMSq68e_74g6Bg" target="_blank" style="text-decoration: none;color: white;">點此前往</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: left;padding: 0px;">
+                                    <img src="/images/Final_Blade_TV.png" class="img-fluid float-center">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
                     <div style="height: 20px;"></div>
 
                 <div class="links hidden-sm hidden-xs">
                     <a href="{{ url('index') }}">無與倫比 &copy; 2018</a>
                 </div>
-                 
-                <!-- Reset Warning Here -->
-                <div class="modal fade" id="resetWarningModal" style="margin-top: 200px;">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                 
-                      <div class="modal-header">
-                        <h4 class="modal-title"><i class="fa fa-exclamation-circle text-danger"></i> 數據删除警告</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      </div>
-                 
-                      <div class="modal-body text-left">
-                        以下數據將於確認後進行删除:<br><br><span class="text-danger" style="font-weight: 600"> - 現有門派爭奪進場數據 - </span><br><br>清除後將無法恢復, 確認要執行嗎?
-                      </div>
-                 
-                      <div class="modal-footer">
-                        <button id="reset-entry" type="button" class="btn btn-danger" data-dismiss="modal">確認删除</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
-                      </div>
-                 
-                    </div>
-                  </div>
-                </div>
-
             </div>
-
         </div>
     </body>
     <script>
-        $('#capability').on('click', function(){
-            location.href = `{{ url('capability') }}`;
+        $('#bahamut').on('click', function(){
+            location.href = "https://forum.gamer.com.tw/B.php?bsn=33969&subbsn=0";
         });
 
-        $('#news').on('click', function(){
-            location.href = `{{ url('news') }}`;
-        });
-
-        $('#guildwar').on('click', function(){
-            location.href = `{{ url('guildwar') }}`;
-        });
-
-        $('#comment').on('click', function(){
-            location.href = `{{ url('comment') }}`;
-        });
-
-        $('#reset-entry').on('click', function(){
-            location.href = `{{ url('confirm-reset', ['uid'=>Auth::user()->uid])}}`;
-        });
+        $('#final-blade-youtube').on('click', function(){
+            location.href = "https://www.youtube.com/channel/UC5TrEKbNJEMSq68e_74g6Bg";
+        })
     </script>
 </html>
