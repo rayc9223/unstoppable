@@ -257,11 +257,11 @@
     </body>
     <script>
         $('#bahamut').on('click', function(){
-            location.href = "https://forum.gamer.com.tw/B.php?bsn=33969&subbsn=0";
+            window.open('https://forum.gamer.com.tw/B.php?bsn=33969&subbsn=0', '_blank');
         });
 
         $('#final-blade-youtube').on('click', function(){
-            location.href = "https://www.youtube.com/channel/UC5TrEKbNJEMSq68e_74g6Bg";
+            window.open('https://www.youtube.com/channel/UC5TrEKbNJEMSq68e_74g6Bg', '_blank');
         })
     </script>
 </html>
