@@ -10,6 +10,7 @@ use Session;
 use App\User;
 use App\Leave;
 use App\Announcement;
+use App\Invitation;
 use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
 use Nette\Mail\SmtpMailer;
@@ -83,9 +84,13 @@ class IndexController extends Controller
     }
 
     public function capability(){
-        $ranking = User::select('uid', 'gameid', 'lineid', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->get();
-        $announcement = Announcement::where('type', 1)->select('content', 'last_update')->orderBy('last_update', 'DESC')->first();
-        return view('capability', ['ranking'=>$ranking, 'announcement'=>$announcement]);
+        if(Auth::user()){
+            $ranking = User::select('uid', 'gameid', 'lineid', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->get();
+            $announcement = Announcement::where('type', 1)->select('content', 'last_update')->orderBy('last_update', 'DESC')->first();
+            return view('capability', ['ranking'=>$ranking, 'announcement'=>$announcement]);
+        }else{
+            return redirect('login');
+        }  
     }
 
     public function contactUs(){
@@ -105,18 +110,50 @@ class IndexController extends Controller
              ->setSubject('申請邀請碼 | 加入門派請求 - 本電郵透過無與倫比網站送出，請勿回覆')
              ->setHTMLBody($body);
 
+        $invitationCode = Invitation::find(rand(1,3))->invitation_code;
+        $bodyToCandidate = '如您的電腦/行動電話未能妥善顯示本電郵全部內容，請重整您的電郵系統以便支援閱讀HTML格式的電郵
+        <body style="color: #636b6f; font-family:\'Nunito\', sans-serif; font-weight:300;margin:0;">
+            <div style="align-items:center;display:flex;justify-content:center;position:relative;">
+                <div style="text-align:center;">
+                    <img src="https://unstoppable1122.com/images/final_blade_title.png" width="50%">
+                    <div style="font-size: 2em; margin-bottom: 30px;">
+                        無與倫比已收到您獲取邀請碼之申請
+                    </div>
+                        <span style="font-size: 1.5em; font-weight:300;">請使用以下邀請碼進行注册<br>' . $invitationCode . '</span>
+                    <div style="height: 30px;"></div>
+                    <div>
+                        <a href="https://unstoppable1122.com" style="color:#636b6f;padding:0 25px;font-size:13px;font-weight:600;letter-spacing: .1rem;text-decoration:none;text-transform: uppercase;"><i class="fas fa-home"></i> 門派首頁</a>
+                    </div>
+                    <div style="height: 50px;"></div>
+                </div>
+            </div>
+            <div style="align-items:center;display:flex;justify-content:left;position:relative;">
+                <div style="text-align:left;font-weight:300;">
+                本電郵透過無與倫比網站送出，請勿回覆此電郵。<hr>
+                上述邀請碼僅供申請人於無與倫比網站進行會員注册之用，未經無與倫比同意，申請人不得以任何形式發佈或分發上述之邀請碼。<br>
+                我們實行嚴格的保安準則及程序，以防止未經授權的人取得您的個人資料。無與倫比絕對不會以電郵或其他方式要求核實個人資料，包括用戶名稱、密碼或賬戶號碼。<br> 
+                此電郵提示所載的是保密資料，並可被視為享有法律特權的資料。倘若您並非指定的收件人，則不可複製、轉發、公開或使用此信息的任何部分。若此信息被誤送到您的郵箱，請刪去信息及存於您電腦內的所有相關副本。<br><br>
+
+                經互聯網傳送的電郵信息，不保證準時、完全安全、不含錯誤或電腦病毒。寄件者不會承擔所引致任何錯誤或遺漏的責任。
+                </div>
+            </div>
+        </body>';
+        $mailToCandidate = new Message;
+        $mailToCandidate->setFrom("無與倫比門派網站 <". $credentials->username . ">")
+             ->addTo($request->email)
+             ->setSubject('我們已收到您: 獲取邀請碼之申請 - 本電郵透過無與倫比網站送出')
+             ->setHTMLBody($bodyToCandidate);
+
         $mailer = new SmtpMailer([
             'host' => 'smtp.gmail.com',
             'username' => $credentials->username,
             'password' => decrypt($credentials->password),
             'secure' => 'ssl',
-            // 'context' =>  [
-            //     'ssl' => [
-            //         'capath' => '/path/to/my/trusted/ca/folder',
-            //      ],
-            // ],
         ]);
         $mailer->send($mail);
+
+        // uncomment the following snippet to automatically grant invitations
+        // $mailer->send($mailToCandidate);
         return redirect('contact_us');
     }
 
