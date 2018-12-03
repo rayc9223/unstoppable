@@ -32,7 +32,7 @@ class IndexController extends Controller
         }
         if(Auth::user()){
             $titles = array('門派成員', '長老', '幹部','副門主', '門主');
-            $guildwar_phase_1 = array('增益：鬼怪組', '大豪城', '蓮慕城', '塞羅城', '支援組');
+            $guildwar_phase_1 = array('增益：鬼怪組', '丹紅城', '蓮慕城', '塞羅城','大豪城', '支援組');
             $guildwar_phase_2 = array('皇宮組', '皇城內組', '城外郊區組');
             $reasons = array('準時參加', '晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上', '無法參加本次爭奪');
             $user = User::find(Auth::user()->uid);

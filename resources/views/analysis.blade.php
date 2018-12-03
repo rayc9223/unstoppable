@@ -269,8 +269,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>門派爭奪: 鬼怪組</td>
-                                <td>{{ count($guildwar_p1_buff) }} / {{ $total_users }}</td>
+                                <td>門派爭奪: 增益組</td>
+                                <td>{{ count($guildwar_p1_buff) }} / 6</td>
                                 <td>
                                     @foreach($guildwar_p1_buff as $member)
                                         {{ $member->lineid }} | 
@@ -278,17 +278,17 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>門派爭奪: 大豪城</td>
-                                <td>{{ count($taiho) }} / {{ $total_users }}</td>
+                                <td>門派爭奪: 丹紅城</td>
+                                <td>{{ count($tanhung) }} / 7</td>
                                 <td>
-                                    @foreach($taiho as $member)
+                                    @foreach($tanhung as $member)
                                         {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
                             </tr>
                             <tr>
                                 <td>門派爭奪: 蓮慕城</td>
-                                <td>{{ count($linmo) }} / {{ $total_users }}</td>
+                                <td>{{ count($linmo) }} / 7</td>
                                 <td>
                                     @foreach($linmo as $member)
                                         {{ $member->lineid }} | 
@@ -297,9 +297,18 @@
                             </tr>
                             <tr>
                                 <td>門派爭奪: 塞羅城</td>
-                                <td>{{ count($choilo) }} / {{ $total_users }}</td>
+                                <td>{{ count($choilo) }} / 7</td>
                                 <td>
                                     @foreach($choilo as $member)
+                                        {{ $member->lineid }} | 
+                                    @endforeach
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>門派爭奪: 大豪城</td>
+                                <td>{{ count($taiho) }} / 6</td>
+                                <td>
+                                    @foreach($taiho as $member)
                                         {{ $member->lineid }} | 
                                     @endforeach
                                 </td>
@@ -324,7 +333,7 @@
                             </tr>
                             <tr>
                                 <td>門派爭奪: 城外郊區組</td>
-                                <td>{{ count($guildwar_p2_urban) }} / {{ $total_users }}</td>
+                                <td>{{ count($guildwar_p2_urban) }} / 12</td>
                                 <td>
                                     @foreach($guildwar_p2_urban as $member)
                                         {{ $member->lineid }} | 
@@ -333,7 +342,7 @@
                             </tr>
                             <tr>
                                 <td>門派爭奪: 皇城內組</td>
-                                <td>{{ count($guildwar_p2_forbidden) }} / {{ $total_users }}</td>
+                                <td>{{ count($guildwar_p2_forbidden) }} / 13</td>
                                 <td>
                                     @foreach($guildwar_p2_forbidden as $member)
                                         {{ $member->lineid }} | 
@@ -342,7 +351,7 @@
                             </tr>
                             <tr>
                                 <td>門派爭奪: 皇宮組</td>
-                                <td>{{ count($guildwar_p2_palace) }} / {{ $total_users }}</td>
+                                <td>{{ count($guildwar_p2_palace) }} / 10</td>
                                 <td>
                                     @foreach($guildwar_p2_palace as $member)
                                         {{ $member->lineid }} | 

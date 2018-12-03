@@ -164,7 +164,7 @@
 
                     <div style="width:16px;"></div>
 
-                    <div id="comment" class="col-lg-2 col-md-2 hidden-sm hidden-xs" style="border-radius: 20px;background-image: url('/images/yan_long.png');background-position:40% 40%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
+                    <div id="posts" class="col-lg-2 col-md-2 hidden-sm hidden-xs" style="border-radius: 20px;background-image: url('/images/yan_long.png');background-position:40% 40%; width: 400px;height: 600px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right" style="padding-top: 80px;padding-right: 20px;">
                             <span style="color: white;font-size: 2.4vw;font-weight: bold;"> 留言區
                         </div>
@@ -197,7 +197,7 @@
 
            
 
-                    <div id="mb-comment" class="hidden-lg hidden-md hidden-sm col-xs-3" style="border-radius: 20px;background-image: url('/images/yan_long.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
+                    <div id="mb-posts" class="hidden-lg hidden-md hidden-sm col-xs-3" style="border-radius: 20px;background-image: url('/images/yan_long.png');background-position:35% 10%; width:350px;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
                             <span style="color: white;font-size: 26px;font-weight: bold;"> 留言區
                         </div>
@@ -242,12 +242,12 @@
             location.href = `{{ url('relative_links') }}`;
         });
 
-        // $('#comment').on('click', function(){
-        //     location.href = `{{ url('comment') }}`;
+        // $('#posts').on('click', function(){
+        //     location.href = `{{ url('post_list') }}`;
         // });
 
-        // $('#mb-comment').on('click', function(){
-        //     location.href = `{{ url('comment') }}`;
+        // $('#mb-posts').on('click', function(){
+        //     location.href = `{{ url('post_list') }}`;
         // });
     </script>
 </html>

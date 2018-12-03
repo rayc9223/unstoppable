@@ -118,6 +118,8 @@ class AnalyticsController extends Controller
 
         $guildwar_p1_buff = User::where('guildwar_phase_1', '增益：鬼怪組')->get();
 
+        $guildwar_p1_tanhung = User::where('guildwar_phase_1', '丹紅城')->get();
+
         $guildwar_p1_taiho = User::where('guildwar_phase_1', '大豪城')->get();
 
         $guildwar_p1_linmo = User::where('guildwar_phase_1', '蓮慕城')->get();
@@ -147,9 +149,10 @@ class AnalyticsController extends Controller
                                 'approx_undefined'=>$approx_case_6,
                                 'guildwar_p1_registered'=>$guildwar_p1,
                                 'guildwar_p1_buff'=>$guildwar_p1_buff,
-                                'taiho'=>$guildwar_p1_taiho,
+                                'tanhung'=>$guildwar_p1_tanhung,
                                 'linmo'=>$guildwar_p1_linmo,
                                 'choilo'=>$guildwar_p1_choilo,
+                                'taiho'=>$guildwar_p1_taiho,
                                 'guildwar_p1_undefined'=>$guildwar_p1_undefined,
                                 'guildwar_p2_registered'=>$guildwar_p2,
                                 'guildwar_p2_urban'=>$guildwar_p2_urban,

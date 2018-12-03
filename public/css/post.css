@@ -1,0 +1,165 @@
+    .sep5 {
+        height: 5px;
+    }
+    .sep10 {
+        height: 10px;
+    }
+    .sep20 {
+        height:20px;
+    }
+    .box {
+        background-color: #fff;
+        border-radius: 3px;
+        box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid #e2e2e2;
+    }
+    .super.button {
+        background-image: url("/image/bg_blended_light.png");
+        padding: 4px 8px 4px 8px;
+        border: 1px solid rgba(80,80,90, 0.2);
+        border-bottom-color: rgba(80,80,90, 0.35);
+        border-radius: 3px;
+        font-size: 14px;
+        /*line-height: 12px;*/
+        outline: none;
+    }
+
+    .normal.button {
+        background-color: #fff;
+        color: #333;
+        text-shadow: 0px 1px 0px #fff;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0px 1px 0px rgba(66, 66, 77, 0.1);
+    }
+    body {
+        background-color: #E2E2E2;
+    }
+    a:link, a:visited, a:active {
+        color: #778087;
+        text-decoration: none;
+        word-break: break-all;
+    }
+    a:hover {
+        color: #4d5256;
+        text-decoration: underline;
+    }
+    #index, #post {
+        margin: 0 auto;
+        width:1260px;
+        background-color: #E2E2E2;
+        float: none;
+    }
+
+    #index #main {
+        background-color: #E2E2E2;
+        /*width:910px;*/
+    }
+
+    #index #single {
+        background-color: white;
+        border-bottom: 1px solid #CCC;
+    }
+
+    #index #right, #postadd #index,
+    #post #right {
+        width: 270px;
+        padding:10px;
+        float:left;
+    }
+    #index #right a:hover,
+    #inbox #right a:hover,
+    #post #right a:hover {
+        text-decoration:none;
+    }
+    #index #unread, #post #unread {
+        line-height: 32px;
+    }
+
+    #index #right #money, #post #money {
+        padding: 0px 10px;
+        height: 30px;
+        margin-top: 2px;
+        line-height: 28px;
+        background-color: #F2F2F2;
+        border-radius: 20px;
+        background: -webkit-linear-gradient(top, #F5F5F5 0%, #E2E2E2 100%)
+    }
+    #logged {
+        width: 270px;
+        padding: 10px;
+        background-color: white;
+        float: left;
+    }
+    #daily-reward, #ad, #node, #topic {
+        width: 270px;
+        margin-top: 20px;
+        padding: 10px 0px 0px;
+        background-color: white;
+        float: left;
+    }
+
+    #postadd, #inbox {
+        margin: 0 auto;
+        width:1260px;
+        background-color: #E2E2E2;
+        float: none;
+    }
+    #postadd #main, #post #main,
+    #inbox #main {
+        /*width: 910px;*/
+        padding: 0px;
+    }
+    #post #main {
+        /*margin-right: 20px;*/
+    }
+    #post #main td{
+        padding: 5px;
+    }
+    #postadd #main td{
+        padding: 5px;
+        background-color: white;
+        border-bottom: 1px solid #E2E2E2;
+    }
+    #postadd #main #title {
+        width:88%;
+        border:none;
+    }
+    #postadd #main textarea {
+        width:100%;
+        border:none;
+        resize: none;
+        padding:10px;
+    }
+    #post #comments, #post #reply {
+        /*width:910px;*/
+        margin-top: 20px;
+    }
+    #post #main td {
+        padding: 10px 0px;
+        background-color: white;
+    }
+    #post #reply td {
+        padding: 10px;
+    }
+    #post #collect {
+        background-color: #F2F2F2;
+        background: -webkit-linear-gradient(top, #F5F5F5 0%, #E2E2E2 100%);
+    }
+    #post #label-edit a:hover {
+        text-decoration: none;
+    }
+    #user #category td div:hover {
+        border-bottom: 3px solid #CCC;
+    }
+    #user #category td a:hover {
+        text-decoration: none;
+    }
+
+
+
+
+
+
+
+

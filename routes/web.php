@@ -89,6 +89,17 @@ Route::get('flyer', 'IndexController@flyer');
 // relative links
 Route::get('relative_links', 'IndexController@relativeLinks');
 
+// comment zone
+Route::get('post_list', 'PostController@index');
+Route::get('post_add', 'PostController@showCreatePost');
+Route::post('post_add', 'PostController@createPost');
+Route::get('post_edit/{aid}', 'PostController@showEditPost');
+Route::post('post_edit/{aid}', 'PostController@updatePost');
+
+// post detail
+Route::get('post/{pid}', 'PostController@detail');
+
+
 
 
 
