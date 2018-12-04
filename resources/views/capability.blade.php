@@ -183,7 +183,7 @@
 
             <div class="content" style="width: 90%">
                 <div class="title m-b-md flex-center">
-                    <div class="mb-title col-md-10" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:40% 10%; width:90%;height:160px;padding: 0px;cursor: pointer;">
+                    <div class="mb-title col-lg-9 col-md-9 col-sm-12 col-xs-12" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:40% 10%; width:90%;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
                             <span style="color: white;font-size: 26px;font-weight: bold;margin-right: 10px;"> 成員排行</span>
                         </div>
