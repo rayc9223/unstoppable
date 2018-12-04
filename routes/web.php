@@ -100,6 +100,12 @@ Route::post('post_edit/{aid}', 'PostController@updatePost');
 Route::get('post/{pid}', 'PostController@detail');
 
 
+// DELETE
+Route::get('choose_delete', 'DeleteController@showList');
+Route::post('choose_delete', 'DeleteController@deleteConfirm');
+Route::get('deleted', 'DeleteController@deleted');
+
+
 
 
 

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>會員登入</title>
+        <title>成員賬號已删除</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -25,7 +25,7 @@
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
-                padding-top: 50px;
+                padding-top: 70px;
                 /*height: 100vh;*/
                 margin: 0;
             }
@@ -72,59 +72,34 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
-
-           /* @media screen and (max-width: 500px) {
-                button {
-                    width: 80%;
-                }
-            }*/
         </style>
     </head>
     <body>
         <!-- {{ csrf_field() }} -->
         <div class="flex-center position-ref full-height">
-
+            @csrf
             <div class="content">
                 <img src="/images/final_blade_title.png" class="img-fluid" width="50%">
                 <div class="title m-b-md">
-                    會員登入
+                    成員賬號已删除
+                </div>
+                <i class="fas fa-check-circle lg text-success" style="font-size: 80px;"></i><br>
+                <div style="height: 40px;"></div>
+                @if(Session::has('success_msg'))
+                    {{ Session::get('success_msg')}}
+                @endif
+                <div>
+                    <a href="{{ url('choose_delete') }}" target="_self" class="btn btn-danger col-4">繼續删除</a>
                 </div>
 
-                <form action="" method="post">
-                  @csrf
-                  @if(Session::has('error_msg'))
-                    <span class="text-danger" style="font-weight: 400;color: red;">{{ Session::get('error_msg') }}</span>
-                  @endif
-                  <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
-                    <label for="email">電郵地址</label>
-                    <input type="email" class="form-control text-center" id="email" name="email" value="{{ old('email') }}"
-                    @if(Session::has('error_msg'))
-                        style="border-color: red;"
-                    @endif
-                    >
-                  </div>
-                  <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
-                    <label for="password">密碼</label>
-                    <input type="password" class="form-control text-center" id="password" name="password"
-                    @if(Session::has('error_msg'))
-                        style="border-color: red;"
-                    @endif
-                    >
-                  </div>
-
-                  <div style="height: 20px;"></div>
-                  <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-xs-6" style="width:300px;">登入</button>
-                </form>
-
-                <div style="height: 20px;"></div>
+                <div style="height: 40px;"></div>
 
                 <div class="links">
-                    @if(Auth::user())
-                        <a href="{{ url('index') }}"><i class="fas fa-home"></i> 回到首頁</a>
-                    @endif
-                    <a href="{{ url('forgot') }}"><i class="fas fa-fingerprint"></i> 忘記密碼</a>
-                    <a href="{{ url('register')}}"><i class="fas fa-hands-helping"></i> 加入我們</a>
+                    <a href="{{ url('index') }}"><i class="fas fa-home"></i> 門派首頁</a>
+                    <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>
                 </div>
+
+                <div style="height: 50px;"></div>
             </div>
         </div>
     </body>

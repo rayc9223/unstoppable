@@ -163,8 +163,12 @@
                             <a href="{{ url('announcement/edit') }}" class="dropdown-item"><i class="fas fa-gopuram" class="dropdown-item"></i> 編輯門派公告</a>
                             <a href="{{ url('leave/list') }}" class="dropdown-item"><i class="fas fa-file-alt" class="dropdown-item"></i> 檢視請假記錄</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item bg-danger text-white" data-toggle="modal" data-target="#resetWarningModal"><i class="fas fa-exclamation-circle" class="dropdown-item"></i> 重置入場時間</a>
+                            <a class="dropdown-item bg-primary text-white" data-toggle="modal" data-target="#resetWarningModal" style="cursor: pointer;"><i class="fas fa-exclamation-circle" class="dropdown-item"></i> 重置入場時間</a>
                             <div class="dropdown-divider"></div>
+                            @if(Auth::user()->uid ==27)
+                            <a href="{{ url('choose_delete') }}" class="dropdown-item bg-danger text-white"><i class="fas fa-exclamation-circle" class="dropdown-item"></i> 删除成員記錄</a>
+                            <div class="dropdown-divider"></div>
+                            @endif
                         @endif
 
                         <a href="{{ url('logout') }}" class="dropdown-item"><i class="fas fa-sign-out-alt" class="dropdown-item"></i> 登出賬號</a>
