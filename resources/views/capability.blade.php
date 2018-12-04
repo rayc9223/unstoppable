@@ -280,9 +280,9 @@
                                 </td>
                                 </td>
                             </tr>
-                            <tr id="tr-detail" class="hidden-sm hidden-xs">
+                            <tr id="tr-detail">
                                 <td colspan="2" style="text-align: left;font-size: 14px;">
-                                    參與爭奪次數: {{ $rank->guildwar_times }} ｜ 本次爭奪入場時間: 
+                                    參與爭奪次數: {{ $rank->guildwar_times }} ｜ 進場時間: 
                                     @if($rank->approx_entry_time != '')
                                         {{ $rank->approx_entry_time }}
                                     @else
@@ -290,7 +290,7 @@
                                     @endif
                                 </td>
                             </tr>
-                            <tr id="guildwar_available" class="hidden-sm hidden-xs">
+                            <tr id="guildwar_available">
                                 <td colspan="2" style="text-align: left;font-size: 14px;">
                                     進攻所屬分組: @if($rank->guildwar_phase_1 != '')
                                         {{ $rank->guildwar_phase_1 }}
@@ -303,7 +303,7 @@
                                     @else
                                         未設定
                                     @endif
-                                     | 可用爭奪卷數: {{ $rank->roll_qty }}
+                                     | 可用卷數: {{ $rank->roll_qty }}
                                 </td>
                             </tr>
                         </table>
