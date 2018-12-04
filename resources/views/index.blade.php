@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>無與倫比 | 門派專頁</title>
+        <title>門派首頁</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -136,7 +136,14 @@
                     @if($user)
                         {{ $user->lineid }}, 
                     @endif
-                    歡迎回到無與倫比
+                    歡迎回到
+                    @if($user->guild=='無與倫比')
+                        無與倫比
+                    @elseif($user->guild=='夜雨花落')
+                        夜雨花落
+                    @else
+                        門派專頁
+                    @endif
                 </div>
 
                 <div class="row flex-center" id="pc-block">

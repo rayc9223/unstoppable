@@ -25,7 +25,7 @@
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 /*height: 100vh;*/
-                /*padding-top: 30px;*/
+                padding-top: 10px;
                 margin: 0;
             }
 
@@ -190,7 +190,19 @@
                     </div>
                     
                 </div>
-                <div class="row bg-info text-white" style="box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:10px;margin-bottom: 10px;">
+
+<section class="container py-4">
+        <div class="row">
+            <div class="col-12">
+                <ul id="tabsJustified" class="nav nav-tabs">
+                    <li class="nav-item"><a href="" data-target="#home1" data-toggle="tab" class="nav-link small text-uppercase active">無與倫比</a></li>
+                    <li class="nav-item"><a href="" data-target="#profile1" data-toggle="tab" class="nav-link small text-uppercase">夜雨花落</a></li>
+                    <!-- <li class="nav-item"><a href="" data-target="#messages1" data-toggle="tab" class="nav-link small text-uppercase">Messages</a></li> -->
+                </ul>
+                <br>
+                <div id="tabsJustifiedContent" class="tab-content">
+                    <div id="home1" class="tab-pane fade active show">
+                        <div class="row bg-info text-white" style="box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:10px;margin-bottom: 10px;">
                     <table width="100%">
                         <tr>
                             <td style="font-size: 24px;font-weight:500;" class="text-left"> 門派公告</td>
@@ -213,6 +225,8 @@
                     </table>
                         
                 </div>
+
+
 
                 <div class="row flex-center">
                     @php
@@ -257,7 +271,7 @@
                                 <td width="40%" style="text-align: left;">
                                     Lv.{{ $rank->level }} <span class="badge badge-danger" style="font-size: 10px;">
                                         @if($rank->title != '')
-                                            {{ $rank->title }}
+                                            {{ $rank->guild }} - {{ $rank->title }}
                                         @else
                                             未設定
                                         @endif</span>
@@ -298,11 +312,25 @@
                             $count+=1;
                         @endphp
                     @endforeach
+                </div>
+            </div>
 
-                    <div style="height: 20px;"></div>
+                    <div id="profile1" class="tab-pane fade title m-b-md">
+                        <br>相關功能陸續開放中<br><br>敬請期待
+                    </div>
+                    <div id="messages1" class="tab-pane fade">
+                        <!-- <div class="list-group"><a href="" class="list-group-item d-inline-block"><span class="float-right badge badge-pill badge-dark">44</span> Message 1</a> <a href="" class="list-group-item d-inline-block"><span class="float-right badge badge-pill badge-dark">8</span> Message 2</a>                            <a href="" class="list-group-item d-inline-block"><span class="float-right badge badge-pill badge-dark">23</span> Message 3</a> <a href="" class="list-group-item d-inline-block text-muted">Message n..</a>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+                
 
-                <div class="links hidden-sm hidden-xs">
-                    <a href="{{ url('index') }}">無與倫比 &copy; 2018</a>
+                <div class="links">
+                    <a href="{{ url('index') }}">無與倫比 | 夜雨花落 &copy; 2018</a>
                 </div>
                  
                 <!-- Reset Warning Here -->

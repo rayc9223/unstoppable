@@ -31,12 +31,13 @@ class IndexController extends Controller
             return redirect('login');
         }
         if(Auth::user()){
+            $guilds = array('無與倫比', '夜雨花落');
             $titles = array('門派成員', '長老', '幹部','副門主', '門主');
             $guildwar_phase_1 = array('增益：鬼怪組', '丹紅城', '蓮慕城', '塞羅城','大豪城', '支援組');
             $guildwar_phase_2 = array('皇宮組', '皇城內組', '城外郊區組');
             $reasons = array('準時參加', '晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上', '無法參加本次爭奪');
             $user = User::find(Auth::user()->uid);
-            return view('account', ['titles'=>$titles, 'reasons'=>$reasons, 'user'=>$user, 'phase1'=>$guildwar_phase_1, 'phase2'=>$guildwar_phase_2]);
+            return view('account', ['guilds'=>$guilds, 'titles'=>$titles, 'reasons'=>$reasons, 'user'=>$user, 'phase1'=>$guildwar_phase_1, 'phase2'=>$guildwar_phase_2]);
         }else{
             return redirect('login');
         } 
@@ -61,6 +62,7 @@ class IndexController extends Controller
         }
         $user->gameid            = $request->filled('gameid') ? $request->gameid : '';
         $user->lineid            = $request->filled('lineid') ? $request->lineid : '';
+        $user->guild             = $request->filled('guild') ? $request->guild : '';
         $user->title             = $request->filled('title') ? $request->title : '';
         $user->approx_entry_time = $request->filled('reason') ? $request->reason : '';
         $user->level             = $request->filled('level') ? $request->level : 1;
@@ -85,7 +87,7 @@ class IndexController extends Controller
 
     public function capability(){
         if(Auth::user()){
-            $ranking = User::select('uid', 'gameid', 'lineid', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->get();
+            $ranking = User::select('uid', 'gameid', 'lineid','guild', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->get();
             $announcement = Announcement::where('type', 1)->select('content', 'last_update')->orderBy('last_update', 'DESC')->first();
             return view('capability', ['ranking'=>$ranking, 'announcement'=>$announcement]);
         }else{
@@ -171,21 +173,23 @@ class IndexController extends Controller
             return back();
         }
         $user = User::find($request->uid);
+        $guilds = array('無與倫比', '夜雨花落');
         $titles = array('門派成員', '長老', '幹部','副門主', '門主');
         $guildwar_phase_1 = array('增益：鬼怪組', '丹紅城', '蓮慕城', '塞羅城', '大豪城', '支援組');
         $guildwar_phase_2 = array('皇宮組', '皇城內組', '城外郊區組');
         $reasons = array('準時參加', '晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上', '無法參加本次爭奪');
-        return view('modify2', ['user'=>$user, 'titles'=>$titles, 'reasons'=>$reasons, 'phase1'=>$guildwar_phase_1, 'phase2'=>$guildwar_phase_2]);
+        return view('modify2', ['user'=>$user, 'guilds'=>$guilds, 'titles'=>$titles, 'reasons'=>$reasons, 'phase1'=>$guildwar_phase_1, 'phase2'=>$guildwar_phase_2]);
     }
 
     public function postAdminConfirm(Request $request){ 
         $user = User::find($request->uid);
-        $user->capability = $request->filled('capability') ? $request->capability : 0;
-        $user->level = $request->filled('level') ? $request->level : 1;
-        $user->roll_qty = $request->filled('roll_qty') ? $request->roll_qty : 0;
-        $user->guildwar_phase_1 = $request->filled('guildwar_phase_1') ? $request->guildwar_phase_1 : '';
-        $user->guildwar_phase_2 = $request->filled('guildwar_phase_2') ? $request->guildwar_phase_2 : '';
-        $user->title = $request->filled('title') ? $request->title : '';
+        $user->capability        = $request->filled('capability') ? $request->capability : 0;
+        $user->level             = $request->filled('level') ? $request->level : 1;
+        $user->roll_qty          = $request->filled('roll_qty') ? $request->roll_qty : 0;
+        $user->guildwar_phase_1  = $request->filled('guildwar_phase_1') ? $request->guildwar_phase_1 : '';
+        $user->guildwar_phase_2  = $request->filled('guildwar_phase_2') ? $request->guildwar_phase_2 : '';
+        $user->title             = $request->filled('title') ? $request->title : '';
+        $user->guild             = $request->filled('guild') ? $request->guild : '';
         $user->approx_entry_time = $request->filled('reason') ? $request->reason : '';
         $user->save();
 

@@ -126,6 +126,20 @@
                       </div>
 
                       <div class="form-group">
+                        <label for="guild">所屬門派</label>
+                        <select name="guild" id="guild" class="form-control">
+                            <option value="">請選擇所屬門派</option>
+                            @foreach($guilds as $guild)
+                                @if($guild==$user->guild)
+                                    <option value="{{ $guild }}" selected="selected">{{ $guild }}</option>
+                                @else
+                                    <option value="{{ $guild }}">{{ $guild }}</option>
+                                @endif
+                            @endforeach
+                        </select>                    
+                      </div>
+
+                      <div class="form-group">
                         <label for="guildwar_phase_1">搶城階段分組</label>
                         <select name="guildwar_phase_1" id="title" class="form-control">
                             <option value="">請選擇所屬進攻分組</option>

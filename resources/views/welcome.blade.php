@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>無與倫比 | 門派專頁</title>
+        <title>無與倫比 | 夜雨花落 門派專頁</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -55,7 +55,7 @@
 
             .title {
                 /*font-size: 84px;*/
-                font-size: 2.5em;
+                font-size: 2em;
             }
 
             .links > a {
@@ -79,7 +79,7 @@
             <div class="content">
                 <img src="/images/final_blade_title.png" class="img-fluid">
                 <div class="title m-b-md">
-                    歡迎來到無與倫比
+                    歡迎來到<br>無與倫比 | 夜雨花落
                 </div>
 
                 <div class="links">
