@@ -88,11 +88,11 @@
                     {{ Session::get('success_msg')}}
                 @endif
                 <div>
-                    <a href="{{ url('guildwar_data_list') }}" target="_self" class="btn btn-primary col-4">門派爭奪記錄</a>
+                    <a href="{{ url('guildwar_data_list') }}" target="_self" class="btn btn-primary col-5">門派爭奪記錄</a>
                 </div>
                 <div style="height: 30px;"></div>
                 <div>
-                    <a href="{{ url('analysis') }}" target="_self" class="btn btn-success col-4">門派爭奪數據統計</a>
+                    <a href="{{ url('analysis') }}" target="_self" class="btn btn-success col-5">門派爭奪數據統計</a>
                 </div>
 
                 <div style="height: 40px;"></div>
