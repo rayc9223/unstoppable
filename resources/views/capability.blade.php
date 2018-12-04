@@ -191,7 +191,7 @@
                     
                 </div>
 
-<section class="container py-4">
+    <section class="container py-4">
         <div class="row">
             <div class="col-12">
                 <ul id="tabsJustified" class="nav nav-tabs">
@@ -271,7 +271,7 @@
                                 <td width="40%" style="text-align: left;">
                                     Lv.{{ $rank->level }} <span class="badge badge-danger" style="font-size: 10px;">
                                         @if($rank->title != '')
-                                            {{ $rank->guild }} - {{ $rank->title }}
+                                            {{ $rank->title }}
                                         @else
                                             未設定
                                         @endif</span>
