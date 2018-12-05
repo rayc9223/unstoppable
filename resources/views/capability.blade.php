@@ -237,7 +237,7 @@
                     <div id="mb-capability" class="row flex-center" style="width: 100%;box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:0px;margin-bottom: 10px;">
                         <table width="100%">
                             <tr>
-                                <td rowspan="4" width="10%">
+                                <td rowspan="5" width="10%">
                                     <span style="font-family:'Orbitron', sans-serif;font-weight: bold;font-size: 18px;
                                         @if($count == 1)
                                             color:red;
@@ -254,7 +254,7 @@
                                 <td width="40%" style="text-align: left;font-weight: bold;">
                                     {{ $rank->lineid }}({{ $rank->gameid }})
                                 </td>
-                                <td rowspan="2" width="50%" style="font-family:'Orbitron', sans-serif; padding-right: 8px; text-align: right; font-size: 28px;
+                                <td rowspan="2" width="50%" style="font-family:'Orbitron', sans-serif; padding-right: 8px; text-align: right; font-size: 26px;
                                     @if($rank->capability > 3500000)
                                         color:red;
                                     @elseif(3000000 < $rank->capability)
@@ -304,7 +304,11 @@
                                     @else
                                         未設定
                                     @endif
-                                     | 可用卷數: {{ $rank->roll_qty }}
+                                </td>
+                            </tr>
+                            <tr id="rolls_available">
+                                <td colspan="2" style="text-align: left;font-size: 14px;">
+                                    可用爭奪卷數: {{ $rank->roll_qty }}
                                 </td>
                             </tr>
                         </table>
