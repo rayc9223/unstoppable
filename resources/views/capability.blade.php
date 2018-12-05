@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Orbitron:900" rel="stylesheet">
         <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <script defer src="/js/brands.js"></script>
         <script defer src="/js/solid.js"></script>
@@ -237,7 +238,7 @@
                         <table width="100%">
                             <tr>
                                 <td rowspan="4" width="10%">
-                                    <span style="font-weight: bold;font-size: 18px;
+                                    <span style="font-family:'Orbitron', sans-serif;font-weight: bold;font-size: 18px;
                                         @if($count == 1)
                                             color:red;
                                         @elseif($count == 2)
@@ -253,7 +254,7 @@
                                 <td width="40%" style="text-align: left;font-weight: bold;">
                                     {{ $rank->lineid }}({{ $rank->gameid }})
                                 </td>
-                                <td rowspan="2" width="50%" style="padding-right: 8px; text-align: right; font-size: 28px;
+                                <td rowspan="2" width="50%" style="font-family:'Orbitron', sans-serif; padding-right: 8px; text-align: right; font-size: 28px;
                                     @if($rank->capability > 3500000)
                                         color:red;
                                     @elseif(3000000 < $rank->capability)

@@ -95,7 +95,7 @@ class PostController extends Controller
     }
 
     public function article($aid){
-        $art = DB::table('articles')->where('aid', $aid)->first();
+        $art = DB::table('articles')->where('aid', $aid)->firstOrFail();
         DB::table('articles')->where('aid', $aid)->increment('views');
         $uid = $art->uid;
         $nid = $art->nid;
