@@ -87,7 +87,7 @@
                     <span id="error-msg" class="pull-right" style="color: red;"><i class="fa fa-exclamation-circle"></i> {{ Session::pull('error_msg')}}</span>
                 @endif
 
-                <form action="" method="post">
+                <form action="{{ url('register/create')}}" method="post">
                   @csrf
                   <div class="form-group col-lg-6 col-md-6 col-sm-8 col-xs-8 offset-lg-3 offset-md-3 offset-sm-2 offset-xs-2">
                     <label for="email">電郵地址*</label>

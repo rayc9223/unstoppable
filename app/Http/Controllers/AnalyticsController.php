@@ -24,7 +24,7 @@ class AnalyticsController extends Controller
             Session::flash('error_msg','請選擇遊戲ID');
             return back()->withInput($request->input());
         }
-        $gameid = User::where('uid',$request->uid)->value('gameid');
+        $gameid = User::find($request->uid)->value('gameid');
 
         $record = new Guildwar();
         $record->uid           = $request->uid;
@@ -180,17 +180,4 @@ class AnalyticsController extends Controller
     public function resetSuccess(){
         return view('reset_success');
     }
-
-    // TEST METHOD - DO NOT UNCOMMENT !!
-
-    // public function updateUserGuildwarTimes(){
-    //     $users = DB::table('guildwars')->select('uid', 'attack_times')->get();
-
-    //     foreach($users as $record){
-    //         $modify = User::find($record->uid);
-    //         $modify->guildwar_times = $record->attack_times;
-    //         $modify->save();
-    //         echo $modify->gameid, '-', $record->attack_times,'<br>';  
-    //     }
-    // }
 }

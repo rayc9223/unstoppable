@@ -30,8 +30,8 @@ Route::post('reset_password', 'LoginController@postResetPassword');
 Route::get('reset_password_success', 'LoginController@resetPasswordSuccess');
 
 // register routes
-Route::get('register', 'RegisterController@register');
-Route::post('register', 'RegisterController@postRegister');
+Route::get('register/show', 'RegisterController@show');
+Route::post('register/create', 'RegisterController@create');
 Route::get('register_success', 'RegisterController@registerSuccess');
 
 // index routes

@@ -11,7 +11,7 @@ use App\Invitation;
 
 class RegisterController extends Controller
 {
-    public function register(){
+    public function show(){
         return view('register');
     }
 
@@ -19,9 +19,9 @@ class RegisterController extends Controller
         return view('register_success');
     }
 
-    public function postRegister(Request $request){
-        $email = User::where('email', $request->email)->firstOrFail();
-        $verify = Invitation::where('invitation_code', $request->invitation_code)->firstOrFail();
+    public function create(Request $request){
+        $email = User::where('email', $request->email)->first();
+        $verify = Invitation::where('invitation_code', $request->invitation_code)->first();
         if($email){
             Session::flash('error_msg','此電郵地址已被使用');
             return back()->withInput($request->input());

@@ -87,7 +87,7 @@
                         <a href="{{ url('index') }}"><i class="fas fa-home"></i> 首頁</a>
                     @else
                         <a href="{{ url('login') }}"><i class="fas fa-sign-in-alt"></i> 會員登入</a>
-                        <a href="{{ url('register')}}"><i class="fas fa-hands-helping"></i> 加入我們</a>
+                        <a href="{{ url('register/show')}}"><i class="fas fa-hands-helping"></i> 加入我們</a>
                     @endif
                     <a href="{{ url('contact_us')}}"><i class="fas fa-envelope"></i> 聯繫我們</a>
                     @if(Auth::user())

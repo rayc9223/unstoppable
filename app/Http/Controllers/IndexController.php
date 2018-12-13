@@ -60,16 +60,17 @@ class IndexController extends Controller
             Session::flash('error_msg','請填寫遊戲ID及LINE-ID');
             return back()->withInput($request->input());
         }
-        $user->gameid            = $request->filled('gameid') ? $request->gameid : '';
-        $user->lineid            = $request->filled('lineid') ? $request->lineid : '';
-        $user->guild             = $request->filled('guild') ? $request->guild : '';
-        $user->title             = $request->filled('title') ? $request->title : '';
-        $user->approx_entry_time = $request->filled('reason') ? $request->reason : '';
-        $user->level             = $request->filled('level') ? $request->level : 1;
-        $user->capability        = $request->filled('capability') ? $request->capability : 0;
-        $user->roll_qty          = $request->filled('roll_qty') ? $request->roll_qty : 0;
-        $user->guildwar_phase_1  = $request->filled('guildwar_phase_1') ? $request->guildwar_phase_1 : '';
-        $user->guildwar_phase_2  = $request->filled('guildwar_phase_2') ? $request->guildwar_phase_2 : '';
+        // $user->gameid            = $request->filled('gameid') ? $request->gameid : '';
+        // $user->lineid            = $request->filled('lineid') ? $request->lineid : '';
+        // $user->guild             = $request->filled('guild') ? $request->guild : '';
+        // $user->title             = $request->filled('title') ? $request->title : '';
+        // $user->approx_entry_time = $request->filled('reason') ? $request->reason : '';
+        // $user->level             = $request->filled('level') ? $request->level : 1;
+        // $user->capability        = $request->filled('capability') ? $request->capability : 0;
+        // $user->roll_qty          = $request->filled('roll_qty') ? $request->roll_qty : 0;
+        // $user->guildwar_phase_1  = $request->filled('guildwar_phase_1') ? $request->guildwar_phase_1 : '';
+        // $user->guildwar_phase_2  = $request->filled('guildwar_phase_2') ? $request->guildwar_phase_2 : '';
+        $user->fill($request);
         $user->last_update       = time();
         $user->save();
 

@@ -262,7 +262,7 @@
                                     @elseif(2500000 < $rank->capability)
                                         color:darkgreen;
                                     @else
-                                        color:darkblue;
+                                        color:blue;
                                     @endif
                                     font-weight: bold">
                                         {{ number_format($rank->capability) }}
