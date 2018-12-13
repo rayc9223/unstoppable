@@ -12,8 +12,15 @@ use App\User;
 class TestController extends Controller
 {
     public function list(){
-        $role = Auth::user()->role();
-        var_dump($role);
+        $roles = User::find(1)->roles()->first();
+        // foreach ($roles as $role) {
+        //     if ($role->role == 'admin') {
+        //         echo 'true';
+        //     } else {
+        //         echo 'false';
+        //     }
+        // }
+        echo $roles->role;
     }
 
     public function postData(Request $request){

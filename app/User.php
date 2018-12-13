@@ -35,9 +35,14 @@ class User extends Authenticatable
     ];
 
     public function isAdmin(){
-        if(Role::where('uid', Auth::user()->uid)->value('role') == 'Admin'){
+        $query = Auth::user()->roles()->first();
+        if ($query->role == 'admin' || $query->role == 'leader') {
             return true;
         }
         return false;
+    }
+
+    public function roles(){
+        return $this->belongsToMany('App\Role', 'role_users', 'user_id', 'role_id');
     }
 }
