@@ -11,7 +11,7 @@ use App\User;
 class TestController extends Controller
 {
     public function list(){
-        dd(Auth::user()->isAdmin());
+        var_dump(Auth::user());
     }
 
     public function postData(Request $request){

@@ -210,7 +210,7 @@ class IndexController extends Controller
     }
 
     public function editAnnouncement(){
-        if(!Auth::user()->isAdmin){
+        if(!Auth::user()->isAdmin()){
             return redirect('capability');
         }
         return view('announcement');
