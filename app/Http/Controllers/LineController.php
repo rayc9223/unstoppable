@@ -13,13 +13,30 @@ use App\User;
 
 class LineController extends Controller
 {
-    public function lineEvent(Request $request)
+    protected $accessToken;
+
+    protected $secret;
+
+    protected $client;
+
+    protected $bot;
+
+    public function __construct()
     {
         $lineApi = DB::table('credentials')->select('username as secret', 'password as access_token')->where('description', 'line_api')->first();
-        $accessToken = $lineApi->access_token;
-        $secret = $lineApi->secret;
-        $client = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($accessToken);
-        $bot = new \LINE\LINEBot($client, ['channelSecret' => $secret]);
+        $this->accessToken = $lineApi->access_token;
+        $this->secret = $lineApi->secret;
+        $this->client = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($this->accessToken);
+        $this->bot = new \LINE\LINEBot($client, ['channelSecret' => $this->secret]);
+    }
+
+    public function lineEvent(Request $request)
+    {
+        // $lineApi = DB::table('credentials')->select('username as secret', 'password as access_token')->where('description', 'line_api')->first();
+        // $accessToken = $lineApi->access_token;
+        // $secret = $lineApi->secret;
+        // $client = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($this->accessToken);
+        // $bot = new \LINE\LINEBot($client, ['channelSecret' => $this->secret]);
 
         Log::info(json_encode($request->all()));
         $events = $request->all();
@@ -40,11 +57,16 @@ class LineController extends Controller
 
                     // Use array when more than one addressee
                     $data['to'] = $userId;
-                    $data['messages'] = array(array('type'=>'text', 'text'=>'Push Notification test'));
+
+                    // Content
+                    $content = '';
+
+                    //
+                    $data['messages'] = array(array('type'=>'text', 'text'=>$content));
                     // $response = $this->buildPostRequest($data);
-                    $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
-                    Log::info(json_encode($response));
-                    Log::info(json_encode($data));
+                    $response = $this->client->post('https://api.line.me/v2/bot/message/push', $data);
+                    // Log::info(json_encode($response));
+                    // Log::info(json_encode($data));
                     break;
                 default:
                     $response = $bot->replyText($replyToken, "歡迎使用無與倫比網站助手");
