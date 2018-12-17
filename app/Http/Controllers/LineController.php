@@ -23,11 +23,11 @@ class LineController extends Controller
         $userId = $request->get('userId');
         if ($type == 'message') {
             $message = $request->get('message');
+            Log::info(json_encode('message: '. $message));
         }
         Log::info('Type: '. $type);
         Log::info('replyToken: '. $replyToken);
         Log::info('userId: '. $userId);
-        Log::info(json_encode('message: '. $message));
         // Log::info(json_encode($event['events']['replyToken']));
 
     }
