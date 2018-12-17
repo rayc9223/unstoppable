@@ -29,12 +29,11 @@ class LineController extends Controller
             $msgText = $message['text'];
             Log::info(json_encode($message));
         }
-        // Log::info('Type: '. $type);
-        // Log::info('replyToken: '. $replyToken);
-        // Log::info('userId: '. $userId);
+        Log::info('Type: '. $type);
+        Log::info('replyToken: '. $replyToken);
+        Log::info('userId: '. $userId);
 
-        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("測試中文");
-        $response = $bot->replyText($replyToken, $textMessageBuilder);
+        $response = $bot->replyText($replyToken, "hello\nhello");
         // Log::info(json_encode($event['events']['replyToken']));
 
     }
