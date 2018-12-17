@@ -106,7 +106,8 @@ Route::post('choose_delete', 'DeleteController@deleteConfirm');
 Route::get('deleted', 'DeleteController@deleted');
 
 // LINE Event
-Route::post('line_event', 'LineController@index');
+Route::get('line_event', 'LineController@index');
+Route::post('line_event', 'LineController@lineEvent');
 
 
 
