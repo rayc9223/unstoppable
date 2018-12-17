@@ -33,7 +33,6 @@ class LineController extends Controller
 
             switch ($msgText) {
                 case 'push':
-                    // $response = $bot->pushMessage($userId, "Push Notification Test");
                     $data = array();
                     $data['to'] = array($userId);
                     $data['messages'] = array('type'=>'text', 'text'=>'Push Notification test');
