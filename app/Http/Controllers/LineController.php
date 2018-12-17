@@ -37,10 +37,10 @@ class LineController extends Controller
                     $data['to'] = array($userId);
                     $data['messages'] = array('type'=>'text', 'text'=>'Push Notification test');
                     // $response = $this->buildPostRequest($data);
-                    $response = $client->post('https://api.line.me/v2/bot/message/push', json_encode($data));
+                    $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
                     Log::info(json_encode($response));
+                    Log::info(json_encode($data));
                     break;
-                
                 default:
                     $response = $bot->replyText($replyToken, "歡迎使用無與倫比網站助手");
                     break;
