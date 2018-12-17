@@ -8,6 +8,7 @@ class LineController extends Controller
 {
     public function index(Request $request)
     {
-        file_put_contents('logs.txt', $request->all());
+        http_response_code(200);
+        // file_put_contents('logs.txt', $request->all());
     }
 }
