@@ -6,8 +6,8 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
-use LINE\LINEBot\HTTPClient\CurlHTTPClient as Client;
-use LINE\LINEBot as Bot;
+use linecorp\line-bot-sdk\src\LINE\LINEBot\HTTPClient\CurlHTTPClient as Client;
+use linecorp\line-bot-sdk\src\LINE\LINEBot;
 
 class LineController extends Controller
 {
