@@ -35,29 +35,41 @@ class LineController extends Controller
             $msgText = $message['text'];
             Log::info(json_encode($message));
 
+            if ($msgText == '戰力排行') {
+                $data = array();
+
+                // Use array when more than one addressee
+                $data['to'] = $userId;
+
+                // Content
+                $content = "-門派戰力排行前15名- \n";
+                $users = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->take(15)->get();
+                foreach ($users as $user) {
+                    $content .= $user->gameid . '. ' . $user->capability . "\n";
+                }
+                $data['messages'] = array(array('type'=>'text', 'text'=>$content));
+                // $response = $this->buildPostRequest($data);
+                $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
+                // Log::info(json_encode($response));
+                // Log::info(json_encode($data));
+            } elseif ($msgText == '更新戰力') {
+                $response = $bot->replyText($replyToken, "請使用以下格式更新戰力(例子)\n更新戰力:3560000");
+            } elseif (mb_substr($msgText, 0, 5) == '更新戰力:') {
+                // Update capability
+                $newCapability = explode(':', $msgText)[1];
+                $response = $bot->replyText($replyToken, "戰力更新完成，目前的戰力是: " . $newCapability);
+            } else {
+                $response = $bot->replyText($replyToken, "歡迎使用無與倫比網站助手");
+            }
             switch ($msgText) {
                 case '戰力排行':
-                    $data = array();
-
-                    // Use array when more than one addressee
-                    $data['to'] = $userId;
-
-                    // Content
-                    $content = '';
-                    $users = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->get();
-                    foreach ($users as $user) {
-                        $content .= $user->gameid . '. ' . $user->capability . '\n';
-                    }
-
-                    //
-                    $data['messages'] = array(array('type'=>'text', 'text'=>$content));
-                    // $response = $this->buildPostRequest($data);
-                    $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
-                    // Log::info(json_encode($response));
-                    // Log::info(json_encode($data));
+                    
+                    break;
+                case '':
+                    $response = $bot->replyText($replyToken, "歡迎使用無與倫比網站助手");
                     break;
                 default:
-                    $response = $bot->replyText($replyToken, "歡迎使用無與倫比網站助手");
+                    
                     break;
             }
         }
