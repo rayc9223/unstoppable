@@ -18,8 +18,17 @@ class LineController extends Controller
     public function lineEvent(Request $request)
     {
         Log::info(json_encode($request->all()));
-        $event = json_decode($request->all(), true);
-        Log::info(json_encode($event['events']['replyToken']));
+        $type = $request->get('type');
+        $replyToken = $request->get('replyToken');
+        $userId = $request->get('userId');
+        if ($type == 'message') {
+            $message = $request->get('message');
+        }
+        Log::info('Type: '. $type);
+        Log::info('replyToken: '. $replyToken);
+        Log::info('userId: '. $userId);
+        Log::info(json_encode('message: '. $message));
+        // Log::info(json_encode($event['events']['replyToken']));
 
     }
 
