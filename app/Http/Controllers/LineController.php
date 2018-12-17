@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use \LINE\LINEBot;
+use App\User;
 
 class LineController extends Controller
 {
@@ -28,12 +29,19 @@ class LineController extends Controller
             $msgType = $message['type'];
             $msgText = $message['text'];
             Log::info(json_encode($message));
-        }
-        Log::info('Type: '. $type);
-        Log::info('replyToken: '. $replyToken);
-        Log::info('userId: '. $userId);
 
-        $response = $bot->replyText($replyToken, "hello\nhello");
+            switch ($msgText) {
+                case 'push':
+                    $response = $bot->pushMessage($userId, "Push Notification Test");
+                    break;
+                
+                default:
+                    $response = $bot->replyText($replyToken, "歡迎使用無與倫比網站助手");
+                    break;
+            }
+        }
+
+        
         // Log::info(json_encode($event['events']['replyToken']));
 
     }
