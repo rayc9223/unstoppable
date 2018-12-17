@@ -6,17 +6,16 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use LINE\LINEBot\HTTPClient\CurlHTTPClient as Client;
+use LINE\LINEBot as Bot;
 
 class LineController extends Controller
 {
-    public function index(Request $request)
-    {
-        // http_response_code(200);
-        // file_put_contents('logs.txt', $request->all());
-    }
-
     public function lineEvent(Request $request)
     {
+        $client = new Client('X409cKlj1/yocH1gZDI8WnEmvbC6U8gWx7nkqBF/XlnUzfDINIUr2UXzV/C31usDdd7vWDJpLRvNP2o10kbdPU/2+ZNO6/9M0elZWa/W3t2PPeXkgOCQxco7ShHuhayKYDfaIX934VxpHtdUWCP9FgdB04t89/1O/w1cDnyilFU=');
+        $bot = new Bot($client, ['channelSecret' => '8847281d9ac3e751a9dec94783ce6d1a']);
+
         Log::info(json_encode($request->all()));
         $events = $request->all();
         $filtered = $events['events'][0];
@@ -33,6 +32,8 @@ class LineController extends Controller
         Log::info('Type: '. $type);
         Log::info('replyToken: '. $replyToken);
         Log::info('userId: '. $userId);
+
+        $response = $bot->replyText($replyToken, 'hello!');
         // Log::info(json_encode($event['events']['replyToken']));
 
     }
