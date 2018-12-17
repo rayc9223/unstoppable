@@ -15,7 +15,7 @@ class LineController extends Controller
 {
     public function lineEvent(Request $request)
     {
-        $lineApi = DB::table('credentials')->select('username as access_token', 'password as secret')->where('description', 'line_api')->first();
+        $lineApi = DB::table('credentials')->select('username as secret', 'password as access_token')->where('description', 'line_api')->first();
         $accessToken = $lineApi->access_token;
         $secret = $lineApi->secret;
         $client = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($accessToken);
