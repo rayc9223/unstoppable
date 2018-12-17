@@ -52,8 +52,8 @@ class LineController extends Controller
         $client = new Client();
         $response = $client->request('POST', 'https://api.line.me/v2/bot/message/push', [
             'headers'  => [
-                        'Content-Type' => 'application/json',
-                        'Authorization'=> 'Bearer X409cKlj1/yocH1gZDI8WnEmvbC6U8gWx7nkqBF/XlnUzfDINIUr2UXzV/C31usDdd7vWDJpLRvNP2o10kbdPU/2+ZNO6/9M0elZWa/W3t2PPeXkgOCQxco7ShHuhayKYDfaIX934VxpHtdUWCP9FgdB04t89/1O/w1cDnyilFU='
+                        'Content-Type:' => 'application/json',
+                        'Authorization:'=> 'Bearer X409cKlj1/yocH1gZDI8WnEmvbC6U8gWx7nkqBF/XlnUzfDINIUr2UXzV/C31usDdd7vWDJpLRvNP2o10kbdPU/2+ZNO6/9M0elZWa/W3t2PPeXkgOCQxco7ShHuhayKYDfaIX934VxpHtdUWCP9FgdB04t89/1O/w1cDnyilFU='
             ],
             'body'=> json_encode($data)
         ]);
