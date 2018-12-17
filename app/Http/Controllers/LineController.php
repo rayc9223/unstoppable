@@ -6,15 +6,15 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
-use linecorp\line-bot-sdk\src\LINE\LINEBot\HTTPClient\CurlHTTPClient as Client;
-use linecorp\line-bot-sdk\src\LINE\LINEBot;
+use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
+use \LINE\LINEBot;
 
 class LineController extends Controller
 {
     public function lineEvent(Request $request)
     {
-        $client = new Client('X409cKlj1/yocH1gZDI8WnEmvbC6U8gWx7nkqBF/XlnUzfDINIUr2UXzV/C31usDdd7vWDJpLRvNP2o10kbdPU/2+ZNO6/9M0elZWa/W3t2PPeXkgOCQxco7ShHuhayKYDfaIX934VxpHtdUWCP9FgdB04t89/1O/w1cDnyilFU=');
-        $bot = new Bot($client, ['channelSecret' => '8847281d9ac3e751a9dec94783ce6d1a']);
+        $client = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('X409cKlj1/yocH1gZDI8WnEmvbC6U8gWx7nkqBF/XlnUzfDINIUr2UXzV/C31usDdd7vWDJpLRvNP2o10kbdPU/2+ZNO6/9M0elZWa/W3t2PPeXkgOCQxco7ShHuhayKYDfaIX934VxpHtdUWCP9FgdB04t89/1O/w1cDnyilFU=');
+        $bot = new \LINE\LINEBot($client, ['channelSecret' => '8847281d9ac3e751a9dec94783ce6d1a']);
 
         Log::info(json_encode($request->all()));
         $events = $request->all();
