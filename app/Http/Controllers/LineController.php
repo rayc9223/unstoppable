@@ -49,6 +49,7 @@ class LineController extends Controller
 
     public function buildPostRequest($data)
     {
+        $client = new Client();
         $response = $client->request('POST', 'https://api.line.me/v2/bot/message/push', 
             [
                 ['headers'  => [
