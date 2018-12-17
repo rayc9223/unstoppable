@@ -27,7 +27,7 @@ class LineController extends Controller
         $this->accessToken = $lineApi->access_token;
         $this->secret = $lineApi->secret;
         $this->client = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($this->accessToken);
-        $this->bot = new \LINE\LINEBot($client, ['channelSecret' => $this->secret]);
+        $this->bot = new \LINE\LINEBot($this->client, ['channelSecret' => $this->secret]);
     }
 
     public function lineEvent(Request $request)
