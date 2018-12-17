@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use \LINE\LINEBot;
+use GuzzleHttp\Client;
 use App\User;
 
 class LineController extends Controller
@@ -32,7 +33,12 @@ class LineController extends Controller
 
             switch ($msgText) {
                 case 'push':
-                    $response = $bot->pushMessage($userId, "Push Notification Test");
+                    // $response = $bot->pushMessage($userId, "Push Notification Test");
+                    $data = array();
+                    $data['to'] = array($userId);
+                    $data['messages'] = array('type'=>'text', 'text'=>'Push Notification test');
+                    $response = $this->buildPostRequest($data);
+                    Log::info(json_encode($response));
                     break;
                 
                 default:
@@ -40,10 +46,19 @@ class LineController extends Controller
                     break;
             }
         }
+    }
 
-        
-        // Log::info(json_encode($event['events']['replyToken']));
-
+    public function buildPostRequest($data)
+    {
+        $response = $client->request('POST', 'https://api.line.me/v2/bot/message/push', 
+            [
+                ['headers'  => [
+                        'Content-Type' => 'application/json',
+                        'Authorization'=> 'Bearer {X409cKlj1/yocH1gZDI8WnEmvbC6U8gWx7nkqBF/XlnUzfDINIUr2UXzV/C31usDdd7vWDJpLRvNP2o10kbdPU/2+ZNO6/9M0elZWa/W3t2PPeXkgOCQxco7ShHuhayKYDfaIX934VxpHtdUWCP9FgdB04t89/1O/w1cDnyilFU=}'
+                    ],
+                ['body'=>$data]
+            ]]);
+        return $response;
     }
 //     Array
 // (
