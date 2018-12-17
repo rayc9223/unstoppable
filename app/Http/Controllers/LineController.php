@@ -17,6 +17,6 @@ class LineController extends Controller
 
     public function lineEvent(Request $request)
     {
-        Log::info(json_encode($request));
+        Log::info(json_encode($request->all()));
     }
 }
