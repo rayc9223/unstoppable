@@ -164,9 +164,6 @@ return [
          * Package Service Providers...
          */
         Douyasi\Editor\EditorServiceProvider::class,
-        LINE\LINEBot\HTTPClient\CurlHTTPClient::class,
-        LINE\LINEBot::class,
-
 
         /*
          * Application Service Providers...
