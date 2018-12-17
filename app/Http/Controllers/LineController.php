@@ -35,6 +35,7 @@ class LineController extends Controller
             $msgText = $message['text'];
             Log::info(json_encode($message));
 
+            // Ranking
             if ($msgText == '戰力排行') {
                 $data = array();
 
@@ -45,32 +46,47 @@ class LineController extends Controller
                 $content = "-門派戰力排行前15名- \n";
                 $users = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->take(15)->get();
                 foreach ($users as $user) {
-                    $content .= $user->gameid . '. ' . $user->capability . "\n";
+                    $content .= $user->gameid . ' - ' . $user->capability . "\n";
                 }
                 $data['messages'] = array(array('type'=>'text', 'text'=>$content));
                 // $response = $this->buildPostRequest($data);
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
                 // Log::info(json_encode($response));
                 // Log::info(json_encode($data));
+
+            // Inform format
             } elseif ($msgText == '更新戰力') {
                 $response = $bot->replyText($replyToken, "請使用以下格式更新戰力(例子)\n更新戰力:3560000");
-            } elseif (mb_substr($msgText, 0, 5) == '更新戰力:') {
-                // Update capability
+
+            // Capability update
+            } elseif (mb_substr($msgText, 0, 5) == '更新戰力:' || mb_substr($msgText, 0, 5) == '更新戰力：') {
+                
+                $msgText = str_replace('：', ':', $msgText);
                 $newCapability = explode(':', $msgText)[1];
-                $response = $bot->replyText($replyToken, "戰力更新完成，目前的戰力是: " . $newCapability);
+                if ($newCapability > 0 && $newCapability < 5000000) {
+                    // Update DB
+                    $response = $bot->replyText($replyToken, "戰力更新完成，目前的戰力是: " . $newCapability);
+                } else {
+                    $response = $bot->replyText($replyToken, "戰力輸入錯誤，請確認後重新輸入");
+                }
+            } elseif ($msgText == '準時參加') {
+                // Update DB
+                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已成功更新為: " . $msgText);
+            } elseif ($msgText == '晚10') {
+                // Update DB
+                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新為: 晚到10分鐘");
+            } elseif ($msgText == '晚20') {
+                // Update DB
+                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新為: 晚到11~20分鐘");
+            } elseif ($msgText == '晚30') {
+                // Update DB
+                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新為: 晚到30分鐘以上");
+            } elseif ($msgText == '請假') {
+                // Update DB(Leave)
+                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新為: 無法參加本次爭奪");
+
             } else {
                 $response = $bot->replyText($replyToken, "歡迎使用無與倫比網站助手");
-            }
-            switch ($msgText) {
-                case '戰力排行':
-                    
-                    break;
-                case '':
-                    $response = $bot->replyText($replyToken, "歡迎使用無與倫比網站助手");
-                    break;
-                default:
-                    
-                    break;
             }
         }
     }
