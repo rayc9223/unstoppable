@@ -12,7 +12,10 @@ use App\User;
 class TestController extends Controller
 {
     public function list(){
-        $roles = User::find(1)->roles()->first();
+        $user = User::findOrFail(1);
+        // $user = DB::table('users')->firstOrFail();
+        dd($user);
+        // $roles = User::find(1)->roles()->first();
         // foreach ($roles as $role) {
         //     if ($role->role == 'admin') {
         //         echo 'true';
@@ -20,7 +23,7 @@ class TestController extends Controller
         //         echo 'false';
         //     }
         // }
-        echo $roles->role;
+        // echo $roles->role;
     }
 
     public function postData(Request $request){
