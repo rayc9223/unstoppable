@@ -15,8 +15,11 @@ class LineController extends Controller
 {
     public function lineEvent(Request $request)
     {
-        $client = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('X409cKlj1/yocH1gZDI8WnEmvbC6U8gWx7nkqBF/XlnUzfDINIUr2UXzV/C31usDdd7vWDJpLRvNP2o10kbdPU/2+ZNO6/9M0elZWa/W3t2PPeXkgOCQxco7ShHuhayKYDfaIX934VxpHtdUWCP9FgdB04t89/1O/w1cDnyilFU=');
-        $bot = new \LINE\LINEBot($client, ['channelSecret' => '8847281d9ac3e751a9dec94783ce6d1a']);
+        $lineApi = DB::table('credentials')->select('username as access_token', 'password as secret')->where('description', 'line_api')->first();
+        $accessToken = $lineApi->access_token;
+        $secret = $lineApi->secret;
+        $client = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($accessToken);
+        $bot = new \LINE\LINEBot($client, ['channelSecret' => $secret]);
 
         Log::info(json_encode($request->all()));
         $events = $request->all();
@@ -34,6 +37,8 @@ class LineController extends Controller
             switch ($msgText) {
                 case 'push':
                     $data = array();
+
+                    // Use array when more than one addressee
                     $data['to'] = $userId;
                     $data['messages'] = array(array('type'=>'text', 'text'=>'Push Notification test'));
                     // $response = $this->buildPostRequest($data);
@@ -52,19 +57,6 @@ class LineController extends Controller
     // {
     //     $headers = is_null($headers) ? ['Content-Type: application/json; charset=utf-8'] : $headers;
     //     return $this->sendRequest('POST', $url, $headers, $data);
-    // }
-
-    // public function buildPostRequest($data)
-    // {
-    //     $client = new Client();
-    //     $response = $client->request('POST', 'https://api.line.me/v2/bot/message/push', [
-    //         'headers'  => [
-    //                     'Content-Type:' => 'application/json',
-    //                     'Authorization:'=> 'Bearer X409cKlj1/yocH1gZDI8WnEmvbC6U8gWx7nkqBF/XlnUzfDINIUr2UXzV/C31usDdd7vWDJpLRvNP2o10kbdPU/2+ZNO6/9M0elZWa/W3t2PPeXkgOCQxco7ShHuhayKYDfaIX934VxpHtdUWCP9FgdB04t89/1O/w1cDnyilFU='
-    //         ],
-    //         'body'=> json_encode($data)
-    //     ]);
-    //     return $response;
     // }
 //     Array
 // (
