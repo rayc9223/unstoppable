@@ -18,12 +18,17 @@ class LineController extends Controller
     public function lineEvent(Request $request)
     {
         Log::info(json_encode($request->all()));
-        $type = $request->get('type');
-        $replyToken = $request->get('replyToken');
-        $userId = $request->get('userId');
+        $events = $request->all();
+        $filtered = $events['events'][0];
+        $type = $filtered['type'];
+        $replyToken = $filtered['replyToken'];
+        $userId = $filtered['source']['userId'];
+
         if ($type == 'message') {
-            $message = $request->get('message');
-            Log::info(json_encode('message: '. $message));
+            $message = $filtered['message'];
+            $msgType = $message['type'];
+            $msgText = $message['text'];
+            Log::info(json_encode($message));
         }
         Log::info('Type: '. $type);
         Log::info('replyToken: '. $replyToken);
@@ -31,6 +36,37 @@ class LineController extends Controller
         // Log::info(json_encode($event['events']['replyToken']));
 
     }
+//     Array
+// (
+//     [events] => Array
+//         (
+//             [0] => Array
+//                 (
+//                     [type] => message
+//                     [replyToken] => c4a9432fc4654838962fa0703f0b4589
+//                     [source] => Array
+//                         (
+//                             [userId] => U1b7997d75ba52775e41438aa1d502150
+//                             [type] => user
+//                         )
+
+//                     [timestamp] => 1545054386101
+//                     [message] => Array
+//                         (
+//                             [type] => text
+//                             [id] => 9023593433979
+//                             [text] => test message no.4
+//                         )
+
+//                 )
+
+//         )
+
+//     [destination] => U27c9098d14de1f99fd2f750548cc388d
+// )
+
+
+    // [2018-12-17 13:41:34] local.INFO: {"events":[{"type":"message","replyToken":"c4a9432fc4654838962fa0703f0b4589","source":{"userId":"U1b7997d75ba52775e41438aa1d502150","type":"user"},"timestamp":1545054386101,"message":{"type":"text","id":"9023593433979","text":"test message no.4"}}],"destination":"U27c9098d14de1f99fd2f750548cc388d"}
 
 //     [2018-12-17 13:22:34] local.INFO: {"events":[{"replyToken":"00000000000000000000000000000000","type":"message","timestamp":1545053246198,"source":{"type":"user","userId":"Udeadbeefdeadbeefdeadbeefdeadbeef"},"message":{"id":"100001","type":"text","text":"Hello, world"}},{"replyToken":"ffffffffffffffffffffffffffffffff","type":"message","timestamp":1545053246198,"source":{"type":"user","userId":"Udeadbeefdeadbeefdeadbeefdeadbeef"},"message":{"id":"100002","type":"sticker","packageId":"1","stickerId":"1"}}]}  
 
