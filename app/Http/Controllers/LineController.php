@@ -13,30 +13,14 @@ use App\User;
 
 class LineController extends Controller
 {
-    protected $accessToken;
-
-    protected $secret;
-
-    protected $client;
-
-    protected $bot;
-
-    public function __construct()
-    {
-        $lineApi = DB::table('credentials')->select('username as secret', 'password as access_token')->where('description', 'line_api')->first();
-        $this->accessToken = $lineApi->access_token;
-        $this->secret = $lineApi->secret;
-        $this->client = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($this->accessToken);
-        $this->bot = new \LINE\LINEBot($this->client, ['channelSecret' => $this->secret]);
-    }
 
     public function lineEvent(Request $request)
     {
-        // $lineApi = DB::table('credentials')->select('username as secret', 'password as access_token')->where('description', 'line_api')->first();
-        // $accessToken = $lineApi->access_token;
-        // $secret = $lineApi->secret;
-        // $client = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($this->accessToken);
-        // $bot = new \LINE\LINEBot($client, ['channelSecret' => $this->secret]);
+        $lineApi = DB::table('credentials')->select('username as secret', 'password as access_token')->where('description', 'line_api')->first();
+        $accessToken = $lineApi->access_token;
+        $secret = $lineApi->secret;
+        $client = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($accessToken);
+        $bot = new \LINE\LINEBot($client, ['channelSecret' => $secret]);
 
         Log::info(json_encode($request->all()));
         $events = $request->all();
@@ -64,7 +48,7 @@ class LineController extends Controller
                     //
                     $data['messages'] = array(array('type'=>'text', 'text'=>$content));
                     // $response = $this->buildPostRequest($data);
-                    $response = $this->client->post('https://api.line.me/v2/bot/message/push', $data);
+                    $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
                     // Log::info(json_encode($response));
                     // Log::info(json_encode($data));
                     break;
