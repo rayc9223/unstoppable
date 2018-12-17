@@ -33,7 +33,7 @@ class LineController extends Controller
         // Log::info('replyToken: '. $replyToken);
         // Log::info('userId: '. $userId);
 
-        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("hello\nhello");
+        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("測試中文");
         $response = $bot->replyText($replyToken, $textMessageBuilder);
         // Log::info(json_encode($event['events']['replyToken']));
 
