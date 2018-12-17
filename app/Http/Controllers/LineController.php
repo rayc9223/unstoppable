@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -15,6 +16,6 @@ class LineController extends Controller
 
     public function lineEvent(Request $request)
     {
-        file_put_contents('/usr/local/nginx/html/unstoppable/logs.txt', $request->all(), FILE_APPEND);
+        file_put_contents('/usr/local/nginx/html/unstoppable/logs.txt', json_encode($request->all()), FILE_APPEND);
     }
 }
