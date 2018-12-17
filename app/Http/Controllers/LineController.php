@@ -36,7 +36,8 @@ class LineController extends Controller
                     $data = array();
                     $data['to'] = array($userId);
                     $data['messages'] = array('type'=>'text', 'text'=>'Push Notification test');
-                    $response = $this->buildPostRequest($data);
+                    // $response = $this->buildPostRequest($data);
+                    $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
                     Log::info(json_encode($response));
                     break;
                 
@@ -47,18 +48,24 @@ class LineController extends Controller
         }
     }
 
-    public function buildPostRequest($data)
-    {
-        $client = new Client();
-        $response = $client->request('POST', 'https://api.line.me/v2/bot/message/push', [
-            'headers'  => [
-                        'Content-Type:' => 'application/json',
-                        'Authorization:'=> 'Bearer X409cKlj1/yocH1gZDI8WnEmvbC6U8gWx7nkqBF/XlnUzfDINIUr2UXzV/C31usDdd7vWDJpLRvNP2o10kbdPU/2+ZNO6/9M0elZWa/W3t2PPeXkgOCQxco7ShHuhayKYDfaIX934VxpHtdUWCP9FgdB04t89/1O/w1cDnyilFU='
-            ],
-            'body'=> json_encode($data)
-        ]);
-        return $response;
-    }
+    // public function post($url, array $data, array $headers = null)
+    // {
+    //     $headers = is_null($headers) ? ['Content-Type: application/json; charset=utf-8'] : $headers;
+    //     return $this->sendRequest('POST', $url, $headers, $data);
+    // }
+
+    // public function buildPostRequest($data)
+    // {
+    //     $client = new Client();
+    //     $response = $client->request('POST', 'https://api.line.me/v2/bot/message/push', [
+    //         'headers'  => [
+    //                     'Content-Type:' => 'application/json',
+    //                     'Authorization:'=> 'Bearer X409cKlj1/yocH1gZDI8WnEmvbC6U8gWx7nkqBF/XlnUzfDINIUr2UXzV/C31usDdd7vWDJpLRvNP2o10kbdPU/2+ZNO6/9M0elZWa/W3t2PPeXkgOCQxco7ShHuhayKYDfaIX934VxpHtdUWCP9FgdB04t89/1O/w1cDnyilFU='
+    //         ],
+    //         'body'=> json_encode($data)
+    //     ]);
+    //     return $response;
+    // }
 //     Array
 // (
 //     [events] => Array
