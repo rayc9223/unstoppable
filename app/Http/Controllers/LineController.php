@@ -15,6 +15,6 @@ class LineController extends Controller
 
     public function lineEvent(Request $request)
     {
-        
+        file_put_contents('/usr/local/nginx/html/unstoppable/logs.txt', $request->all(), FILE_APPEND);
     }
 }
