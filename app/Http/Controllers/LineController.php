@@ -36,7 +36,7 @@ class LineController extends Controller
             Log::info(json_encode($message));
 
             switch ($msgText) {
-                case 'push':
+                case '戰力排行':
                     $data = array();
 
                     // Use array when more than one addressee
@@ -44,6 +44,10 @@ class LineController extends Controller
 
                     // Content
                     $content = '';
+                    $users = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->get();
+                    foreach ($users as $user) {
+                        $content .= $user->gameid . '. ' . $user->capability . '\n';
+                    }
 
                     //
                     $data['messages'] = array(array('type'=>'text', 'text'=>$content));
