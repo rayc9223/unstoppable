@@ -110,7 +110,7 @@ class LineController extends Controller
 
             } elseif ($msgText == '重置門派爭奪進場狀態') {
                 if (in_array($user->uid, array(1,2,3,12,13,27,45))) {
-                    $allUsers = User::select('approx_entry_time')->get();
+                    $allUsers = User::get();
                     foreach ($allUsers as $singleUser) {
                         $singleUser->update(['approx_entry_time' => '']);
                     }
