@@ -109,7 +109,7 @@ class LineController extends Controller
                 // No replies
 
             } elseif ($msgText == '重置門派爭奪進場狀態') {
-                if(in_array($user->roles()->role, array('admin', 'leader'))) {
+                if (in_array($user->uid, array(1,2,3,12,13,27,45))) {
                     $response = $bot->replyText($replyToken, "admin | leader");
                 } else {
                     $response = $bot->replyText($replyToken, "failed");
