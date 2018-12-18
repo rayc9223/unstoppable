@@ -110,14 +110,14 @@ class LineController extends Controller
 
             // Reset Approx Entry Time
             } elseif ($msgText == '重置門派爭奪進場狀態') {
-                $response = $bot->replyText($replyToken, "請輸入: 確認清除\n以完成本次數據抺除請求");
+                $response = $bot->replyText($replyToken, "請輸入: 確認清除\n以完成本次數據抹除請求");
             } elseif ($msgText == '確認清除') {
                 if (in_array($user->uid, array(1,2,3,12,13,27,45))) {
                     $allUsers = User::get();
                     foreach ($allUsers as $singleUser) {
                         $singleUser->update(['approx_entry_time' => '']);
                     }
-                    $response = $bot->replyText($replyToken, "系統管理員: " . $user->lineid . " 送出的數據抺除請求已完成");
+                    $response = $bot->replyText($replyToken, "系統管理員: " . $user->lineid . " 送出的數據抹除請求已完成");
                 } else {
                     $response = $bot->replyText($replyToken, "該請求必需由系統管理員發起，請確認後重試");
                 }
