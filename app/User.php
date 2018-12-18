@@ -47,4 +47,17 @@ class User extends Authenticatable
     public function roles(){
         return $this->belongsToMany('App\Role', 'role_users', 'user_id', 'role_id');
     }
+
+    public function scopeByLineUserId($query, $lineUserId)
+    {
+        return $query->where('line_userid', $lineUserId);
+    }
 }
+
+
+
+
+
+
+
+

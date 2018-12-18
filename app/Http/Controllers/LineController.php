@@ -10,6 +10,7 @@ use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use \LINE\LINEBot;
 use GuzzleHttp\Client;
 use App\User;
+use App\Leave;
 
 class LineController extends Controller
 {
@@ -29,6 +30,14 @@ class LineController extends Controller
         $replyToken = $filtered['replyToken'];
         $userId = $filtered['source']['userId'];
 
+        if ($userId) {
+            $user = User::byLineUserId($userId);
+
+            if (!$user) {
+                $response = $bot->replyText($replyToken, "您的LINE_USER_ID為: " . $userId . "\n此ID尚未與門派網站帳號綁定，請聯繫門派管理員");
+            }
+        }
+
         if ($type == 'message') {
             $message = $filtered['message'];
             $msgType = $message['type'];
@@ -44,12 +53,11 @@ class LineController extends Controller
 
                 // Content
                 $content = "-門派戰力排行前15名- \n";
-                $users = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->take(15)->get();
-                foreach ($users as $user) {
-                    $content .= $user->gameid . ' - ' . $user->capability . "\n";
+                $rankings = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->take(15)->get();
+                foreach ($rankings as $ranking) {
+                    $content .= $ranking->gameid . ' - ' . $ranking->capability . "\n";
                 }
                 $data['messages'] = array(array('type'=>'text', 'text'=>$content));
-                // $response = $this->buildPostRequest($data);
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
                 // Log::info(json_encode($response));
                 // Log::info(json_encode($data));
@@ -65,29 +73,54 @@ class LineController extends Controller
                 $newCapability = explode(':', $msgText)[1];
                 if ($newCapability > 0 && $newCapability < 5000000) {
                     // Update DB
-                    $response = $bot->replyText($replyToken, "戰力更新完成，目前的戰力是: " . $newCapability);
+                    $user->capability = $newCapability;
+                    $user->save();
+                    $response = $bot->replyText($replyToken, "戰力更新完成，當前戰力: " . $newCapability);
                 } else {
                     $response = $bot->replyText($replyToken, "戰力輸入錯誤，請確認後重新輸入");
                 }
-            } elseif ($msgText == '準時參加') {
-                // Update DB
-                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已成功更新為: " . $msgText);
-            } elseif ($msgText == '晚10') {
-                // Update DB
-                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新為: 晚到10分鐘");
-            } elseif ($msgText == '晚20') {
-                // Update DB
-                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新為: 晚到11~20分鐘");
-            } elseif ($msgText == '晚30') {
-                // Update DB
-                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新為: 晚到30分鐘以上");
-            } elseif ($msgText == '請假') {
-                // Update DB(Leave)
+
+            // Approximate Entry Time
+            } elseif (in_array($msgText, array('準時', '晚10', '晚20', '晚30'))) {
+                $msgText = str_replace(array('準時', '晚10', '晚20', '晚30'), array('準時參加', '晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'), $msgText);
+                $user->approx_entry_time = $msgText;
+                $user->save();
+                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新成功為: " . $msgText);
+            
+            // Casual / Sick Leave
+            } elseif (mb_substr($msgText, 0, 3) == '請假:' || mb_substr($msgText, 0, 3) == '請假：') {
+                $user->approx_entry_time = '無法參與本次爭奪';
+                $user->save();
+                $msgText = str_replace('：', ':', $msgText);
+                $leaveReason = explode(':', $msgText)[1];
+
+                $call_leave = new Leave();
+                $call_leave->uid = $user->uid;
+                $call_leave->gameid = $user->gameid;
+                $call_leave->reason = $leaveReason ? $leaveReason : '未注明';
+                $call_leave->call_leave_time = time();
+                $call_leave->save();
+                
                 $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新為: 無法參加本次爭奪");
+
+            // Ignore messages
+            } elseif (in_array($msgText, array('請使用以下格式更新戰力(例子) 更新戰力:3560000', '
+                請輸入進場狀態（格式：準時 | 晚10 | 晚20 | 晚30 | 請假:加班）')) {
+                // No replies
+
+            } elseif ($msgText == '重置門派爭奪進場狀態') {
+                if(in_array($user->roles()->role, array('admin', 'leader'))) {
+                    $response = $bot->replyText($replyToken, "admin | leader");
+                } else {
+                    $response = $bot->replyText($replyToken, "failed");
+                }
 
             } else {
                 $response = $bot->replyText($replyToken, "歡迎使用無與倫比網站助手");
             }
+                
+            // 請協助我使用門派助手
+            // 無與倫比門派網站
         }
     }
 
@@ -124,31 +157,5 @@ class LineController extends Controller
 
 //     [destination] => U27c9098d14de1f99fd2f750548cc388d
 // )
-
-
-    // [2018-12-17 13:41:34] local.INFO: {"events":[{"type":"message","replyToken":"c4a9432fc4654838962fa0703f0b4589","source":{"userId":"U1b7997d75ba52775e41438aa1d502150","type":"user"},"timestamp":1545054386101,"message":{"type":"text","id":"9023593433979","text":"test message no.4"}}],"destination":"U27c9098d14de1f99fd2f750548cc388d"}
-
-//     [2018-12-17 13:22:34] local.INFO: {"events":[{"replyToken":"00000000000000000000000000000000","type":"message","timestamp":1545053246198,"source":{"type":"user","userId":"Udeadbeefdeadbeefdeadbeefdeadbeef"},"message":{"id":"100001","type":"text","text":"Hello, world"}},{"replyToken":"ffffffffffffffffffffffffffffffff","type":"message","timestamp":1545053246198,"source":{"type":"user","userId":"Udeadbeefdeadbeefdeadbeefdeadbeef"},"message":{"id":"100002","type":"sticker","packageId":"1","stickerId":"1"}}]}  
-
-// [2018-12-17 13:22:56] local.INFO: {"events":[{"type":"follow","replyToken":"d68a1293fffb484593837bcdf162173f","source":{"userId":"U1b7997d75ba52775e41438aa1d502150","type":"user"},"timestamp":1545053267719}],"destination":"U27c9098d14de1f99fd2f750548cc388d"}  
-
-// [2018-12-17 13:22:58] local.INFO: {"events":[{"type":"unfollow","source":{"userId":"U1b7997d75ba52775e41438aa1d502150","type":"user"},"timestamp":1545053269958}],"destination":"U27c9098d14de1f99fd2f750548cc388d"}  
-
-// [2018-12-17 13:26:54] local.INFO: {"events":[
-//     {
-//         "type":"message",
-//         "replyToken":"f89bc63504bb45cda0aac51ab9a667c2",
-//         "source":{
-//             "userId":"U1b7997d75ba52775e41438aa1d502150",
-//             "type":"user"
-//         },
-//         "timestamp":1545053506139,
-//         "message":{
-//             "type":"text",
-//             "id":"9023507402074",
-//             "text":"test message no.1"
-//         }}],
-//         "destination":"U27c9098d14de1f99fd2f750548cc388d"
-//     }
 
 }
