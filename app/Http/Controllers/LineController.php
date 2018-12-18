@@ -31,7 +31,7 @@ class LineController extends Controller
         $userId = $filtered['source']['userId'];
 
         if ($userId) {
-            $user = User::byLineUserId($userId);
+            $user = User::byLineUserId($userId)->first();
 
             if (!$user) {
                 $response = $bot->replyText($replyToken, "您的LINE_USER_ID為: " . $userId . "\n此ID尚未與門派網站帳號綁定，請聯繫門派管理員");
