@@ -110,6 +110,8 @@ class LineController extends Controller
 
             // Reset Approx Entry Time
             } elseif ($msgText == '重置門派爭奪進場狀態') {
+                $response = $bot->replyText($replyToken, "請輸入: 確認清除\n以完成本次數據抺除請求");
+            } elseif ($msgText == '確認清除') {
                 if (in_array($user->uid, array(1,2,3,12,13,27,45))) {
                     $allUsers = User::get();
                     foreach ($allUsers as $singleUser) {
