@@ -105,7 +105,7 @@ class LineController extends Controller
 
             // Ignore messages
             } elseif (in_array($msgText, array('請使用以下格式更新戰力(例子) 更新戰力:3560000', '
-                請輸入進場狀態（格式：準時 | 晚10 | 晚20 | 晚30 | 請假:加班）')) {
+                請輸入進場狀態（格式：準時 | 晚10 | 晚20 | 晚30 | 請假:加班）'))) {
                 // No replies
 
             } elseif ($msgText == '重置門派爭奪進場狀態') {
