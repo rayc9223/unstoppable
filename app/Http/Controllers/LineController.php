@@ -85,7 +85,7 @@ class LineController extends Controller
                 $msgText = str_replace(array('準時', '晚10', '晚20', '晚30'), array('準時參加', '晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'), $msgText);
                 $user->approx_entry_time = $msgText;
                 $user->save();
-                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新成功為: " . $msgText);
+                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新為: " . $msgText);
             
             // Casual / Sick Leave
             } elseif (mb_substr($msgText, 0, 3) == '請假:' || mb_substr($msgText, 0, 3) == '請假：') {
