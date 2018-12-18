@@ -110,13 +110,18 @@ class LineController extends Controller
 
             } elseif ($msgText == '重置門派爭奪進場狀態') {
                 if (in_array($user->uid, array(1,2,3,12,13,27,45))) {
-                    $response = $bot->replyText($replyToken, "admin | leader");
+                    $allUsers = User::select('approx_entry_time')->get();
+                    foreach ($allUsers as $singleUser) {
+                        $singleUser->approx_entry_time = '';
+                        $singleUser->save();
+                    }
+                    $response = $bot->replyText($replyToken, "系統管理員: " . $user->lineid . " 送出的數據抺除請求已完成");
                 } else {
-                    $response = $bot->replyText($replyToken, "failed");
+                    $response = $bot->replyText($replyToken, "該請求必需由管理員發起，請確認後重試");
                 }
 
             } else {
-                $response = $bot->replyText($replyToken, "歡迎使用無與倫比網站助手");
+                $response = $bot->replyText($replyToken, "");
             }
                 
             // 請協助我使用門派助手
