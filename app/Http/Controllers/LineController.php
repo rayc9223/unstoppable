@@ -108,6 +108,7 @@ class LineController extends Controller
                 請輸入進場狀態（格式：準時 | 晚10 | 晚20 | 晚30 | 請假:加班）'))) {
                 // No replies
 
+            // Reset Approx Entry Time
             } elseif ($msgText == '重置門派爭奪進場狀態') {
                 if (in_array($user->uid, array(1,2,3,12,13,27,45))) {
                     $allUsers = User::get();
@@ -116,15 +117,22 @@ class LineController extends Controller
                     }
                     $response = $bot->replyText($replyToken, "系統管理員: " . $user->lineid . " 送出的數據抺除請求已完成");
                 } else {
-                    $response = $bot->replyText($replyToken, "該請求必需由管理員發起，請確認後重試");
+                    $response = $bot->replyText($replyToken, "該請求必需由系統管理員發起，請確認後重試");
                 }
+
+            // Website Link
+            } elseif ($msgText == '無與倫比門派網站') {
+                $response = $bot->replyText($replyToken, "https://unstoppable1122.com");
+
+            // Help Information
+            } elseif ($msgText == '請協助我使用門派助手') {
+                $response = $bot->replyText($replyToken, "門派助手指令列表:（測試版本待更新）");
 
             } else {
                 $response = $bot->replyText($replyToken, "");
             }
                 
-            // 請協助我使用門派助手
-            // 無與倫比門派網站
+            // 
         }
     }
 
