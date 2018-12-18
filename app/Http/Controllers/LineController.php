@@ -110,7 +110,10 @@ class LineController extends Controller
 
             } elseif ($msgText == '重置門派爭奪進場狀態') {
                 if (in_array($user->uid, array(1,2,3,12,13,27,45))) {
-                    $allUsers = User::update(['approx_entry_time' => '']);
+                    $allUsers = User::select('approx_entry_time')->get();
+                    foreach ($allUsers as $singleUser) {
+                        $singleUser->update(['approx_entry_time' => '']);
+                    }
                     $response = $bot->replyText($replyToken, "系統管理員: " . $user->lineid . " 送出的數據抺除請求已完成");
                 } else {
                     $response = $bot->replyText($replyToken, "該請求必需由管理員發起，請確認後重試");
