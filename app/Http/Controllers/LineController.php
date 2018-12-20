@@ -143,7 +143,7 @@ class LineController extends Controller
                 $linmoTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '蓮慕城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '<>', '無法參與本次爭奪']])->count();
                 $choiloTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '<>', '無法參與本次爭奪']])->count();
 
-                $response = $bot->replyText($replyToken, "未設定進場狀態({$memberCount}): \n{$memberList}\n\n各分組登記狀態: \n鬼怪組: {$buffTeamCount}\n丹紅: {$tanhungTeamCount}\n大豪: {$taihoTeamCount}\n蓮慕: {$linmoTeamCount}\n塞羅: {$choiloTeamCount}");
+                $response = $bot->replyText($replyToken, "未設定進場狀態({$memberCount}): \n{$memberList}\n各分組登記狀態: \n鬼怪組: {$buffTeamCount}\n丹紅: {$tanhungTeamCount}\n大豪: {$taihoTeamCount}\n蓮慕: {$linmoTeamCount}\n塞羅: {$choiloTeamCount}");
 
             /*
              * ===============================
