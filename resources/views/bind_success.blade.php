@@ -3,8 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>無與倫比 | 夜雨花落 門派專頁</title>
+        <title>登記連動成功</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -24,13 +25,12 @@
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
-                padding-top: 80px;
-                /*height: 100vh;*/
+                height: 100vh;
                 margin: 0;
             }
 
             .full-height {
-                /*height: 100vh;*/
+                height: 100vh;
             }
 
             .flex-center {
@@ -60,7 +60,7 @@
 
             .links > a {
                 color: #636b6f;
-                padding: 0 20px;
+                padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
                 letter-spacing: .1rem;
@@ -77,21 +77,22 @@
         <div class="flex-center position-ref full-height">
             @csrf
             <div class="content">
-                <img src="/images/final_blade_title.png" class="img-fluid">
+                <img src="/images/final_blade_title.png" class="img-fluid" width="50%">
                 <div class="title m-b-md">
-                    歡迎來到<br>無與倫比 | 夜雨花落
+                    登記LINE連動成功
                 </div>
+                <i class="fas fa-check-circle lg text-success" style="font-size: 80px;"></i><br>
+                <div style="height: 40px;"></div>
+                您已成功將LINE助手與本網站連動
+
+                <div style="height: 40px;"></div>
 
                 <div class="links">
-                    @if(Auth::user())
-                        <a href="{{ url('index') }}"><i class="fas fa-home"></i> 首頁</a>
-                        <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>
-                    @else
-                        <a href="{{ url('login') }}"><i class="fas fa-sign-in-alt"></i> 會員登入</a>
-                        <a href="{{ url('register/show')}}"><i class="fas fa-hands-helping"></i> 加入我們</a>
-                    @endif
-                    <a href="{{ url('contact_us')}}"><i class="fas fa-envelope"></i> 聯繫我們</a>
+                    <a href="{{ url('index') }}"><i class="fas fa-home"></i> 門派首頁</a>
+                    <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>
                 </div>
+
+                <div style="height: 50px;"></div>
             </div>
         </div>
     </body>

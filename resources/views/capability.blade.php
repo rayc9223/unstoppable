@@ -156,6 +156,7 @@
                 <a href="{{ url('index') }}" class="dropdown-item"><i class="fas fa-home"></i> 回到首頁</a>
                     @if(Session::get('uid'))
                         <a href="{{ url('account', Session::get('uid')) }}" class="dropdown-item"><i class="fas fa-user-cog"></i> 個人設定</a>
+                        <a href="{{ url('line_binding') }}" class="dropdown-item"><i class="fab fa-line"></i></i> 登記LINE連動</a>
                         
                         <div class="dropdown-divider"></div>
 

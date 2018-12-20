@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Auth;
+use Session;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
@@ -14,6 +16,47 @@ use App\Leave;
 
 class LineController extends Controller
 {
+    public function showBinding()
+    {
+        if (Auth::user()) {
+            $user = User::find(Auth::user()->uid);
+            $lineUserId = $user->line_userid ? $user->line_userid : '未設定';
+            return view('line_binding', ['line_userid' => $lineUserId]);
+        } else {
+            return redirect('login');
+        }
+    }
+
+    public function bind(Request $request)
+    {
+        if (Auth::user()) {
+            if (!$request->filled('line_userid')) {
+                Session::flash('error_msg','請填寫 LINE USER ID');
+                return back()->withInput($request->input());
+            }
+
+            if (strlen($request->line_userid) < 33 ) {
+                Session::flash('error_msg','LINE USER ID 長度不正確，請確認後重試');
+                return back()->withInput($request->input());
+            }
+
+            if (substr($request->line_userid, 0, 1) <> 'U') {
+                Session::flash('error_msg','LINE USER ID 格式不符，請確認後重試');
+                return back()->withInput($request->input());
+            }
+            $user = User::find(Auth::user()->uid);
+            $user->line_userid = $request->line_userid;
+            $user->save();
+            return redirect('bind_success');
+        } else {
+            return redirect('login');
+        }
+    }
+
+    public function bindSuccess()
+    {
+        return view('bind_success');
+    }
 
     public function lineEvent(Request $request)
     {
@@ -25,6 +68,8 @@ class LineController extends Controller
 
         Log::info(json_encode($request->all()));
         $events = $request->all();
+        // Looping Needed?
+        Log::info(json_encode($events));
         $filtered = $events['events'][0];
         $type = $filtered['type'];
         $replyToken = $filtered['replyToken'];
@@ -44,24 +89,67 @@ class LineController extends Controller
             $msgText = $message['text'];
             Log::info(json_encode($message));
 
+            /*
+             * ===============================
+             * Category Query
+             * ===============================
+             */
             // Ranking
             if ($msgText == '戰力排行') {
                 $data = array();
-
                 // Use array when more than one addressee
                 $data['to'] = $userId;
-
                 // Content
                 $content = "-門派戰力排行前15名- \n";
                 $rankings = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->take(15)->get();
                 foreach ($rankings as $ranking) {
-                    $content .= $ranking->gameid . ' - ' . $ranking->capability . "\n";
+                    $content .= "{$ranking->gameid} - {$ranking->capability} \n";
                 }
                 $data['messages'] = array(array('type'=>'text', 'text'=>$content));
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
                 // Log::info(json_encode($response));
                 // Log::info(json_encode($data));
 
+            // Rolls Available
+            } elseif ($msgText == '爭奪卷數') {
+                $response = $bot->replyText($replyToken, "{$user->lineid} 當前登記門派爭奪卷數: {$user->roll_qty}");
+
+            // User Capability
+            } elseif ($msgText == '戰力') {
+                $response = $bot->replyText($replyToken, "{$user->lineid} 當前登記戰力: {$user->capability}");
+
+            // User Level
+            } elseif ($msgText == '等級') {
+                $response = $bot->replyText($replyToken, "{$user->lineid} 當前登記等級: {$user->level}");
+
+            // User Approx Entry Time
+            } elseif ($msgText == '進場狀態') {
+                $status = $user->approx_entry_time ? $user->approx_entry_time : '未設定';
+                $response = $bot->replyText($replyToken, "{$user->lineid} 當前登記進場狀態: {$status}");
+
+            // Approx Entry Time empty member list
+            } elseif ($msgText == '進場統計') {
+                $members = User::where([['guild','無與倫比'],['approx_entry_time', '']])->get();
+                $memberCount = $members->count();
+                $memberList = '';
+                foreach ($members as $member) {
+                    $memberList .= "{$member->lineid}\n";
+                }
+                $response = $bot->replyText($replyToken, "未設定進場狀態({$memberCount}): \n{$memberList}");
+
+                $buffTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '<>', '無法參與本次爭奪']])->count();
+                $tanhungTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '丹紅城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '<>', '無法參與本次爭奪']])->count();
+                $taihoTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '大豪城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '<>', '無法參與本次爭奪']])->count();
+                $linmoTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '蓮慕城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '<>', '無法參與本次爭奪']])->count();
+                $choiloTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '<>', '無法參與本次爭奪']])->count();
+
+                $response = $bot->replyText($replyToken, "各分組登記狀態: \n鬼怪組: {$buffTeamCount}\n丹紅: {$tanhungTeamCount}\n大豪: {$taihoTeamCount}\n蓮慕: {$linmoTeamCount}\n塞羅: {$choiloTeamCount}");
+
+            /*
+             * ===============================
+             * Category Update
+             * ===============================
+             */
             // Inform format
             } elseif ($msgText == '更新戰力') {
                 $response = $bot->replyText($replyToken, "請使用以下格式更新戰力(例子)\n更新戰力:3560000");
@@ -75,9 +163,22 @@ class LineController extends Controller
                     // Update DB
                     $user->capability = $newCapability;
                     $user->save();
-                    $response = $bot->replyText($replyToken, "戰力更新完成，當前戰力: " . $newCapability);
+                    $response = $bot->replyText($replyToken, "戰力更新完成，當前戰力: {$newCapability}");
                 } else {
                     $response = $bot->replyText($replyToken, "戰力輸入錯誤，請確認後重新輸入");
+                }
+
+            // Available Rolls
+            } elseif (mb_substr($msgText, 0, 5) == '更新卷數:' || mb_substr($msgText, 0, 5) == '更新卷數：') {
+                $msgText = str_replace('：', ':', $msgText);
+                $newRollQty = explode(':', $msgText)[1];
+                if ($newRollQty > 0 && $newRollQty < 500) {
+                    // Update DB
+                    $user->roll_qty = $newRollQty;
+                    $user->save();
+                    $response = $bot->replyText($replyToken, "門派爭奪卷數更新完成，當前數量: {$newRollQty}");
+                } else {
+                    $response = $bot->replyText($replyToken, "爭奪卷數量輸入錯誤，請確認後重新輸入");
                 }
 
             // Approximate Entry Time
@@ -85,7 +186,7 @@ class LineController extends Controller
                 $msgText = str_replace(array('準時', '晚10', '晚20', '晚30'), array('準時參加', '晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'), $msgText);
                 $user->approx_entry_time = $msgText;
                 $user->save();
-                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新為: " . $msgText);
+                $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新為: {$msgText}");
             
             // Casual / Sick Leave
             } elseif (mb_substr($msgText, 0, 3) == '請假:' || mb_substr($msgText, 0, 3) == '請假：') {
@@ -117,7 +218,7 @@ class LineController extends Controller
                     foreach ($allUsers as $singleUser) {
                         $singleUser->update(['approx_entry_time' => '']);
                     }
-                    $response = $bot->replyText($replyToken, "系統管理員: " . $user->lineid . " 送出的數據抹除請求已完成");
+                    $response = $bot->replyText($replyToken, "系統管理員: {$user->lineid} 送出的數據抹除請求已完成");
                 } else {
                     $response = $bot->replyText($replyToken, "該請求必需由系統管理員發起，請確認後重試");
                 }
@@ -133,43 +234,7 @@ class LineController extends Controller
             } else {
                 $response = $bot->replyText($replyToken, "");
             }
-                
-            // 
         }
+        return response('OK', 200);
     }
-
-    // public function post($url, array $data, array $headers = null)
-    // {
-    //     $headers = is_null($headers) ? ['Content-Type: application/json; charset=utf-8'] : $headers;
-    //     return $this->sendRequest('POST', $url, $headers, $data);
-    // }
-//     Array
-// (
-//     [events] => Array
-//         (
-//             [0] => Array
-//                 (
-//                     [type] => message
-//                     [replyToken] => c4a9432fc4654838962fa0703f0b4589
-//                     [source] => Array
-//                         (
-//                             [userId] => U1b7997d75ba52775e41438aa1d502150
-//                             [type] => user
-//                         )
-
-//                     [timestamp] => 1545054386101
-//                     [message] => Array
-//                         (
-//                             [type] => text
-//                             [id] => 9023593433979
-//                             [text] => test message no.4
-//                         )
-
-//                 )
-
-//         )
-
-//     [destination] => U27c9098d14de1f99fd2f750548cc388d
-// )
-
 }

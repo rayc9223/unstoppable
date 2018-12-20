@@ -109,6 +109,12 @@ Route::get('deleted', 'DeleteController@deleted');
 Route::get('line_event', 'LineController@index');
 Route::post('line_event', 'LineController@lineEvent');
 
+// LINE Binding
+Route::get('line_binding', 'LineController@showBinding');
+Route::post('line_binding', 'LineController@bind');
+
+Route::get('bind_success', 'LineController@bindSuccess');
+
 
 
 

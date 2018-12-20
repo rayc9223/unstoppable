@@ -128,7 +128,13 @@
                 <div style="height: 20px;"></div>
 
                 <div class="links">
-                    <a href="{{ url('login') }}"><i class="fas fa-sign-in-alt"></i> 會員登入</a>
+                    @if(Auth::user())
+                        <a href="{{ url('index') }}"><i class="fas fa-home"></i> 首頁</a>
+                        <a href="{{ url('logout') }}"><i class="fas fa-sign-out-alt"></i> 登出賬號</a>
+                    @else
+                        <a href="{{ url('login') }}"><i class="fas fa-sign-in-alt"></i> 會員登入</a>
+                        <a href="{{ url('contact_us')}}"><i class="fas fa-envelope"></i> 聯繫我們</a>
+                    @endif
                 </div>
 
                 <div style="height: 50px;"></div>
