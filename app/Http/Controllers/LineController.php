@@ -229,7 +229,23 @@ class LineController extends Controller
 
             // Help Information
             } elseif ($msgText == '請協助我使用門派助手') {
-                $response = $bot->replyText($replyToken, "門派助手指令列表:（測試版本待更新）");
+                $response = $bot->replyText($replyToken, "門派助手指令列表: \n
+                    --- 查詢類 ---\n
+                    戰力排行\n
+                    爭奪卷數\n
+                    戰力\n
+                    等級\n
+                    進場狀態\n
+                    進場統計\n\n
+                    
+                    --- 設定類 ---\n
+                    更新戰力:{數值}\n
+                    更新卷數:{數值}\n
+                    準時\n
+                    晚10\n
+                    晚20\n
+                    晚30\n
+                    請假:{事由}\n");
 
             } else {
                 $response = $bot->replyText($replyToken, "");
