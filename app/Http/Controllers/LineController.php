@@ -20,7 +20,7 @@ class LineController extends Controller
     {
         if (Auth::user()) {
             $user = User::find(Auth::user()->uid);
-            $lineUserId = $user->line_userid ? $user->line_userid : '未設定';
+            $lineUserId = $user->line_userid ? $user->line_userid : '';
             return view('line_binding', ['line_userid' => $lineUserId]);
         } else {
             return redirect('login');
@@ -229,23 +229,7 @@ class LineController extends Controller
 
             // Help Information
             } elseif ($msgText == '請協助我使用門派助手') {
-                $response = $bot->replyText($replyToken, "門派助手指令列表: \n
-                    --- 查詢類 ---\n
-                    戰力排行\n
-                    爭奪卷數\n
-                    戰力\n
-                    等級\n
-                    進場狀態\n
-                    進場統計\n\n
-                    
-                    --- 設定類 ---\n
-                    更新戰力:{數值}\n
-                    更新卷數:{數值}\n
-                    準時\n
-                    晚10\n
-                    晚20\n
-                    晚30\n
-                    請假:{事由}\n");
+                $response = $bot->replyText($replyToken, "門派助手指令列表: \n--- 查詢類 ---\n戰力排行\n爭奪卷數\n戰力\n等級\n進場狀態\n進場統計\n\n--- 設定類 ---\n更新戰力:{數值}\n更新卷數:{數值}\n準時\n晚10\n晚20\n晚30\n請假:{事由}\n");
 
             } else {
                 $response = $bot->replyText($replyToken, "");
