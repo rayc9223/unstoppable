@@ -19,7 +19,7 @@ class IndexController extends Controller
 {
     public function index(){
         if(Auth::user()){
-            $user = User::find(Auth::user()->uid);
+            $user = Auth::user();
             return view('index', ['user'=>$user]);
         }else{
             return redirect('login');
@@ -222,7 +222,7 @@ class IndexController extends Controller
             return back()->withInput($request->input());
         }
 
-        $author = User::find(Auth::user()->uid)->lineid;
+        $author = Auth::user()->lineid;
 
         $announcement = new Announcement();
         $announcement->type = $request->type;

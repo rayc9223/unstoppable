@@ -19,7 +19,7 @@ class LineController extends Controller
     public function showBinding()
     {
         if (Auth::user()) {
-            $user = User::find(Auth::user()->uid);
+            $user = Auth::user();
             $lineUserId = $user->line_userid ? $user->line_userid : '';
             return view('line_binding', ['line_userid' => $lineUserId]);
         } else {
@@ -44,10 +44,14 @@ class LineController extends Controller
                 Session::flash('error_msg','LINE USER ID 格式不符，請確認後重試');
                 return back()->withInput($request->input());
             }
-            $user = User::find(Auth::user()->uid);
-            $user->line_userid = $request->line_userid;
-            $user->save();
-            return redirect('bind_success');
+            $user = Auth::user();
+            if ($user) {
+                $user->line_userid = $request->line_userid;
+                $user->save();
+                return redirect('bind_success');
+            } else {
+                return redirect('login');
+            }
         } else {
             return redirect('login');
         }
