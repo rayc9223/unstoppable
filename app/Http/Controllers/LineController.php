@@ -119,8 +119,35 @@ class LineController extends Controller
                 $data = array();
                 // Use array when more than one addressee
                 $data['to'] = $userId;
-                $data['messages'] = array('type'=>'flex', 'altText'=>'this is a flex message', 'contents'=>array('type' => 'bubble', 'layout' => 'vertical', 'contents' => array('type' => 'text', 'text' => 'hello'), array('type'=>'text', 'text'=>'world')));
-                $response = $bot->replyText($replyToken, $data);
+                $data['messages'] = array(array('type'=>'flex', 'altText'=>'this is a flex message', 'contents'=>array('type' => 'bubble', 'layout' => 'vertical', 'contents' => array('type' => 'text', 'text' => 'hello'), array('type'=>'text', 'text'=>'world'))));
+                $response = $client->post('https://api.line.me/v2/bot/message/push', json_encode($data));
+
+            // {
+            //   "to": "U1b7997d75ba52775e41438aa1d502150",
+            //   "messages": [
+            //     {
+            //       "type": "flex",
+            //       "altText": "This is a Flex Message",
+            //       "contents": {
+            //         "type": "bubble",
+            //         "body": {
+            //           "type": "box",
+            //           "layout": "horizontal",
+            //           "contents": [
+            //             {
+            //               "type": "text",
+            //               "text": "Hello,"
+            //             },
+            //             {
+            //               "type": "text",
+            //               "text": "World!"
+            //             }
+            //           ]
+            //         }
+            //       }
+            //     }
+            //   ]
+            // }'
 
                 // {  
                 //   "type": "flex",
