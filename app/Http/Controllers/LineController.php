@@ -119,132 +119,64 @@ class LineController extends Controller
                 $data = array();
                 // Use array when more than one addressee
                 $data['to'] = $userId;
-                $data['messages'] = array(
-                        array(
+                $data['messages'] = [
+                        [
                             'type' => 'flex', 
-                            'header' => array(
-                                'type' => 'box',
-                                'layout' => 'vertical', 
-                                'contents' => array(
-                                    'type' => 'text', 
-                                    'text' => 'Capability Ranking',
-                                    'size' => 'xl',
-                                    'weight' => 'bold'
-                                ),
-                                'hero' => array(
-                                    'type' => 'image',
-                                    'url' => 'https://sitthi.me:3807/static/fifa.jpg',
-                                    'size' => 'full',
-                                    'aspectRatio' => '20:13',
-                                    'aspectMode' => 'cover'
-                                ),
-                                'body' => array(
-                                    'type' => 'box',
-                                    'layout' => 'vertical',
-                                    'spacing' => 'md',
-                                    'contents' => array(
-                                        array(
-                                            'type' => 'box',
-                                            'text' => 'LIVE',
-                                            'size' => 'lg',
-                                            'color' => '#555555',
-                                            'weight' => 'bold',
-                                            'align' => 'center'
-                                        ),
-                                    )
-                                ),
-                            )
-                        )
-                    );
+                            'contents' => [
+                                   ['type' => 'bubble',
+                                    'hero' => [
+                                        'type' => 'https://unstoppable1122.com/images/xxx.png',
+                                        'size' => 'full',
+                                        'aspectRatio' => '20:4',
+                                        'aspectMode' => 'cover'
+                                    ],
+                                    'body' => [
+                                        'type' => 'box',
+                                        'layout' => 'vertical',
+                                        'spacing' => 'md',
+                                        'contents' => [
+                                            [
+                                                'type' => 'text',
+                                                'text' => '戰力排行',
+                                                'size' => 'md',
+                                                'weight' => 'bold'
+                                            ],
+                                            [
+                                                'type' => 'box',
+                                                'layout' => 'vertical',
+                                                'spacing' => 'none',
+                                                'contents' => [
+                                                    [
+                                                        'type' => 'box',
+                                                        'layout' => 'baseline',
+                                                        'contents' => [
+                                                            [
+                                                                'type' => 'text',
+                                                                'text' => 'rayc9223',
+                                                                'size' => 'sm',
+                                                                'weight' => 'bold',
+                                                                'align' => 'start'
+                                                            ],
+                                                            [
+                                                                'type' => 'text',
+                                                                'text' => '3,680,000',
+                                                                'size' => 'md',
+                                                                'align' => 'end',
+                                                                'weight' => 'bold',
+                                                                'color' => '#FF0000'
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ];
                                 
-                
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
-
-            // {
-            //   "to": "U1b7997d75ba52775e41438aa1d502150",
-            //   "messages": [
-            //     {
-            //       "type": "flex",
-            //       "altText": "This is a Flex Message",
-            //       "contents": {
-            //         "type": "bubble",
-            //         "body": {
-            //           "type": "box",
-            //           "layout": "horizontal",
-            //           "contents": [
-            //             {
-            //               "type": "text",
-            //               "text": "Hello,"
-            //             },
-            //             {
-            //               "type": "text",
-            //               "text": "World!"
-            //             }
-            //           ]
-            //         }
-            //       }
-            //     }
-            //   ]
-            // }'
-
-                // {  
-                //   "type": "flex",
-                //   "altText": "this is a flex message",
-                //   "contents": {
-                //     "type": "bubble",
-                //     "body": {
-                //       "type": "box",
-                //       "layout": "vertical",
-                //       "contents": [
-                //         {
-                //           "type": "text",
-                //           "text": "hello"
-                //         },
-                //         {
-                //           "type": "text",
-                //           "text": "world"
-                //         }
-                //       ]
-                //     }
-                //   }
-                // }
-                // $data = json_decode('{
-                //   "type": "template",
-                //   "altText": "This is a buttons template",
-                //   "template": {
-                //       "type": "buttons",
-                //       "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
-                //       "imageAspectRatio": "rectangle",
-                //       "imageSize": "cover",
-                //       "imageBackgroundColor": "#FFFFFF",
-                //       "title": "Menu",
-                //       "text": "Please select",
-                //       "defaultAction": {
-                //           "type": "uri",
-                //           "label": "View detail",
-                //           "uri": "http://example.com/page/123"
-                //       },
-                //       "actions": [
-                //           {
-                //             "type": "postback",
-                //             "label": "Buy",
-                //             "data": "action=buy&itemid=123"
-                //           },
-                //           {
-                //             "type": "postback",
-                //             "label": "Add to cart",
-                //             "data": "action=add&itemid=123"
-                //           },
-                //           {
-                //             "type": "uri",
-                //             "label": "View detail",
-                //             "uri": "http://example.com/page/123"
-                //           }
-                //       ]
-                //   }
-                // }', true);
-                // $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
-
 
             // Rolls Available
             } elseif ($msgText == '爭奪卷數') {
