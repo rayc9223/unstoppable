@@ -125,7 +125,7 @@ class LineController extends Controller
                             'contents' => [
                                    ['type' => 'bubble',
                                     'hero' => [
-                                        'type' => 'https://unstoppable1122.com/images/xxx.png',
+                                        'type' => 'https://unstoppable1122.com/images/yuek_kei.png',
                                         'size' => 'full',
                                         'aspectRatio' => '20:4',
                                         'aspectMode' => 'cover'
