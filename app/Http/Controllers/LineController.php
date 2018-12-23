@@ -279,8 +279,7 @@ class LineController extends Controller
       }
     ]
   }
-}
-view rawworldcup_menu.json hosted with ❤ by GitHub'), true);
+}'), true);
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
 
             // {
