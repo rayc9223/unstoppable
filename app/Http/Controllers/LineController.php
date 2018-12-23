@@ -119,41 +119,64 @@ class LineController extends Controller
                 $data = array();
                 // Use array when more than one addressee
                 $data['to'] = $userId;
-                $data = json_decode('{
-                  "type": "template",
-                  "altText": "This is a buttons template",
-                  "template": {
-                      "type": "buttons",
-                      "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
-                      "imageAspectRatio": "rectangle",
-                      "imageSize": "cover",
-                      "imageBackgroundColor": "#FFFFFF",
-                      "title": "Menu",
-                      "text": "Please select",
-                      "defaultAction": {
-                          "type": "uri",
-                          "label": "View detail",
-                          "uri": "http://example.com/page/123"
-                      },
-                      "actions": [
-                          {
-                            "type": "postback",
-                            "label": "Buy",
-                            "data": "action=buy&itemid=123"
-                          },
-                          {
-                            "type": "postback",
-                            "label": "Add to cart",
-                            "data": "action=add&itemid=123"
-                          },
-                          {
-                            "type": "uri",
-                            "label": "View detail",
-                            "uri": "http://example.com/page/123"
-                          }
-                      ]
-                  }
-                }', true);
+                $data['messages'] = array(array('type'=>'flex', 'altText'=>'this is a flex message', 'contents'=>array('type' => 'bubble', 'layout' => 'vertical', 'contents' => array('type' => 'text', 'text' => 'hello'), array('type'=>'text', 'text'=>'world'))));
+
+                // {  
+                //   "type": "flex",
+                //   "altText": "this is a flex message",
+                //   "contents": {
+                //     "type": "bubble",
+                //     "body": {
+                //       "type": "box",
+                //       "layout": "vertical",
+                //       "contents": [
+                //         {
+                //           "type": "text",
+                //           "text": "hello"
+                //         },
+                //         {
+                //           "type": "text",
+                //           "text": "world"
+                //         }
+                //       ]
+                //     }
+                //   }
+                // }
+                // $data = json_decode('{
+                //   "type": "template",
+                //   "altText": "This is a buttons template",
+                //   "template": {
+                //       "type": "buttons",
+                //       "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+                //       "imageAspectRatio": "rectangle",
+                //       "imageSize": "cover",
+                //       "imageBackgroundColor": "#FFFFFF",
+                //       "title": "Menu",
+                //       "text": "Please select",
+                //       "defaultAction": {
+                //           "type": "uri",
+                //           "label": "View detail",
+                //           "uri": "http://example.com/page/123"
+                //       },
+                //       "actions": [
+                //           {
+                //             "type": "postback",
+                //             "label": "Buy",
+                //             "data": "action=buy&itemid=123"
+                //           },
+                //           {
+                //             "type": "postback",
+                //             "label": "Add to cart",
+                //             "data": "action=add&itemid=123"
+                //           },
+                //           {
+                //             "type": "uri",
+                //             "label": "View detail",
+                //             "uri": "http://example.com/page/123"
+                //           }
+                //       ]
+                //   }
+                // }', true);
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
 
 
