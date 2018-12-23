@@ -99,23 +99,26 @@ class LineController extends Controller
              * ===============================
              */
             // Ranking
-            if ($msgText == '戰力排行') {
-                $data = array();
-                // Use array when more than one addressee
-                $data['to'] = $userId;
-                // Content
-                $content = "-門派戰力排行前15名- \n";
-                $rankings = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->take(15)->get();
-                foreach ($rankings as $ranking) {
-                    $content .= "{$ranking->gameid} - {$ranking->capability} \n";
-                }
-                $data['messages'] = array(array('type'=>'text', 'text'=>$content));
-                $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
+            if ($msgText == 'test') {
+                
+
+            // Flex messages test
+            } elseif ($msgText == '戰力排行') {
+                // Old version of Ranking list
+                // $data = array();
+                // // Use array when more than one addressee
+                // $data['to'] = $userId;
+                // // Content
+                // $content = "-門派戰力排行前15名- \n";
+                // $rankings = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->take(15)->get();
+                // foreach ($rankings as $ranking) {
+                //     $content .= "{$ranking->gameid} - {$ranking->capability} \n";
+                // }
+                // $data['messages'] = array(array('type'=>'text', 'text'=>$content));
+                // $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
                 // Log::info(json_encode($response));
                 // Log::info(json_encode($data));
 
-            // Flex messages test
-            } elseif ($msgText == 'test') {
                 $data = array();
                 // Use array when more than one addressee
                 $data['to'] = $userId;
