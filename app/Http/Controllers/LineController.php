@@ -121,7 +121,7 @@ class LineController extends Controller
                 $data['to'] = $userId;
                 $data['messages'] = array(
                         array(
-                            'type' => 'bubble', 
+                            'type' => 'flex', 
                             'header' => array(
                                 'type' => 'box',
                                 'layout' => 'vertical', 
