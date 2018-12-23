@@ -116,6 +116,9 @@ class LineController extends Controller
 
             // Flex messages test
             } elseif ($msgText == 'test') {
+                $data = array();
+                // Use array when more than one addressee
+                $data['to'] = $userId;
                 $data = json_decode('{
                   "type": "template",
                   "altText": "This is a buttons template",
