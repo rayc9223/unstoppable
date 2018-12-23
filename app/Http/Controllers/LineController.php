@@ -140,7 +140,8 @@ class LineController extends Controller
                                     )
                                 )
                             )
-                        );
+                        )
+                    );
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
 
             // {
