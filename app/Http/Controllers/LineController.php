@@ -116,7 +116,7 @@ class LineController extends Controller
 
             // Flex messages test
             } elseif ($msgText == 'test') {
-                $data = '{
+                $data = json_decode('{
                   "type": "template",
                   "altText": "This is a buttons template",
                   "template": {
@@ -150,7 +150,7 @@ class LineController extends Controller
                           }
                       ]
                   }
-                }';
+                }');
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
 
 
