@@ -119,7 +119,7 @@ class LineController extends Controller
                 $data = array();
                 // Use array when more than one addressee
                 $data['to'] = $userId;
-                $data['messages'] = array(array('type'=>'flex', 'altText'=>'this is a flex message', 'contents'=>array('type' => 'bubble', 'layout' => 'vertical', 'contents' => array('type' => 'text', 'text' => 'hello'), array('type'=>'text', 'text'=>'world'))));
+                $data['messages'] = array('type'=>'flex', 'altText'=>'this is a flex message', 'contents'=>array('type' => 'bubble', 'layout' => 'vertical', 'contents' => array('type' => 'text', 'text' => 'hello'), array('type'=>'text', 'text'=>'world')));
 
                 // {  
                 //   "type": "flex",
