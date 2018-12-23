@@ -127,7 +127,7 @@ class LineController extends Controller
                                 'type' => 'bubble', 
                                 'body' => array(
                                     'type' => 'box',
-                                    'layout' => 'horizontal',
+                                    'layout' => 'vertical',
                                     'contents' => array(
                                         array(
                                           'type' => 'text', 
