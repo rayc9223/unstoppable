@@ -120,6 +120,7 @@ class LineController extends Controller
                 // Use array when more than one addressee
                 $data['to'] = $userId;
                 $data['messages'] = array('type'=>'flex', 'altText'=>'this is a flex message', 'contents'=>array('type' => 'bubble', 'layout' => 'vertical', 'contents' => array('type' => 'text', 'text' => 'hello'), array('type'=>'text', 'text'=>'world')));
+                $response = $bot->replyText($replyToken, $data);
 
                 // {  
                 //   "type": "flex",
@@ -177,7 +178,7 @@ class LineController extends Controller
                 //       ]
                 //   }
                 // }', true);
-                $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
+                // $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
 
 
             // Rolls Available
