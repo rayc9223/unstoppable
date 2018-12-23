@@ -121,7 +121,7 @@ class LineController extends Controller
                 $data['to'] = $userId;
                 $jsonTemplate = '{"type":"bubble","hero":{"type":"image","url":"https:\/\/unstoppable1122.com\/images\/yuek_kei.png","size":"full","aspectRatio":"20:4","aspectMode":"cover"},"body":{"type":"box","layout":"vertical","spacing":"md","contents":[{"type":"text","text":"\u6230\u529b\u6392\u884c","size":"md","weight":"bold"},%s]},"footer":{"type":"box","layout":"vertical","contents":[{"type":"spacer","size":"sm"}]}}';
 
-                $rankings = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->take(15)->get();
+                $rankings = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->get();
 
                 $content = '';
                 foreach ($rankings as $ranking) {
@@ -136,32 +136,7 @@ class LineController extends Controller
                     } else {
                         $color = '#2980b9';
                     }
-                    $content .= `{
-                    "type":"box",
-                    "layout":"vertical",
-                    "spacing":"none",
-                    "contents":[
-                    {
-                        "type":"box",
-                        "layout":"baseline",
-                        "contents":[
-                        {
-                            "type":"text",
-                            "text":"{$ranking->gameid}",
-                            "size":"sm",
-                            "weight":"bold",
-                            "align":"start",
-                            "margin":"none"
-                        },
-                        {
-                            "type":"text",
-                            "text":"{$ranking->capability}",
-                            "size":"md",
-                            "align":"end",
-                            "weight":"bold",
-                            "color":"{$color}"
-                        }
-                    ]}]},`;
+                    $content .= '{"type":"box","layout":"vertical","spacing":"none","contents":[{"type":"box","layout":"baseline","contents":[{"type":"text","text":"' . $ranking->gameid . '","size":"sm","weight":"bold","align":"start","margin":"none"},{"type":"text","text":"' . $ranking->capability . '","size":"md","align":"end","weight":"bold","color":"' . $color . '"}]}]},';
                 }
                 $content = rtrim($content, ',');
                 $json = sprintf($jsonTemplate, $content);
