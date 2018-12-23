@@ -79,9 +79,9 @@ class TestController extends Controller
         // $data['to'] = 'U1b7997d75ba52775e41438aa1d502150';
         // $data['messages'] = [['type'=>'flex', 'altText' => 'this is a flex message', 'contents'=>json_decode($json, true)]];
         // $data = json_decode($json, true);
-        $jsonTemplate = '{"type":"bubble","hero":{"type":"image","url":"https:\/\/unstoppable1122.com\/images\/yuek_kei.png","size":"full","aspectRatio":"20:4","aspectMode":"cover"},"body":{"type":"box","layout":"vertical","spacing":"md","contents":[{"type":"text","text":"\u6230\u529b\u6392\u884c","size":"md","weight":"bold"},%s]},"footer":{"type":"box","layout":"vertical","contents":[{"type":"spacer","size":"sm"}]}}';
+        $jsonTemplate = '{"type":"bubble","hero":{"type":"image","url":"https:\/\/unstoppable1122.com\/images\/rankings.png","size":"full","aspectRatio":"20:4","aspectMode":"cover"},"body":{"type":"box","layout":"vertical","spacing":"md","contents":[{"type":"text","text":"\u6230\u529b\u6392\u884c","size":"md","weight":"bold"},%s]},"footer":{"type":"box","layout":"vertical","contents":[{"type":"spacer","size":"sm"}]}}';
 
-                $rankings = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->take(15)->get();
+                $rankings = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->take(20)->get();
 
                 // dd($rankings);
 
