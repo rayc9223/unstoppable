@@ -114,6 +114,46 @@ class LineController extends Controller
                 // Log::info(json_encode($response));
                 // Log::info(json_encode($data));
 
+            // Flex messages test
+            } elseif ($msgText == 'test') {
+                $data = '{
+                  "type": "template",
+                  "altText": "This is a buttons template",
+                  "template": {
+                      "type": "buttons",
+                      "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+                      "imageAspectRatio": "rectangle",
+                      "imageSize": "cover",
+                      "imageBackgroundColor": "#FFFFFF",
+                      "title": "Menu",
+                      "text": "Please select",
+                      "defaultAction": {
+                          "type": "uri",
+                          "label": "View detail",
+                          "uri": "http://example.com/page/123"
+                      },
+                      "actions": [
+                          {
+                            "type": "postback",
+                            "label": "Buy",
+                            "data": "action=buy&itemid=123"
+                          },
+                          {
+                            "type": "postback",
+                            "label": "Add to cart",
+                            "data": "action=add&itemid=123"
+                          },
+                          {
+                            "type": "uri",
+                            "label": "View detail",
+                            "uri": "http://example.com/page/123"
+                          }
+                      ]
+                  }
+                }';
+                $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
+
+
             // Rolls Available
             } elseif ($msgText == '爭奪卷數') {
                 $response = $bot->replyText($replyToken, "{$user->lineid} 當前登記門派爭奪卷數: {$user->roll_qty}");
