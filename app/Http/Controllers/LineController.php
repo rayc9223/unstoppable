@@ -127,8 +127,39 @@ class LineController extends Controller
              */
             if ($msgText == 'test') {
                 $data['to'] = $userId;
-                $json = '{"type": "template","altText": "this is a confirm template","template": {"type": "confirm", "text": "Are you sure?","actions": [{"type": "message","label": "Yes","text": "yes"},{"type": "message","label": "No","text": "no"}]}}';
-                $data['messages'] = [[json_decode($json, true)]];
+                $json = '{
+                          "type": "template",
+                          "altText": "this is a buttons template",
+                          "template": {
+                            "type": "buttons",
+                            "actions": [
+                              {
+                                "type": "message",
+                                "label": "準時參加",
+                                "text": "準時"
+                              },
+                              {
+                                "type": "message",
+                                "label": "晚到10分鐘",
+                                "text": "晚10"
+                              },
+                              {
+                                "type": "message",
+                                "label": "晚到11~20分鐘",
+                                "text": "晚20"
+                              },
+                              {
+                                "type": "message",
+                                "label": "晚到30分鐘以上",
+                                "text": "晚30"
+                              }
+                            ],
+                            "thumbnailImageUrl": "https://unstoppable1122.com/images/prince.png",
+                            "title": "門派爭奪設定",
+                            "text": "請選擇進場時間"
+                          }
+                        }';
+                $data['messages'] = [json_decode($json, true)];
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
                 // do nothing... 
 
@@ -255,7 +286,7 @@ class LineController extends Controller
                     }
                     $response = $bot->replyText($replyToken, "系統管理員: {$user->lineid} 送出的數據抹除請求已完成");
                 } else {
-                    $response = $bot->replyText($replyToken, "該請求必需由系統管理員發起，請確認後重試");
+                    $response = $bot->replyText($replyToken, "該請求必須由系統管理員發起，請確認後重試");
                 }
 
             // Website Link
