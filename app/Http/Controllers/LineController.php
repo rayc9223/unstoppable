@@ -126,41 +126,7 @@ class LineController extends Controller
              * ===============================
              */
             if ($msgText == 'test') {
-                $data['to'] = $userId;
-                $json = '{
-                          "type": "template",
-                          "altText": "this is a buttons template",
-                          "template": {
-                            "type": "buttons",
-                            "actions": [
-                              {
-                                "type": "message",
-                                "label": "準時參加",
-                                "text": "準時"
-                              },
-                              {
-                                "type": "message",
-                                "label": "晚到10分鐘",
-                                "text": "晚10"
-                              },
-                              {
-                                "type": "message",
-                                "label": "晚到11~20分鐘",
-                                "text": "晚20"
-                              },
-                              {
-                                "type": "message",
-                                "label": "晚到30分鐘以上",
-                                "text": "晚30"
-                              }
-                            ],
-                            "thumbnailImageUrl": "https://unstoppable1122.com/images/prince.png",
-                            "title": "請選擇門派爭奪進場時間",
-                            "text": "如需請假，請使用 請假:{事由} 指令"
-                          }
-                        }';
-                $data['messages'] = [json_decode($json, true)];
-                $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
+                
                 // do nothing... 
 
             // Rankings in Flex Message form
@@ -247,6 +213,44 @@ class LineController extends Controller
                     $response = $bot->replyText($replyToken, "爭奪卷數量輸入錯誤，請確認後重新輸入");
                 }
 
+            // Call AET Menu
+            } elseif ($msgText == '設定進場時間') {
+                $data['to'] = $userId;
+                $json = '{
+                          "type": "template",
+                          "altText": "設定進場時間",
+                          "template": {
+                            "type": "buttons",
+                            "actions": [
+                              {
+                                "type": "message",
+                                "label": "準時參加",
+                                "text": "準時"
+                              },
+                              {
+                                "type": "message",
+                                "label": "晚到10分鐘",
+                                "text": "晚10"
+                              },
+                              {
+                                "type": "message",
+                                "label": "晚到11~20分鐘",
+                                "text": "晚20"
+                              },
+                              {
+                                "type": "message",
+                                "label": "晚到30分鐘以上",
+                                "text": "晚30"
+                              }
+                            ],
+                            "thumbnailImageUrl": "https://unstoppable1122.com/images/prince.png",
+                            "title": "請設定本次門派爭奪進場時間",
+                            "text": "如需請假，請使用 請假:{事由} 指令"
+                          }
+                        }';
+                $data['messages'] = [json_decode($json, true)];
+                $response = $client->post('https://api.line.me/v2/bot/message/push', $data); 
+
             // Approximate Entry Time
             } elseif (in_array($msgText, array('準時', '晚10', '晚20', '晚30'))) {
                 $msgText = str_replace(array('準時', '晚10', '晚20', '晚30'), array('準時參加', '晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'), $msgText);
@@ -271,8 +275,7 @@ class LineController extends Controller
                 $response = $bot->replyText($replyToken, "您的門派爭奪進場狀態已更新為: 無法參加本次爭奪");
 
             // Ignore messages
-            } elseif (in_array($msgText, array('請使用以下格式更新戰力(例子) 更新戰力:3560000', '
-                請輸入進場狀態（格式：準時 | 晚10 | 晚20 | 晚30 | 請假:加班）'))) {
+            } elseif (in_array($msgText, array('請使用以下格式更新戰力(例子) 更新戰力:3560000'))) {
                 // No replies
 
             // Reset Approx Entry Time
