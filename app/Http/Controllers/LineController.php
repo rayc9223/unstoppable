@@ -125,27 +125,34 @@ class LineController extends Controller
              * Category Query
              * ===============================
              */
-            // Ranking
             if ($msgText == 'test') {
-                
+                $data['to'] = $userId;
+                $json = '{
+                  "type": "template",
+                  "altText": "this is a confirm template",
+                  "template": {
+                      "type": "confirm",
+                      "text": "Are you sure?",
+                      "actions": [
+                          {
+                            "type": "message",
+                            "label": "Yes",
+                            "text": "yes"
+                          },
+                          {
+                            "type": "message",
+                            "label": "No",
+                            "text": "no"
+                          }
+                      ]
+                  }
+                }';
+                $data['messages'] = [['type'=>'template', 'contents'=>json_decode($json, true)]];
+                $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
+                // do nothing... 
 
-            // Flex messages test
+            // Rankings in Flex Message form
             } elseif ($msgText == '戰力排行') {
-                // Old version of Ranking list
-                // $data = array();
-                // // Use array when more than one addressee
-                // $data['to'] = $userId;
-                // // Content
-                // $content = "-門派戰力排行前15名- \n";
-                // $rankings = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->take(15)->get();
-                // foreach ($rankings as $ranking) {
-                //     $content .= "{$ranking->gameid} - {$ranking->capability} \n";
-                // }
-                // $data['messages'] = array(array('type'=>'text', 'text'=>$content));
-                // $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
-                // Log::info(json_encode($response));
-                // Log::info(json_encode($data));
-
                 $data = array();
                 // Use array when more than one addressee
                 $data['to'] = $userId;
