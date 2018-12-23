@@ -156,7 +156,7 @@ class LineController extends Controller
                             ],
                             "thumbnailImageUrl": "https://unstoppable1122.com/images/prince.png",
                             "title": "門派爭奪設定",
-                            "text": "請選擇進場時間"
+                            "text": "請選擇進場時間\n如需請假，請使用 請假:{事由} 指令"
                           }
                         }';
                 $data['messages'] = [json_decode($json, true)];
