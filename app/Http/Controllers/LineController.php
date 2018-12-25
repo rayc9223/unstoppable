@@ -201,7 +201,7 @@ class LineController extends Controller
                 }
 
             // Available Rolls
-            } elseif (in_array(mb_substr($msgText, 0, 5), ['更新卷數:', '更新卷數：', '更新券數:', '更新券數：']) {
+            } elseif (in_array(mb_substr($msgText, 0, 5), ['更新卷數:', '更新卷數：', '更新券數:', '更新券數：'])) {
                 $msgText = str_replace('：', ':', $msgText);
                 $newRollQty = explode(':', $msgText)[1];
                 if ($newRollQty > 0 && $newRollQty < 500) {
