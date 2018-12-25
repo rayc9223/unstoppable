@@ -143,8 +143,8 @@ class LineController extends Controller
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
 
             // Rolls Available
-            } elseif ($msgText == '爭奪卷數') {
-                $response = $bot->replyText($replyToken, "{$user->lineid} 當前登記門派爭奪卷數: {$user->roll_qty}");
+            } elseif (in_array($msgText, ['爭奪卷數', '爭奪券數'])) {
+                $response = $bot->replyText($replyToken, "{$user->lineid} 當前登記門派爭奪券數: {$user->roll_qty}");
 
             // User Capability
             } elseif ($msgText == '戰力') {
@@ -298,7 +298,7 @@ class LineController extends Controller
 
             // Help Information
             } elseif ($msgText == '請協助我使用門派助手') {
-                $response = $bot->replyText($replyToken, "門派助手指令列表: \n--- 查詢類 ---\n戰力排行\n爭奪卷數\n戰力\n等級\n進場狀態\n進場統計\n\n--- 設定類 ---\n更新戰力:{數值}\n更新卷數:{數值}\n準時\n晚10\n晚20\n晚30\n請假:{事由}\n");
+                $response = $bot->replyText($replyToken, "門派助手指令列表: \n--- 查詢類 ---\n戰力排行\n爭奪券數\n戰力\n等級\n進場狀態\n進場統計\n\n--- 設定類 ---\n更新戰力:{數值}\n更新券數:{數值}\n準時\n晚10\n晚20\n晚30\n請假:{事由}\n");
 
             } else {
                 $response = $bot->replyText($replyToken, "");
