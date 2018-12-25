@@ -297,8 +297,8 @@ class LineController extends Controller
                 $response = $bot->replyText($replyToken, "https://unstoppable1122.com");
 
             // Help Information
-            } elseif ($msgText == '請協助我使用門派助手') {
-                $response = $bot->replyText($replyToken, "門派助手指令列表: \n--- 查詢類 ---\n戰力排行\n爭奪券數\n戰力\n等級\n進場狀態\n進場統計\n\n--- 設定類 ---\n更新戰力:{數值}\n更新券數:{數值}\n準時\n晚10\n晚20\n晚30\n請假:{事由}\n");
+            } elseif ($msgText == '請協助我使用小幫手') {
+                $response = $bot->replyText($replyToken, "指令列表: \n--- 查詢類 ---\n戰力排行\n爭奪券數\n戰力\n等級\n進場狀態\n進場統計\n\n--- 設定類 ---\n更新戰力:{數值}\n更新券數:{數值}\n準時\n晚10\n晚20\n晚30\n請假:{事由}\n");
 
             } else {
                 $response = $bot->replyText($replyToken, "");
