@@ -201,16 +201,16 @@ class LineController extends Controller
                 }
 
             // Available Rolls
-            } elseif (mb_substr($msgText, 0, 5) == '更新卷數:' || mb_substr($msgText, 0, 5) == '更新卷數：') {
+            } elseif (in_array(mb_substr($msgText, 0, 5), ['更新卷數:', '更新卷數：', '更新券數:', '更新券數：']) {
                 $msgText = str_replace('：', ':', $msgText);
                 $newRollQty = explode(':', $msgText)[1];
                 if ($newRollQty > 0 && $newRollQty < 500) {
                     // Update DB
                     $user->roll_qty = $newRollQty;
                     $user->save();
-                    $response = $bot->replyText($replyToken, "門派爭奪卷數更新完成，當前數量: {$newRollQty}");
+                    $response = $bot->replyText($replyToken, "門派爭奪券數更新完成，當前數量: {$newRollQty}");
                 } else {
-                    $response = $bot->replyText($replyToken, "爭奪卷數量輸入錯誤，請確認後重新輸入");
+                    $response = $bot->replyText($replyToken, "爭奪券數量輸入錯誤，請確認後重新輸入");
                 }
 
             // Call AET Menu
