@@ -135,11 +135,11 @@ class LineController extends Controller
                 // Use array when more than one addressee
                 $data['to'] = $userId;
                 $json = $this->assembleFlex(20);
-                $data['messages'] = [['type'=>'flex', 'altText' => 'this is a flex message', 'contents'=>json_decode($json, true)]];
+                $data['messages'] = [['type'=>'flex', 'altText' => '戰力排行前20名', 'contents'=>json_decode($json, true)]];
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
 
                 $json = $this->assembleFlex(20, 20);
-                $data['messages'] = [['type'=>'flex', 'altText' => 'this is a flex message', 'contents'=>json_decode($json, true)]];
+                $data['messages'] = [['type'=>'flex', 'altText' => '戰力排行', 'contents'=>json_decode($json, true)]];
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
 
             // Rolls Available
