@@ -232,7 +232,7 @@ class LineController extends Controller
                 // $taihoTeam = User::where([])->get();
                 // $buffTeam = User::where([])->get();
 
-                $response = $bot->replyText($replyToken, "未設定進場狀態({$memberCount}): \n{$memberList}\n各分組登記狀態: \n丹紅: {$tanhungTeamCount}\n蓮慕: {$linmoTeamCount}\n塞羅: {$choiloTeamCount}\n----------塞羅----------\n晚到({$choiloTeamLateCount}):{$choiloTeamLateList}\n請假($choiloTeamLeaveCount}):{$choiloTeamLeaveList}\n--------------------\n大豪: {$taihoTeamCount}\n----------大豪----------\n晚到({$taihoTeamLateCount}):{$taihoTeamLateList}\n請假($taihoTeamLeaveCount}):{$taihoTeamLeaveList}\n--------------------\n鬼怪組: {$buffTeamCount}\n----------鬼怪----------\n晚到({$buffTeamLateCount}):{$buffTeamLateList}\n請假($buffTeamLeaveCount}):{$buffTeamLeaveList}");
+                $response = $bot->replyText($replyToken, "未設定進場狀態({$memberCount}): \n{$memberList}\n各分組登記狀態: \n丹紅: {$tanhungTeamCount}\n蓮慕: {$linmoTeamCount}\n----------塞羅:({$choiloTeamCount})------\n晚到({$choiloTeamLateCount}):{$choiloTeamLateList}\n請假($choiloTeamLeaveCount}):{$choiloTeamLeaveList}\n\n----------大豪:({$taihoTeamCount})------\n晚到({$taihoTeamLateCount}):{$taihoTeamLateList}\n請假($taihoTeamLeaveCount}):{$taihoTeamLeaveList}\n\n----------鬼怪:({$buffTeamCount})------\n晚到({$buffTeamLateCount}):{$buffTeamLateList}\n請假($buffTeamLeaveCount}):{$buffTeamLeaveList}");
 
             /*
              * ===============================
