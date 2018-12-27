@@ -191,6 +191,7 @@ class LineController extends Controller
                 foreach ($choiloTeamLate as $choiloLateMember) {
                     $choiloTeamLateList .= "{$choiloLateMember->lineid}|";
                 }
+                $choiloTeamLateList = rtrim($choiloTeamLateList, '|');
 
                 $choiloTeamLeave = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->get();
                 $choiloTeamLeaveCount = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->count();
@@ -198,6 +199,7 @@ class LineController extends Controller
                 foreach ($choiloTeamLeave as $choiloLeaveMember) {
                     $choiloTeamLeaveList .= "{$choiloLeaveMember->lineid}|";
                 }
+                $choiloTeamLeaveList = rtrim($choiloTeamLeaveList, '|');
 
                 // Team Taiho
                 $taihoTeamLateCount = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->count();
@@ -206,6 +208,7 @@ class LineController extends Controller
                 foreach ($taihoTeamLate as $taihoLateMember) {
                     $taihoTeamLateList .= "{$taihoLateMember->lineid}|";
                 }
+                $taihoTeamLateList = rtrim($taihoTeamLateList, '|');
 
                 $taihoTeamLeave = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->get();
                 $taihoTeamLeaveCount = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->count();
@@ -213,6 +216,7 @@ class LineController extends Controller
                 foreach ($taihoTeamLeave as $taihoLeaveMember) {
                     $taihoTeamLeaveList .= "{$taihoLeaveMember->lineid}|";
                 }
+                $taihoTeamLeaveList = rtrim($taihoTeamLeaveList, '|');
                 
                 // Team Buff
                 $buffTeamLateCount = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->count();
@@ -221,6 +225,7 @@ class LineController extends Controller
                 foreach ($buffTeamLate as $buffLateMember) {
                     $buffTeamLateList .= "{$buffLateMember->lineid}|";
                 }
+                $buffTeamLateList = rtrim($buffTeamLateList, '|');
 
                 $buffTeamLeave = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->get();
                 $buffTeamLeaveCount = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->count();
@@ -228,6 +233,7 @@ class LineController extends Controller
                 foreach ($buffTeamLeave as $buffLeaveMember) {
                     $buffTeamLeaveList .= "{$buffLeaveMember->lineid}|";
                 }
+                $buffTeamLeaveList = rtrim($buffTeamLeaveList, '|');
 
                 // $taihoTeam = User::where([])->get();
                 // $buffTeam = User::where([])->get();
