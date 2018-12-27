@@ -222,8 +222,8 @@ class LineController extends Controller
                     $buffTeamLateList .= "{$buffLateMember->lineid}|";
                 }
 
-                $buffTeamLeave = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->get();
-                $buffTeamLeaveCount = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->count();
+                $buffTeamLeave = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->get();
+                $buffTeamLeaveCount = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->count();
                 $buffTeamLeaveList = '';
                 foreach ($buffTeamLeave as $buffLeaveMember) {
                     $buffTeamLeaveList .= "{$buffLeaveMember->lineid}|";
