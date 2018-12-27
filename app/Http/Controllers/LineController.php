@@ -181,13 +181,19 @@ class LineController extends Controller
                 $choiloTeamLate = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->get();
                 $choiloTeamLateList = '';
                 foreach ($choiloTeamLate as $choiloLateMember) {
-                    $choiloTeamLateList .= "{$choiloLateMember->lineid}\n";
+                    $choiloTeamLateList .= "{$choiloLateMember->lineid}|";
                 }
-                $choiloTeamNotAvailable = User::whereIn('approx_entry_time', array('', '無法參加本次爭奪'))->get();
+                $choiloTeamNotDefined = User::where('approx_entry_time', '')->get();
+                $choiloTeamNotDefinedCount = User::where('approx_entry_time', '')->count();
+                $choiloTeamNotDefinedList = '';
+                foreach ($choiloTeamNotDefined as $choiloNotDefinedMember) {
+                    $choiloTeamNotDefinedList .= "{$choiloNotDefinedMember->lineid}|";
+                }
+
                 $taihoTeam = User::where([])->get();
                 $buffTeam = User::where([])->get();
 
-                $response = $bot->replyText($replyToken, "未設定進場狀態({$memberCount}): \n{$memberList}\n各分組登記狀態: \n丹紅: {$tanhungTeamCount}\n蓮慕: {$linmoTeamCount}\n塞羅: {$choiloTeamCount}\n----------\n晚到({$choiloTeamLateCount}):\n{$choiloTeamLateList}大豪: {$taihoTeamCount}\n鬼怪組: {$buffTeamCount}");
+                $response = $bot->replyText($replyToken, "未設定進場狀態({$memberCount}): \n{$memberList}\n各分組登記狀態: \n丹紅: {$tanhungTeamCount}\n蓮慕: {$linmoTeamCount}\n塞羅: {$choiloTeamCount}\n--------------------\n晚到({$choiloTeamLateCount}):{$choiloTeamLateList}\n--------------------\n大豪: {$taihoTeamCount}\n鬼怪組: {$buffTeamCount}");
 
             /*
              * ===============================
