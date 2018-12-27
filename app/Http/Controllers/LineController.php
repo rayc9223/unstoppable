@@ -192,8 +192,8 @@ class LineController extends Controller
                     $choiloTeamLateList .= "{$choiloLateMember->lineid}|";
                 }
 
-                $choiloTeamLeave = User::where('approx_entry_time', '無法參與本次爭奪')->get();
-                $choiloTeamLeaveCount = User::where('approx_entry_time', '無法參與本次爭奪')->count();
+                $choiloTeamLeave = User::where('approx_entry_time', '無法參加本次爭奪')->get();
+                $choiloTeamLeaveCount = User::where('approx_entry_time', '無法參加本次爭奪')->count();
                 $choiloTeamLeaveList = '';
                 foreach ($choiloTeamLeave as $choiloLeaveMember) {
                     $choiloTeamLeaveList .= "{$choiloLeaveMember->lineid}|";
@@ -207,8 +207,8 @@ class LineController extends Controller
                     $taihoTeamLateList .= "{$taihoLateMember->lineid}|";
                 }
 
-                $taihoTeamLeave = User::where('approx_entry_time', '無法參與本次爭奪')->get();
-                $taihoTeamLeaveCount = User::where('approx_entry_time', '無法參與本次爭奪')->count();
+                $taihoTeamLeave = User::where('approx_entry_time', '無法參加本次爭奪')->get();
+                $taihoTeamLeaveCount = User::where('approx_entry_time', '無法參加本次爭奪')->count();
                 $taihoTeamLeaveList = '';
                 foreach ($taihoTeamLeave as $taihoLeaveMember) {
                     $taihoTeamLeaveList .= "{$taihoLeaveMember->lineid}|";
@@ -222,8 +222,8 @@ class LineController extends Controller
                     $buffTeamLateList .= "{$buffLateMember->lineid}|";
                 }
 
-                $buffTeamLeave = User::where('approx_entry_time', '無法參與本次爭奪')->get();
-                $buffTeamLeaveCount = User::where('approx_entry_time', '無法參與本次爭奪')->count();
+                $buffTeamLeave = User::where('approx_entry_time', '無法參加本次爭奪')->get();
+                $buffTeamLeaveCount = User::where('approx_entry_time', '無法參加本次爭奪')->count();
                 $buffTeamLeaveList = '';
                 foreach ($buffTeamLeave as $buffLeaveMember) {
                     $buffTeamLeaveList .= "{$buffLeaveMember->lineid}|";
