@@ -169,13 +169,25 @@ class LineController extends Controller
                 }
                 // $response = $bot->replyText($replyToken, "未設定進場狀態({$memberCount}): \n{$memberList}");
 
+                // Team Count
                 $tanhungTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '丹紅城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '<>', '無法參與本次爭奪']])->count();
                 $linmoTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '蓮慕城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '<>', '無法參與本次爭奪']])->count();
                 $choiloTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '<>', '無法參與本次爭奪']])->count();
                 $taihoTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '大豪城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '<>', '無法參與本次爭奪']])->count();
                 $buffTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '<>', '無法參與本次爭奪']])->count();
 
-                $response = $bot->replyText($replyToken, "未設定進場狀態({$memberCount}): \n{$memberList}\n各分組登記狀態: \n丹紅: {$tanhungTeamCount}\n蓮慕: {$linmoTeamCount}\n塞羅: {$choiloTeamCount}\n大豪: {$taihoTeamCount}\n鬼怪組: {$buffTeamCount}");
+                // Team List
+                $choiloTeamLateCount = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->count();
+                $choiloTeamLate = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->get();
+                $choiloTeamLateList = '';
+                foreach ($choiloTeamLate as $choiloLateMember) {
+                    $choiloTeamLateList .= "{$choiloLateMember->lineid}\n";
+                }
+                $choiloTeamNotAvailable = User::whereIn('approx_entry_time', array('', '無法參加本次爭奪'))->get();
+                $taihoTeam = User::where([])->get();
+                $buffTeam = User::where([])->get();
+
+                $response = $bot->replyText($replyToken, "未設定進場狀態({$memberCount}): \n{$memberList}\n各分組登記狀態: \n丹紅: {$tanhungTeamCount}\n蓮慕: {$linmoTeamCount}\n塞羅: {$choiloTeamCount}\n----------\n晚到({$choiloTeamLateCount}):\n{$choiloTeamLateList}大豪: {$taihoTeamCount}\n鬼怪組: {$buffTeamCount}");
 
             /*
              * ===============================
