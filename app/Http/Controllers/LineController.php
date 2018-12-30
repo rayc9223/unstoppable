@@ -167,7 +167,6 @@ class LineController extends Controller
                 foreach ($members as $member) {
                     $memberList .= "{$member->lineid}\n";
                 }
-                // $response = $bot->replyText($replyToken, "未設定進場狀態({$memberCount}): \n{$memberList}");
 
                 // Team Count
                 $tanhungTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '丹紅城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '準時參加']])->count();
@@ -177,14 +176,6 @@ class LineController extends Controller
                 $buffTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '準時參加']])->count();
 
                 // Team List
-                // ChoiLo Team
-                // $choiloTeamNotDefined = User::where('approx_entry_time', '')->get();
-                // $choiloTeamNotDefinedCount = User::where('approx_entry_time', '')->count();
-                // $choiloTeamNotDefinedList = '';
-                // foreach ($choiloTeamNotDefined as $choiloNotDefinedMember) {
-                //     $choiloTeamNotDefinedList .= "{$choiloNotDefinedMember->lineid}|";
-                // }
-
                 $choiloTeamLateCount = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->count();
                 $choiloTeamLate = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->get();
                 $choiloTeamLateList = '';
@@ -234,9 +225,6 @@ class LineController extends Controller
                     $buffTeamLeaveList .= "{$buffLeaveMember->lineid}|";
                 }
                 $buffTeamLeaveList = rtrim($buffTeamLeaveList, '|');
-
-                // $taihoTeam = User::where([])->get();
-                // $buffTeam = User::where([])->get();
 
                 $response = $bot->replyText($replyToken, "未設定進場狀態({$memberCount}): \n{$memberList}\n各分組登記狀態: \n丹紅: {$tanhungTeamCount}\n蓮慕: {$linmoTeamCount}\n-------塞羅:({$choiloTeamCount})------\n晚到({$choiloTeamLateCount}):{$choiloTeamLateList}\n請假({$choiloTeamLeaveCount}):{$choiloTeamLeaveList}\n\n-------大豪:({$taihoTeamCount})------\n晚到({$taihoTeamLateCount}):{$taihoTeamLateList}\n請假({$taihoTeamLeaveCount}):{$taihoTeamLeaveList}\n\n-------鬼怪:({$buffTeamCount})------\n晚到({$buffTeamLateCount}):{$buffTeamLateList}\n請假({$buffTeamLeaveCount}):{$buffTeamLeaveList}");
 
