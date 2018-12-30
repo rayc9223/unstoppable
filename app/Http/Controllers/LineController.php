@@ -364,7 +364,7 @@ class LineController extends Controller
                 $response = $bot->replyText($replyToken, "指令列表: \n--- 查詢類 ---\n戰力排行\n爭奪券數\n戰力\n等級\n進場狀態\n進場統計\n\n--- 設定類 ---\n更新戰力:{數值}\n更新券數:{數值}\n準時\n晚10\n晚20\n晚30\n請假:{事由}\n");
 
             } else {
-                $randomText = ["小幫手壞掉了嗎？\n好像真的壞掉了耶(gasp!)", "這個指令小幫手暫時無法識別呢(oops)，如果希望小幫手加入這項功能，可以向管理員群組提出建議哦", "指令列表好像...沒有這個指令哦(hee)", "哈囉，今天小幫手休假哦\n(eh?!)小幫手怎麼會有休假?!\n好像說得也對吼(sad)"];
+                $randomText = ["小幫手壞掉了嗎？\n好像真的壞掉了耶0x10007B", "這個指令小幫手暫時無法識別呢0x100091，如果希望小幫手加入這項功能，可以向管理員群組提出建議哦", "指令列表好像...沒有這個指令哦0x10008C", "哈囉，今天小幫手休假哦\n0x100085小幫手怎麼會有休假?!\n好像說得也對吼0x10007C"];
                 $response = $bot->replyText($replyToken, $randomText[mt_rand(0, count($randomText)-1)]);
             }
         }
