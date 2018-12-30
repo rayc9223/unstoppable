@@ -364,7 +364,15 @@ class LineController extends Controller
                 $response = $bot->replyText($replyToken, "指令列表: \n--- 查詢類 ---\n戰力排行\n爭奪券數\n戰力\n等級\n進場狀態\n進場統計\n\n--- 設定類 ---\n更新戰力:{數值}\n更新券數:{數值}\n準時\n晚10\n晚20\n晚30\n請假:{事由}\n");
 
             } else {
-                $randomText = ["小幫手壞掉了嗎？\n好像真的壞掉了耶{$this->Emoji('0x10007B')}", "這個指令小幫手暫時無法識別呢{$this->Emoji('0x100091')}如果希望小幫手加入這項功能，可以向管理員群組提出建議哦", "指令列表好像...沒有這個指令哦{$this->Emoji('0x10008C')}", "哈囉，今天小幫手休假哦\n{$this->Emoji('0x100085')}小幫手怎麼會有休假?!\n好像說得也對吼{$this->Emoji('0x10007C')}"];
+                $randomText = [
+                    "小幫手壞掉了嗎？\n好像真的壞掉了耶{$this->Emoji('0x10007B')}", 
+                    "這個指令小幫手暫時無法識別呢{$this->Emoji('0x100091')}\n如果希望小幫手加入這項功能，可以在門派群組提出建議哦", 
+                    "指令列表好像...沒有這個指令哦{$this->Emoji('0x10008C')}", 
+                    "哈囉，今天小幫手休假哦\n{$this->Emoji('0x100085')}小幫手怎麼會有休假?!\n好像說得也對吼{$this->Emoji('0x10007C')}",
+                    "請確認指令後重試",
+                    "等一下，我打個電話給會長看看是不是把我的電源給踢掉了...",
+                    "我在看水行俠，等下看完回你哦"
+                ];
                 $response = $bot->replyText($replyToken, $randomText[mt_rand(0, count($randomText)-1)]);
             }
         }
