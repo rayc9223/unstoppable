@@ -323,7 +323,7 @@ class LineController extends Controller
             
             // Casual / Sick Leave
             } elseif (mb_substr($msgText, 0, 3) == '請假:' || mb_substr($msgText, 0, 3) == '請假：') {
-                $user->approx_entry_time = '無法參與本次爭奪';
+                $user->approx_entry_time = '無法參加本次爭奪';
                 $user->save();
                 $msgText = str_replace('：', ':', $msgText);
                 $leaveReason = explode(':', $msgText)[1];
