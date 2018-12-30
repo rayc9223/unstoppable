@@ -107,6 +107,20 @@
                       </div>
 
                       <div class="form-group">
+                        <label for="reason">門派爭奪</label>
+                        <select name="reason" id="reason" class="form-control">
+                            <option value="">請選擇爭奪進場時間</option>
+                            @foreach($reasons as $reason)
+                                @if($reason==$user->approx_entry_time)
+                                    <option value="{{ $reason }}" selected="selected">{{ $reason }}</option>
+                                @else
+                                    <option value="{{ $reason }}">{{ $reason }}</option>
+                                @endif
+                            @endforeach
+                        </select>                    
+                      </div>
+
+                      <div class="form-group">
                         <label for="email">電郵地址</label>
                         <input type="email" class="form-control text-center" id="email" name="email" readonly value="{{ $user->email }}">
                       </div>
@@ -192,20 +206,6 @@
                                     <option value="{{ $title }}" selected="selected">{{ $title }}</option>
                                 @else
                                     <option value="{{ $title }}">{{ $title }}</option>
-                                @endif
-                            @endforeach
-                        </select>                    
-                      </div>
-
-                      <div class="form-group">
-                        <label for="reason">門派爭奪</label>
-                        <select name="reason" id="reason" class="form-control">
-                            <option value="">請選擇爭奪進場時間</option>
-                            @foreach($reasons as $reason)
-                                @if($reason==$user->approx_entry_time)
-                                    <option value="{{ $reason }}" selected="selected">{{ $reason }}</option>
-                                @else
-                                    <option value="{{ $reason }}">{{ $reason }}</option>
                                 @endif
                             @endforeach
                         </select>                    
