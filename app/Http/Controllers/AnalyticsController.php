@@ -214,7 +214,7 @@ class AnalyticsController extends Controller
                                 'guildwar_p2_forbidden'=>$guildwar_p2_forbidden,
                                 'guildwar_p2_palace'=>$guildwar_p2_palace,
                                 'guildwar_p2_undefined'=>$guildwar_p2_undefined,
-                                'tanhungTeamCount'=>$taihoTeamCount,
+                                'tanhungTeamCount'=>$tanhungTeamCount,
                                 'linmoTeamCount'=>$linmoTeamCount,
                                 'choiloTeamCount'=>$choiloTeamCount,
                                 'taihoTeamCount'=>$taihoTeamCount,

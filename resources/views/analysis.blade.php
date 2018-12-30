@@ -333,8 +333,16 @@
                 <table class="table" style="font-weight: 600;width: 1100px;">
                     <thead>
                         <th width="10%"></th>
-                        <th width="15%">丹紅 ( {{ $tanhungTeamCount }} )</th>
-                        <th width="15%">蓮慕 ( {{ $linmoTeamCount }} )</th>
+                        <th width="15%">丹紅 
+                            @if($tanhungTeamCount)
+                                ( {{ $tanhungTeamCount }} )
+                            @endif
+                        </th>
+                        <th width="15%">蓮慕
+                            @if($linmoTeamCount)
+                                ( {{ $linmoTeamCount }} )
+                            @endif
+                        </th>
                         <th width="20%">塞羅 ( {{ $choiloTeamCount }} )</th>
                         <th width="20%">大豪 ( {{ $taihoTeamCount }} )</th>
                         <th width="20%">鬼怪 ( {{ $buffTeamCount }} )</th>
