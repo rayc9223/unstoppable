@@ -371,7 +371,7 @@ class LineController extends Controller
                     "哈囉，今天小幫手休假哦\n{$this->Emoji('0x100085')}小幫手怎麼會有休假?!\n好像說得也對吼{$this->Emoji('0x10007C')}",
                     "請確認指令後重試",
                     "等一下，我打個電話給會長看看是不是把我的電源給踢掉了...",
-                    "我在看水行俠，等下看完回你哦"
+                    "我在看水行俠，等下看完回你哦{$this->Emoji('0x100095')}"
                 ];
                 $response = $bot->replyText($replyToken, $randomText[mt_rand(0, count($randomText)-1)]);
             }
