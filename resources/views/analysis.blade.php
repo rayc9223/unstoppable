@@ -176,7 +176,7 @@
 
         <div class="flex-center position-ref full-height">
 
-            <div class="content" style="width: 90%">
+            <div class="content" style="width: 80%">
                 <div class="title m-b-md flex-center">
                     <div class="mb-title col-md-10" style="border-radius: 20px;background-image: url('/images/yuek_kei.png');background-position:40% 10%; width:90%;height:160px;padding: 0px;cursor: pointer;">
                         <div class="linear text-right">
@@ -187,7 +187,9 @@
 
                 <div class="row flex-center">
                     <div id="mb-capability" class="row flex-center" style="width: 100%;box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:0px;margin-bottom: 10px;">
-                    <table class="table" style="font-weight: 600;">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                    <table class="table" style="font-weight: 600;width: 1100px;">
                         <thead>
                             <tr>
                                 <th width="30%">統計類目</th>
@@ -198,7 +200,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    總計註册人數
+                                    總計註册
                                 </td>
                                 <td>
                                     {{ $total_users }}
@@ -206,170 +208,184 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>預計準時進場人數</td>
-                                <td>{{ count($ontime) }} / {{ $total_users }}</td>
+                                <td>預計準時進場</td>
                                 <td>
-                                    @foreach($ontime as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
+                                    @if(count($ontime) < 10)
+                                        <span style="color:red;">{{ count($ontime) }}</span>
+                                    @else
+                                        {{ count($ontime) }}
+                                    @endif</td>
+                                <td></td>
+            
                             </tr>
                             <tr>
-                                <td>晚到10分鐘人數</td>
-                                <td>{{ count($approx_case_2) }} / {{ $total_users }}</td>
+                                <td>晚到</td>
                                 <td>
-                                    @foreach($approx_case_2 as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
+                                    {{ count($approx_case_2) + count($approx_case_3) + count($approx_case_4) }}
+                                </td>
+                                <td>
+                                    
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" 
+                                                       href="#collapseOne">
+                                                        點此檢視詳情
+                                                    </a>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
+                        </tbody>
+                    </table>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                            <table class="table" style="font-weight: 600;">
+                                <tr>
+                                    <td width="30%">晚到10分鐘</td>
+                                    <td width="10%">{{ count($approx_case_2) }}</td>
+                                    <td width="60%">
+                                        @foreach($approx_case_2 as $member)
+                                            @if($loop->last)
+                                                {{ $member->lineid }}
+                                            @else
+                                                {{ $member->lineid }} | 
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>晚到20分鐘</td>
+                                    <td>{{ count($approx_case_3) }}</td>
+                                    <td>
+                                        @foreach($approx_case_3 as $member)
+                                            @if($loop->last)
+                                                {{ $member->lineid }}
+                                            @else
+                                                {{ $member->lineid }} | 
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>晚到30分鐘（或以上）</td>
+                                    <td>{{ count($approx_case_4) }}</td>
+                                    <td>
+                                        @foreach($approx_case_4 as $member)
+                                            @if($loop->last)
+                                                {{ $member->lineid }}
+                                            @else
+                                                {{ $member->lineid }} | 
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                </tr>
+                        </table>
+                        </div>
+                    </div>
+                
+                    <table class="table" style="font-weight: 600;">
+                        <tbody>
                             <tr>
-                                <td>晚到20分鐘人數</td>
-                                <td>{{ count($approx_case_3) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($approx_case_3 as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>晚到30分鐘（或以上）人數</td>
-                                <td>{{ count($approx_case_4) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($approx_case_4 as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>無法參加本次爭奪人數</td>
-                                <td>{{ count($absent) }} / {{ $total_users }}</td>
-                                <td>
+                                <td width="30%">無法參加本次爭奪</td>
+                                <td width="10%">
+                                    @if(count($absent) > 3)
+                                        <span style="color:red;">{{ count($absent) }}</span>
+                                    @else
+                                        {{ count($absent) }}
+                                    @endif</td>
+                                <td width="60%">
                                     @foreach($absent as $member)
-                                        {{ $member->lineid }} | 
+                                        @if($loop->last)
+                                            {{ $member->lineid }}
+                                        @else
+                                            {{ $member->lineid }} | 
+                                        @endif
                                     @endforeach
                                 </td>
                             </tr>
                             <tr>
-                                <td>未設定入場時間人數</td>
-                                <td>{{ count($approx_undefined) }} / {{ $total_users }}</td>
+                                <td>未設定入場時間</td>
+                                <td>
+                                    @if(count($approx_undefined) > 5)
+                                        <span style="color:red;">{{ count($approx_undefined) }}</span>
+                                    @else
+                                        {{ count($approx_undefined) }}
+                                    @endif
+                                </td>
                                 <td>
                                     @foreach($approx_undefined as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>門派爭奪: 第一階段登記人數</td>
-                                <td>{{ count($guildwar_p1_registered) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($guildwar_p1_registered as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>門派爭奪: 增益組</td>
-                                <td>{{ count($guildwar_p1_buff) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($guildwar_p1_buff as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>門派爭奪: 丹紅城</td>
-                                <td>{{ count($tanhung) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($tanhung as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>門派爭奪: 蓮慕城</td>
-                                <td>{{ count($linmo) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($linmo as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>門派爭奪: 塞羅城</td>
-                                <td>{{ count($choilo) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($choilo as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>門派爭奪: 大豪城</td>
-                                <td>{{ count($taiho) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($taiho as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>門派爭奪: 未設定第一階段人數</td>
-                                <td>{{ count($guildwar_p1_undefined) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($guildwar_p1_undefined as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>門派爭奪: 第二階段登記人數</td>
-                                <td>{{ count($guildwar_p2_registered) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($guildwar_p2_registered as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>門派爭奪: 城外郊區組</td>
-                                <td>{{ count($guildwar_p2_urban) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($guildwar_p2_urban as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>門派爭奪: 皇城內組</td>
-                                <td>{{ count($guildwar_p2_forbidden) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($guildwar_p2_forbidden as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>門派爭奪: 皇宮組</td>
-                                <td>{{ count($guildwar_p2_palace) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($guildwar_p2_palace as $member)
-                                        {{ $member->lineid }} | 
-                                    @endforeach
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>門派爭奪: 未設定第二階段人數</td>
-                                <td>{{ count($guildwar_p2_undefined) }} / {{ $total_users }}</td>
-                                <td>
-                                    @foreach($guildwar_p2_undefined as $member)
-                                        {{ $member->lineid }} | 
+                                        @if($loop->last)
+                                            {{ $member->lineid }}
+                                        @else
+                                            {{ $member->lineid }} | 
+                                        @endif
                                     @endforeach
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     </div>
+                </div>
+            </div>
+            <div id="mb-capability" class="row flex-center" style="width: 100%;box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:0px;margin-bottom: 10px;">
+                <table class="table" style="font-weight: 600;width: 1100px;">
+                    <thead>
+                        <th width="10%"></th>
+                        <th width="15%">丹紅 ( {{ $tanhungTeamCount }} )</th>
+                        <th width="15%">蓮慕 ( {{ $linmoTeamCount }} )</th>
+                        <th width="20%">塞羅 ( {{ $choiloTeamCount }} )</th>
+                        <th width="20%">大豪 ( {{ $taihoTeamCount }} )</th>
+                        <th width="20%">鬼怪 ( {{ $buffTeamCount }} )</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>晚到</td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-left">
+                                @if($choiloTeamLateCount)
+                                    ( {{ $choiloTeamLateCount }} ) {{ $choiloTeamLateList }}
+                                @endif
+                            </td>
+                            <td class="text-left">
+                                @if($taihoTeamLateCount)
+                                    ( {{ $taihoTeamLateCount }} ) {{ $taihoTeamLateList }}
+                                @endif
+                            </td>
+                            <td class="text-left">
+                                @if($buffTeamLateCount)
+                                    ( {{ $buffTeamLateCount }} ) {{ $buffTeamLateList }}
+                                @endif
+                            </td>
+                            
+                        </tr>
+
+                        <tr>
+                            <td>請假</td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-left">
+                                @if($choiloTeamLeaveCount)
+                                    ( {{ $choiloTeamLeaveCount }} ) {{ $choiloTeamLeaveList }}
+                                @endif
+                            </td>
+                            <td class="text-left">
+                                @if($taihoTeamLeaveCount)
+                                    ( {{ $taihoTeamLeaveCount }} ) {{ $taihoTeamLeaveList }}
+                                @endif
+                            </td>
+                            <td class="text-left">
+                                @if($buffTeamLeaveCount)
+                                    ( {{ $buffTeamLeaveCount }} ) {{ $buffTeamLeaveList }}
+                                @endif
+                            </td>
+                       
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
                     <div style="height: 30px;"></div>
 
         <div class="links">

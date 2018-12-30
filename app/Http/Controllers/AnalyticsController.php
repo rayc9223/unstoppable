@@ -96,11 +96,68 @@ class AnalyticsController extends Controller
     }
 
     public function analysisAll(){
+        // OnTime Count
+        $tanhungTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '丹紅城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '準時參加']])->count();
+        $linmoTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '蓮慕城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '準時參加']])->count();
+        $choiloTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城'], ['approx_entry_time', '準時參加']])->count();
+        $taihoTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '大豪城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '準時參加']])->count();
+        $buffTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '準時參加']])->count();
+        /*
+         * Team List
+         * 
+         */
+        // Choi Lo
+        $choiloTeamLateCount = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->count();
+        $choiloTeamLate = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->get();
+        $choiloTeamLateList = '';
+        foreach ($choiloTeamLate as $choiloLateMember) {
+            $choiloTeamLateList .= "{$choiloLateMember->lineid} | ";
+        }
+        $choiloTeamLateList = rtrim($choiloTeamLateList, ' | ');
+
+        $choiloTeamLeave = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->get();
+        $choiloTeamLeaveCount = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->count();
+        $choiloTeamLeaveList = '';
+        foreach ($choiloTeamLeave as $choiloLeaveMember) {
+            $choiloTeamLeaveList .= "{$choiloLeaveMember->lineid} | ";
+        }
+        $choiloTeamLeaveList = rtrim($choiloTeamLeaveList, ' | ');
+
+        // Tai Ho
+        $taihoTeamLateCount = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->count();
+        $taihoTeamLate = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->get();
+        $taihoTeamLateList = '';
+        foreach ($taihoTeamLate as $taihoLateMember) {
+            $taihoTeamLateList .= "{$taihoLateMember->lineid} | ";
+        }
+        $taihoTeamLateList = rtrim($taihoTeamLateList, ' | ');
+
+        $taihoTeamLeave = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->get();
+        $taihoTeamLeaveCount = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->count();
+        $taihoTeamLeaveList = '';
+        foreach ($taihoTeamLeave as $taihoLeaveMember) {
+            $taihoTeamLeaveList .= "{$taihoLeaveMember->lineid} | ";
+        }
+        $taihoTeamLeaveList = rtrim($taihoTeamLeaveList, ' | ');
+        
+        // Buff
+        $buffTeamLateCount = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->count();
+        $buffTeamLate = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->get();
+        $buffTeamLateList = '';
+        foreach ($buffTeamLate as $buffLateMember) {
+            $buffTeamLateList .= "{$buffLateMember->lineid} | ";
+        }
+        $buffTeamLateList = rtrim($buffTeamLateList, ' | ');
+
+        $buffTeamLeave = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->get();
+        $buffTeamLeaveCount = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->count();
+        $buffTeamLeaveList = '';
+        foreach ($buffTeamLeave as $buffLeaveMember) {
+            $buffTeamLeaveList .= "{$buffLeaveMember->lineid} | ";
+        }
+        $buffTeamLeaveList = rtrim($buffTeamLeaveList, ' | ');
+
         $total_users = User::where('guild', '無與倫比')->count();
-
-        $highest_roll_qty = User::max('roll_qty');
-
-        $lowest_roll_qty = User::min('roll_qty');
 
         $approx_case_1 = User::where([['guild','無與倫比'],['approx_entry_time','準時參加']])->get();
 
@@ -139,8 +196,6 @@ class AnalyticsController extends Controller
         $guildwar_p2_undefined = User::where([['guild','無與倫比'],['guildwar_phase_2', '']])->get();
 
         return view('analysis', ['total_users'=>$total_users,
-                                'max_roll'=>$highest_roll_qty,
-                                'min_roll'=>$lowest_roll_qty,
                                 'ontime'=>$approx_case_1,
                                 'approx_case_2'=>$approx_case_2,
                                 'approx_case_3'=>$approx_case_3,
@@ -158,7 +213,24 @@ class AnalyticsController extends Controller
                                 'guildwar_p2_urban'=>$guildwar_p2_urban,
                                 'guildwar_p2_forbidden'=>$guildwar_p2_forbidden,
                                 'guildwar_p2_palace'=>$guildwar_p2_palace,
-                                'guildwar_p2_undefined'=>$guildwar_p2_undefined
+                                'guildwar_p2_undefined'=>$guildwar_p2_undefined,
+                                'tanhungTeamCount'=>$taihoTeamCount,
+                                'linmoTeamCount'=>$linmoTeamCount,
+                                'choiloTeamCount'=>$choiloTeamCount,
+                                'taihoTeamCount'=>$taihoTeamCount,
+                                'buffTeamCount'=>$buffTeamCount,
+                                'choiloTeamLateCount'=>$choiloTeamLateCount,
+                                'choiloTeamLateList'=>$choiloTeamLateList,
+                                'choiloTeamLeaveCount'=>$choiloTeamLeaveCount,
+                                'choiloTeamLeaveList'=>$choiloTeamLeaveList,
+                                'taihoTeamLateCount'=>$taihoTeamLateCount,
+                                'taihoTeamLateList'=>$taihoTeamLateList,
+                                'taihoTeamLeaveCount'=>$taihoTeamLeaveCount,
+                                'taihoTeamLeaveList'=>$taihoTeamLeaveList,
+                                'buffTeamLateCount'=>$buffTeamLateCount,
+                                'buffTeamLateList'=>$buffTeamLateList,
+                                'buffTeamLeaveCount'=>$buffTeamLeaveCount,
+                                'buffTeamLeaveList'=>$buffTeamLeaveList
         ]);
     }
 
