@@ -149,8 +149,8 @@ class LineController extends Controller
             // Capability update
             } elseif (in_array(mb_substr($msgText, 0, 5), ['更新戰力:', '更新戰力：'])) {
                 
-                $msgText = str_replace('：', ':', $msgText);
-                $newCapability = explode(':', $msgText)[1];
+                // $msgText = str_replace('：', ':', $msgText);
+                $newCapability = $helpers->getValue($msgText);
                 if ($newCapability > 0 && $newCapability < 5000000) {
                     // Update DB
                     $user->capability = $newCapability;
@@ -162,8 +162,8 @@ class LineController extends Controller
 
             // Available Rolls
             } elseif (in_array(mb_substr($msgText, 0, 5), ['更新卷數:', '更新卷數：', '更新券數:', '更新券數：'])) {
-                $msgText = str_replace('：', ':', $msgText);
-                $newRollQty = explode(':', $msgText)[1];
+                // $msgText = str_replace('：', ':', $msgText);
+                $newRollQty = $helpers->getValue($msgText);
                 if ($newRollQty > 0 && $newRollQty < 500) {
                     // Update DB
                     $user->roll_qty = $newRollQty;
@@ -191,8 +191,8 @@ class LineController extends Controller
             } elseif (mb_substr($msgText, 0, 3) == '請假:' || mb_substr($msgText, 0, 3) == '請假：') {
                 $user->approx_entry_time = '無法參加本次爭奪';
                 $user->save();
-                $msgText = str_replace('：', ':', $msgText);
-                $leaveReason = explode(':', $msgText)[1];
+                // $msgText = str_replace('：', ':', $msgText);
+                $leaveReason = $helpers->getValue($msgText);
 
                 $call_leave = new Leave();
                 $call_leave->uid = $user->uid;

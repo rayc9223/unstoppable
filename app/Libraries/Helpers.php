@@ -8,6 +8,12 @@ use App\User;
 
 class Helpers
 {
+	public function getValue($userInput)
+	{
+		$userInput = str_replace('：', ':', $userInput);
+        return explode(':', $userInput)[1];
+	}
+
 	public function randomReply()
 	{
 		$randomText = [
