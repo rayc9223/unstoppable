@@ -63,33 +63,6 @@ class LineController extends Controller
         return view('bind_success');
     }
 
-    public function assembleFlex($take, $offset = 0)
-    {
-        $jsonTemplate = '{"type":"bubble","hero":{"type":"image","url":"https:\/\/unstoppable1122.com\/images\/rankings.png","size":"full","aspectRatio":"20:4","aspectMode":"cover"},"body":{"type":"box","layout":"vertical","spacing":"md","contents":[{"type":"text","text":"\u6230\u529b\u6392\u884c","size":"md","weight":"bold"},%s]},"footer":{"type":"box","layout":"vertical","contents":[{"type":"spacer","size":"sm"}]}}';
-
-        $rankings = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->skip($offset)->take($take)->get();
-
-        $content = '';
-        foreach ($rankings as $ranking) {
-            if ($ranking->capability > 4000000) {
-                $color = '#8e44ad';
-            } elseif ($ranking->capability > 3500000) {
-                $color = '#FF0000';
-            } elseif ($ranking->capability > 3000000) {
-                $color = '#f39c12';
-            } elseif ($ranking->capability > 2500000) {
-                $color = '#27ae60';
-            } else {
-                $color = '#2980b9';
-            }
-            $content .= '{"type":"box","layout":"vertical","spacing":"none","contents":[{"type":"box","layout":"baseline","contents":[{"type":"text","text":"' . $ranking->gameid . '","size":"sm","weight":"bold","align":"start","margin":"none"},{"type":"text","text":"' . $ranking->capability . '","size":"md","align":"end","weight":"bold","color":"' . $color . '"}]}]},';
-        }
-        $content = rtrim($content, ',');
-        $json = sprintf($jsonTemplate, $content);
-
-        return $json;
-    }
-
     public function lineEvent(Request $request, Helpers $helpers)
     {
         $lineApi = DB::table('credentials')->select('username as secret', 'password as access_token')->where('description', 'line_api')->first();
@@ -98,10 +71,10 @@ class LineController extends Controller
         $client = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($accessToken);
         $bot = new \LINE\LINEBot($client, ['channelSecret' => $secret]);
 
-        Log::info(json_encode($request->all()));
+        // Log::info(json_encode($request->all()));
         $events = $request->all();
         // Looping Needed?
-        Log::info(json_encode($events));
+        // Log::info(json_encode($events));
         $filtered = $events['events'][0];
         $type = $filtered['type'];
         $replyToken = $filtered['replyToken'];
@@ -135,11 +108,11 @@ class LineController extends Controller
                 $data = array();
                 // Use array when more than one addressee
                 $data['to'] = $userId;
-                $json = $this->assembleFlex(20);
+                $json = $helpers->assembleFlex(20);
                 $data['messages'] = [['type'=>'flex', 'altText' => '戰力排行前20名', 'contents'=>json_decode($json, true)]];
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
 
-                $json = $this->assembleFlex(20, 20);
+                $json = $helpers->assembleFlex(20, 20);
                 $data['messages'] = [['type'=>'flex', 'altText' => '戰力排行', 'contents'=>json_decode($json, true)]];
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
 
@@ -162,71 +135,6 @@ class LineController extends Controller
 
             // Approx Entry Time empty member list
             } elseif ($msgText == '進場統計') {
-                // $members = User::where([['guild','無與倫比'],['approx_entry_time', '']])->get();
-                // $memberCount = $members->count();
-                // $memberList = '';
-                // foreach ($members as $member) {
-                //     $memberList .= "{$member->lineid}\n";
-                // }
-
-                // // Team Count
-                // $tanhungTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '丹紅城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '準時參加']])->count();
-                // $linmoTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '蓮慕城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '準時參加']])->count();
-                // $choiloTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城'], ['approx_entry_time', '準時參加']])->count();
-                // $taihoTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '大豪城'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '準時參加']])->count();
-                // $buffTeamCount = User::where([['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組'], ['approx_entry_time', '<>', ''], ['approx_entry_time', '準時參加']])->count();
-
-                // // Team List
-                // $choiloTeamLateCount = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->count();
-                // $choiloTeamLate = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->get();
-                // $choiloTeamLateList = '';
-                // foreach ($choiloTeamLate as $choiloLateMember) {
-                //     $choiloTeamLateList .= "{$choiloLateMember->lineid}|";
-                // }
-                // $choiloTeamLateList = rtrim($choiloTeamLateList, '|');
-
-                // $choiloTeamLeave = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->get();
-                // $choiloTeamLeaveCount = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->count();
-                // $choiloTeamLeaveList = '';
-                // foreach ($choiloTeamLeave as $choiloLeaveMember) {
-                //     $choiloTeamLeaveList .= "{$choiloLeaveMember->lineid}|";
-                // }
-                // $choiloTeamLeaveList = rtrim($choiloTeamLeaveList, '|');
-
-                // // Team Taiho
-                // $taihoTeamLateCount = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->count();
-                // $taihoTeamLate = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->get();
-                // $taihoTeamLateList = '';
-                // foreach ($taihoTeamLate as $taihoLateMember) {
-                //     $taihoTeamLateList .= "{$taihoLateMember->lineid}|";
-                // }
-                // $taihoTeamLateList = rtrim($taihoTeamLateList, '|');
-
-                // $taihoTeamLeave = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->get();
-                // $taihoTeamLeaveCount = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->count();
-                // $taihoTeamLeaveList = '';
-                // foreach ($taihoTeamLeave as $taihoLeaveMember) {
-                //     $taihoTeamLeaveList .= "{$taihoLeaveMember->lineid}|";
-                // }
-                // $taihoTeamLeaveList = rtrim($taihoTeamLeaveList, '|');
-                
-                // // Team Buff
-                // $buffTeamLateCount = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->count();
-                // $buffTeamLate = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->get();
-                // $buffTeamLateList = '';
-                // foreach ($buffTeamLate as $buffLateMember) {
-                //     $buffTeamLateList .= "{$buffLateMember->lineid}|";
-                // }
-                // $buffTeamLateList = rtrim($buffTeamLateList, '|');
-
-                // $buffTeamLeave = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->get();
-                // $buffTeamLeaveCount = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->count();
-                // $buffTeamLeaveList = '';
-                // foreach ($buffTeamLeave as $buffLeaveMember) {
-                //     $buffTeamLeaveList .= "{$buffLeaveMember->lineid}|";
-                // }
-                // $buffTeamLeaveList = rtrim($buffTeamLeaveList, '|');
-
                 $response = $bot->replyText($replyToken, $helpers->statistics());
 
             /*
@@ -239,7 +147,7 @@ class LineController extends Controller
                 $response = $bot->replyText($replyToken, "請使用以下格式更新戰力(例子)\n更新戰力:3560000");
 
             // Capability update
-            } elseif (mb_substr($msgText, 0, 5) == '更新戰力:' || mb_substr($msgText, 0, 5) == '更新戰力：') {
+            } elseif (in_array(mb_substr($msgText, 0, 5), ['更新戰力:', '更新戰力：'])) {
                 
                 $msgText = str_replace('：', ':', $msgText);
                 $newCapability = explode(':', $msgText)[1];
@@ -268,38 +176,7 @@ class LineController extends Controller
             // Call AET Menu
             } elseif ($msgText == '設定進場時間') {
                 $data['to'] = $userId;
-                $json = '{
-                          "type": "template",
-                          "altText": "設定進場時間",
-                          "template": {
-                            "type": "buttons",
-                            "actions": [
-                              {
-                                "type": "message",
-                                "label": "準時參加",
-                                "text": "準時"
-                              },
-                              {
-                                "type": "message",
-                                "label": "晚到10分鐘",
-                                "text": "晚10"
-                              },
-                              {
-                                "type": "message",
-                                "label": "晚到11~20分鐘",
-                                "text": "晚20"
-                              },
-                              {
-                                "type": "message",
-                                "label": "晚到30分鐘以上",
-                                "text": "晚30"
-                              }
-                            ],
-                            "thumbnailImageUrl": "https://unstoppable1122.com/images/prince.png",
-                            "title": "請設定本次門派爭奪進場時間",
-                            "text": "如無法參加，請使用 請假:{事由} 指令"
-                          }
-                        }';
+                $json = $helpers->aetJson();
                 $data['messages'] = [json_decode($json, true)];
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data); 
 
