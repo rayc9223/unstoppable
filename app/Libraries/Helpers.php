@@ -8,7 +8,7 @@ use App\User;
 
 class Helpers
 {
-	public function ramdomReply()
+	public function randomReply()
 	{
 		$randomText = [
                     "小幫手壞掉了嗎？\n好像真的壞掉了耶{$this->emoji('0x10007B')}", 
@@ -29,6 +29,33 @@ class Helpers
             $bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
             return mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
         }
+    }
+
+    public function assembleFlex($take, $offset = 0)
+    {
+        $jsonTemplate = '{"type":"bubble","hero":{"type":"image","url":"https:\/\/unstoppable1122.com\/images\/rankings.png","size":"full","aspectRatio":"20:4","aspectMode":"cover"},"body":{"type":"box","layout":"vertical","spacing":"md","contents":[{"type":"text","text":"\u6230\u529b\u6392\u884c","size":"md","weight":"bold"},%s]},"footer":{"type":"box","layout":"vertical","contents":[{"type":"spacer","size":"sm"}]}}';
+
+        $rankings = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->skip($offset)->take($take)->get();
+
+        $content = '';
+        foreach ($rankings as $ranking) {
+            if ($ranking->capability > 4000000) {
+                $color = '#8e44ad';
+            } elseif ($ranking->capability > 3500000) {
+                $color = '#FF0000';
+            } elseif ($ranking->capability > 3000000) {
+                $color = '#f39c12';
+            } elseif ($ranking->capability > 2500000) {
+                $color = '#27ae60';
+            } else {
+                $color = '#2980b9';
+            }
+            $content .= '{"type":"box","layout":"vertical","spacing":"none","contents":[{"type":"box","layout":"baseline","contents":[{"type":"text","text":"' . $ranking->gameid . '","size":"sm","weight":"bold","align":"start","margin":"none"},{"type":"text","text":"' . $ranking->capability . '","size":"md","align":"end","weight":"bold","color":"' . $color . '"}]}]},';
+        }
+        $content = rtrim($content, ',');
+        $json = sprintf($jsonTemplate, $content);
+
+        return $json;
     }
 
     public function statistics()
@@ -101,5 +128,41 @@ class Helpers
         $response = "未設定進場狀態({$memberCount}): \n{$memberList}\n各分組登記狀態: \n丹紅: {$tanhungTeamCount}\n蓮慕: {$linmoTeamCount}\n-------塞羅:({$choiloTeamCount})------\n晚到({$choiloTeamLateCount}):{$choiloTeamLateList}\n請假({$choiloTeamLeaveCount}):{$choiloTeamLeaveList}\n\n-------大豪:({$taihoTeamCount})------\n晚到({$taihoTeamLateCount}):{$taihoTeamLateList}\n請假({$taihoTeamLeaveCount}):{$taihoTeamLeaveList}\n\n-------鬼怪:({$buffTeamCount})------\n晚到({$buffTeamLateCount}):{$buffTeamLateList}\n請假({$buffTeamLeaveCount}):{$buffTeamLeaveList}";
 
         return $response;
+    }
+
+    public function aetJson()
+    {
+    	return '{
+                  "type": "template",
+                  "altText": "設定進場時間",
+                  "template": {
+                    "type": "buttons",
+                    "actions": [
+                      {
+                        "type": "message",
+                        "label": "準時參加",
+                        "text": "準時"
+                      },
+                      {
+                        "type": "message",
+                        "label": "晚到10分鐘",
+                        "text": "晚10"
+                      },
+                      {
+                        "type": "message",
+                        "label": "晚到11~20分鐘",
+                        "text": "晚20"
+                      },
+                      {
+                        "type": "message",
+                        "label": "晚到30分鐘以上",
+                        "text": "晚30"
+                      }
+                    ],
+                    "thumbnailImageUrl": "https://unstoppable1122.com/images/prince.png",
+                    "title": "請設定本次門派爭奪進場時間",
+                    "text": "如無法參加，請使用 請假:{事由} 指令"
+                  }
+                }';
     }
 }
