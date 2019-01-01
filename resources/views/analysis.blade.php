@@ -285,7 +285,7 @@
                         </div>
                     </div>
                 
-                    <table class="table" style="font-weight: 600;">
+                    <table class="table" style="font-weight: 600;width: 1100px;">
                         <tbody>
                             <tr>
                                 <td width="30%">無法參加本次爭奪</td>
