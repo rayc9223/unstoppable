@@ -221,7 +221,7 @@
                             <tr>
                                 <td>晚到</td>
                                 <td>
-                                    {{ data['late'] }}
+                                    {{ $data['late'] }}
                                 </td>
                                 <td>
                                     
