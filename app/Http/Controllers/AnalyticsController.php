@@ -165,7 +165,8 @@ class AnalyticsController extends Controller
                                 'tanhung'=>$tanHung,
                                 'linmo'=>$linMo,
                                 'choilo'=>$choiLo,
-                                'taiho'=>$taiHo
+                                'taiho'=>$taiHo,
+                                'buff'=>$buff
                                 // 'tanhungTeamCount'=>$tanhungTeamCount,
                                 // 'linmoTeamCount'=>$linmoTeamCount,
                                 // 'choiloTeamCount'=>$choiloTeamCount,
