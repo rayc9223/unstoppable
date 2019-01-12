@@ -354,7 +354,7 @@
                             <td></td>
                             <td class="text-left">
                                 @if($choilo['teamLateCount'])
-                                    ( {{ $choilo['teamLateCount'] }} ) {{ $choiloTeamLateList }}
+                                    ( {{ $choilo['teamLateCount'] }} ) {{ $choilo['teamLateList'] }}
                                 @endif
                             </td>
                             <td class="text-left">
