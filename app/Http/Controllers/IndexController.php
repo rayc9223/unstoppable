@@ -87,7 +87,7 @@ class IndexController extends Controller
 
     public function capability(){
         if(Auth::user()){
-            $ranking = User::select('uid', 'gameid', 'lineid','guild', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->get();
+            $ranking = User::select('uid', 'gameid', 'lineid','guild', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->where('guild', '無與倫比')->get();
             $announcement = Announcement::where('type', 1)->select('content', 'last_update')->orderBy('last_update', 'DESC')->firstOrFail();
             return view('capability', ['ranking'=>$ranking, 'announcement'=>$announcement]);
         }else{
