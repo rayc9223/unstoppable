@@ -334,18 +334,18 @@
                     <thead>
                         <th width="10%"></th>
                         <th width="15%">丹紅 
-                            @if($tanhungTeamCount)
-                                ( {{ $tanhungTeamCount }} )
+                            @if($tanhung['teamCount'])
+                                ( {{ $tanhung['teamCount'] }} )
                             @endif
                         </th>
                         <th width="15%">蓮慕
-                            @if($linmoTeamCount)
-                                ( {{ $linmoTeamCount }} )
+                            @if($linmo['teamCount'])
+                                ( {{ $linmo['teamCount'] }} )
                             @endif
                         </th>
-                        <th width="20%">塞羅 ( {{ $choiloTeamCount }} )</th>
-                        <th width="20%">大豪 ( {{ $taihoTeamCount }} )</th>
-                        <th width="20%">鬼怪 ( {{ $buffTeamCount }} )</th>
+                        <th width="20%">塞羅 ( {{ $choilo['teamCount'] }} )</th>
+                        <th width="20%">大豪 ( {{ $taiho['teamCount'] }} )</th>
+                        <th width="20%">鬼怪 ( {{ $buff['teamCount'] }} )</th>
                     </thead>
                     <tbody>
                         <tr>
@@ -353,18 +353,18 @@
                             <td></td>
                             <td></td>
                             <td class="text-left">
-                                @if($choiloTeamLateCount)
-                                    ( {{ $choiloTeamLateCount }} ) {{ $choiloTeamLateList }}
+                                @if($choilo['teamLateCount'])
+                                    ( {{ $choilo['teamLateCount'] }} ) {{ $choiloTeamLateList }}
                                 @endif
                             </td>
                             <td class="text-left">
-                                @if($taihoTeamLateCount)
-                                    ( {{ $taihoTeamLateCount }} ) {{ $taihoTeamLateList }}
+                                @if($taiho['teamLateCount'])
+                                    ( {{ $taiho['teamLateCount'] }} ) {{ $taiho['teamLateList'] }}
                                 @endif
                             </td>
                             <td class="text-left">
-                                @if($buffTeamLateCount)
-                                    ( {{ $buffTeamLateCount }} ) {{ $buffTeamLateList }}
+                                @if($buff['teamLateCount'])
+                                    ( {{ $buff['teamLateCount'] }} ) {{ $buff['teamLateList'] }}
                                 @endif
                             </td>
                             
@@ -375,18 +375,18 @@
                             <td></td>
                             <td></td>
                             <td class="text-left">
-                                @if($choiloTeamLeaveCount)
-                                    ( {{ $choiloTeamLeaveCount }} ) {{ $choiloTeamLeaveList }}
+                                @if($choilo['teamLeaveCount'])
+                                    ( {{ $choilo['teamLeaveCount'] }} ) {{ $choilo['teamLeaveList'] }}
                                 @endif
                             </td>
                             <td class="text-left">
-                                @if($taihoTeamLeaveCount)
-                                    ( {{ $taihoTeamLeaveCount }} ) {{ $taihoTeamLeaveList }}
+                                @if($taiho['teamLeaveCount'])
+                                    ( {{ $taihoTeamLeaveCount }} ) {{ $taiho['teamLeaveList']}}
                                 @endif
                             </td>
                             <td class="text-left">
-                                @if($buffTeamLeaveCount)
-                                    ( {{ $buffTeamLeaveCount }} ) {{ $buffTeamLeaveList }}
+                                @if($buff['teamLeaveCount'])
+                                    ( {{ $buff['teamLeaveCount'] }} ) {{ $buff['teamLeaveList']}}
                                 @endif
                             </td>
                        
