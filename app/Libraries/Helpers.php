@@ -41,7 +41,7 @@ class Helpers
     {
         $jsonTemplate = '{"type":"bubble","hero":{"type":"image","url":"https:\/\/unstoppable1122.com\/images\/rankings.png","size":"full","aspectRatio":"20:4","aspectMode":"cover"},"body":{"type":"box","layout":"vertical","spacing":"md","contents":[{"type":"text","text":"\u6230\u529b\u6392\u884c","size":"md","weight":"bold"},%s]},"footer":{"type":"box","layout":"vertical","contents":[{"type":"spacer","size":"sm"}]}}';
 
-        $rankings = User::select('gameid', 'capability')->orderBy('capability', 'DESC')->skip($offset)->take($take)->get();
+        $rankings = User::select('gameid', 'capability')->where('guild', '無與倫比')->orderBy('capability', 'DESC')->skip($offset)->take($take)->get();
 
         $content = '';
         foreach ($rankings as $ranking) {
