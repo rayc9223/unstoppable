@@ -203,17 +203,17 @@
                                     總計註册
                                 </td>
                                 <td>
-                                    {{ $total_users }}
+                                    {{ $data['total_users'] }}
                                 </td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td>預計準時進場</td>
                                 <td>
-                                    @if(count($ontime) < 10)
-                                        <span style="color:red;">{{ count($ontime) }}</span>
+                                    @if(count($data['ontime']) < 10)
+                                        <span style="color:red;">{{ count($data['ontime']) }}</span>
                                     @else
-                                        {{ count($ontime) }}
+                                        {{ count($data['ontime']) }}
                                     @endif</td>
                                 <td></td>
             
@@ -221,7 +221,7 @@
                             <tr>
                                 <td>晚到</td>
                                 <td>
-                                    {{ count($approx_case_2) + count($approx_case_3) + count($approx_case_4) }}
+                                    {{ data['late'] }}
                                 </td>
                                 <td>
                                     
@@ -244,9 +244,9 @@
                             <table class="table" style="font-weight: 600;">
                                 <tr>
                                     <td width="30%">晚到10分鐘</td>
-                                    <td width="10%">{{ count($approx_case_2) }}</td>
+                                    <td width="10%">{{ count($data['late_by_10']) }}</td>
                                     <td width="60%">
-                                        @foreach($approx_case_2 as $member)
+                                        @foreach($data['late_by_10'] as $member)
                                             @if($loop->last)
                                                 {{ $member->lineid }}
                                             @else
@@ -257,9 +257,9 @@
                                 </tr>
                                 <tr>
                                     <td>晚到20分鐘</td>
-                                    <td>{{ count($approx_case_3) }}</td>
+                                    <td>{{ count($data['late_by_20']) }}</td>
                                     <td>
-                                        @foreach($approx_case_3 as $member)
+                                        @foreach($data['late_by_20'] as $member)
                                             @if($loop->last)
                                                 {{ $member->lineid }}
                                             @else
@@ -270,9 +270,9 @@
                                 </tr>
                                 <tr>
                                     <td>晚到30分鐘（或以上）</td>
-                                    <td>{{ count($approx_case_4) }}</td>
+                                    <td>{{ count($data['late_by_30']) }}</td>
                                     <td>
-                                        @foreach($approx_case_4 as $member)
+                                        @foreach($data['late_by_30'] as $member)
                                             @if($loop->last)
                                                 {{ $member->lineid }}
                                             @else
@@ -290,13 +290,13 @@
                             <tr>
                                 <td width="30%">無法參加本次爭奪</td>
                                 <td width="10%">
-                                    @if(count($absent) > 3)
-                                        <span style="color:red;">{{ count($absent) }}</span>
+                                    @if(count($data['absent']) > 3)
+                                        <span style="color:red;">{{ count($data['absent']) }}</span>
                                     @else
-                                        {{ count($absent) }}
+                                        {{ count($data['absent']) }}
                                     @endif</td>
                                 <td width="60%">
-                                    @foreach($absent as $member)
+                                    @foreach($data['absent'] as $member)
                                         @if($loop->last)
                                             {{ $member->lineid }}
                                         @else
@@ -308,14 +308,14 @@
                             <tr>
                                 <td>未設定入場時間</td>
                                 <td>
-                                    @if(count($approx_undefined) > 5)
-                                        <span style="color:red;">{{ count($approx_undefined) }}</span>
+                                    @if(count($data['approx_undefined']) > 5)
+                                        <span style="color:red;">{{ count($data['approx_undefined']) }}</span>
                                     @else
-                                        {{ count($approx_undefined) }}
+                                        {{ count($data['approx_undefined']) }}
                                     @endif
                                 </td>
                                 <td>
-                                    @foreach($approx_undefined as $member)
+                                    @foreach($data['approx_undefined'] as $member)
                                         @if($loop->last)
                                             {{ $member->lineid }}
                                         @else

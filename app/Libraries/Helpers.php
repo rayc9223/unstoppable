@@ -107,6 +107,52 @@ class Helpers
         return $teamData;
     }
 
+    public function analysis()
+    {
+        $data = [];
+        $data['total_users'] = User::where('guild', '無與倫比')->count();
+
+        $data['ontime'] = User::where([['guild','無與倫比'],['approx_entry_time','準時參加']])->get();
+
+        $data['late'] = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where('guild','無與倫比')->count();
+
+        $data['late_by_10'] = User::where([['guild','無與倫比'],['approx_entry_time','晚到10分鐘']])->get();
+
+        $data['late_by_20'] = User::where([['guild','無與倫比'],['approx_entry_time','晚到11~20分鐘']])->get();
+
+        $data['late_by_30'] = User::where([['guild','無與倫比'],['approx_entry_time','晚到30分鐘以上']])->get();
+
+        $data['absent'] = User::where([['guild','無與倫比'],['approx_entry_time','無法參加本次爭奪']])->get();
+
+        $data['approx_undefined'] = User::where([['guild','無與倫比'],['approx_entry_time', '']])->get();
+
+        $data['guildwar_p1'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '<>', '']])->get();
+
+        $data['guildwar_p1_buff'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->get();
+
+        $data['guildwar_p1_tanhung'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '丹紅城']])->get();
+
+        $data['guildwar_p1_taiho'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->get();
+
+        $data['guildwar_p1_linmo'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '蓮慕城']])->get();
+
+        $data['guildwar_p1_choilo'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->get();
+
+        $data['guildwar_p1_undefined'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '']])->get();
+
+        $data['guildwar_p2'] = User::where([['guild','無與倫比'],['guildwar_phase_2', '<>', '']])->get();
+
+        $data['guildwar_p2_urban'] = User::where([['guild','無與倫比'],['guildwar_phase_2', '城外郊區組']])->get();
+
+        $data['guildwar_p2_forbidden'] = User::where([['guild','無與倫比'],['guildwar_phase_2', '皇城內組']])->get();
+
+        $data['guildwar_p2_palace'] = User::where([['guild','無與倫比'],['guildwar_phase_2', '皇宮組']])->get();
+
+        $data['guildwar_p2_undefined'] = User::where([['guild','無與倫比'],['guildwar_phase_2', '']])->get();
+
+        return $data;
+    }
+
     public function aetJson()
     {
     	return '{

@@ -104,45 +104,11 @@ class AnalyticsController extends Controller
         $taiHo = $helpers->getTeamData('大豪城');
         $buff = $helpers->getTeamData('增益：鬼怪組');
 
-        $total_users = User::where('guild', '無與倫比')->count();
+        $analysisData = $helpers->analysis();
 
-        $approx_case_1 = User::where([['guild','無與倫比'],['approx_entry_time','準時參加']])->get();
-
-        $approx_case_2 = User::where([['guild','無與倫比'],['approx_entry_time','晚到10分鐘']])->get();
-
-        $approx_case_3 = User::where([['guild','無與倫比'],['approx_entry_time','晚到11~20分鐘']])->get();
-
-        $approx_case_4 = User::where([['guild','無與倫比'],['approx_entry_time','晚到30分鐘以上']])->get();
-
-        $approx_case_5 = User::where([['guild','無與倫比'],['approx_entry_time','無法參加本次爭奪']])->get();
-
-        $approx_case_6 = User::where([['guild','無與倫比'],['approx_entry_time', '']])->get();
-
-        $guildwar_p1 = User::where([['guild','無與倫比'],['guildwar_phase_1', '<>', '']])->get();
-
-        $guildwar_p1_buff = User::where([['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->get();
-
-        $guildwar_p1_tanhung = User::where([['guild','無與倫比'],['guildwar_phase_1', '丹紅城']])->get();
-
-        $guildwar_p1_taiho = User::where([['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->get();
-
-        $guildwar_p1_linmo = User::where([['guild','無與倫比'],['guildwar_phase_1', '蓮慕城']])->get();
-
-        $guildwar_p1_choilo = User::where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->get();
-
-        $guildwar_p1_undefined = User::where([['guild','無與倫比'],['guildwar_phase_1', '']])->get();
-
-        $guildwar_p2 = User::where([['guild','無與倫比'],['guildwar_phase_2', '<>', '']])->get();
-
-        $guildwar_p2_urban = User::where([['guild','無與倫比'],['guildwar_phase_2', '城外郊區組']])->get();
-
-        $guildwar_p2_forbidden = User::where([['guild','無與倫比'],['guildwar_phase_2', '皇城內組']])->get();
-
-        $guildwar_p2_palace = User::where([['guild','無與倫比'],['guildwar_phase_2', '皇宮組']])->get();
-
-        $guildwar_p2_undefined = User::where([['guild','無與倫比'],['guildwar_phase_2', '']])->get();
-
-        return view('analysis', ['total_users'=>$total_users,
+        return view('analysis', [
+                                'data'=>$analysisData,
+                                'total_users'=>$total_users,
                                 'ontime'=>$approx_case_1,
                                 'approx_case_2'=>$approx_case_2,
                                 'approx_case_3'=>$approx_case_3,
@@ -167,23 +133,6 @@ class AnalyticsController extends Controller
                                 'choilo'=>$choiLo,
                                 'taiho'=>$taiHo,
                                 'buff'=>$buff
-                                // 'tanhungTeamCount'=>$tanhungTeamCount,
-                                // 'linmoTeamCount'=>$linmoTeamCount,
-                                // 'choiloTeamCount'=>$choiloTeamCount,
-                                // 'taihoTeamCount'=>$taihoTeamCount,
-                                // 'buffTeamCount'=>$buffTeamCount,
-                                // 'choiloTeamLateCount'=>$choiloTeamLateCount,
-                                // 'choiloTeamLateList'=>$choiloTeamLateList,
-                                // 'choiloTeamLeaveCount'=>$choiloTeamLeaveCount,
-                                // 'choiloTeamLeaveList'=>$choiloTeamLeaveList,
-                                // 'taihoTeamLateCount'=>$taihoTeamLateCount,
-                                // 'taihoTeamLateList'=>$taihoTeamLateList,
-                                // 'taihoTeamLeaveCount'=>$taihoTeamLeaveCount,
-                                // 'taihoTeamLeaveList'=>$taihoTeamLeaveList,
-                                // 'buffTeamLateCount'=>$buffTeamLateCount,
-                                // 'buffTeamLateList'=>$buffTeamLateList,
-                                // 'buffTeamLeaveCount'=>$buffTeamLeaveCount,
-                                // 'buffTeamLeaveList'=>$buffTeamLeaveList
         ]);
     }
 
