@@ -81,8 +81,7 @@ class Helpers
 
         // 'teamCount', 'teamLateCount', 'teamLateList', 'teamLeaveCount', 'teamLeaveList'
 
-        $response = "未設定進場狀態({$memberCount}): \n{$memberList}\n各分組登記狀態: \n
-        丹紅: {$tanHung['teamCount']})\n------\n晚到({$tanHung['teamLateCount']}):{$tanHung['teamLateList']}\n請假({$tanHung['teamLeaveCount']}):{$tanHung['teamLeaveList']}\n\n-------蓮慕:({$linMo['teamCount']})\n------\n晚到({$linMo['teamLateCount']}):{$linMo['teamLateList']}\n請假({$linMo['teamLeaveCount']}):{$linMo['teamLeaveList']}\n\n-------塞羅:({$choiLo['teamCount']})\n------\n晚到({$choiLo['teamLateCount']}):{$choiLo['teamLateList']}\n請假({$choiLo['teamLeaveCount']}):{$choiLo['teamLeaveList']}\n\n-------大豪:({$taiHo['teamCount']})\n------\n晚到({$taiHo['teamLateCount']}):{$taiHo['teamLateList']}\n請假({$taiHo['teamLeaveCount']}):{$taiHo['teamLeaveList']}\n\n-------鬼怪:({$buff['teamCount']})\n------\n晚到({$buff['teamLateCount']}):{$buff['teamLateList']}\n請假({$buff['teamLeaveCount']}):{$buff['teamLeaveList']}";
+        $response = "未設定進場狀態({$memberCount}): \n{$memberList}\n各分組登記狀態: \n-------丹紅: {$tanHung['teamCount']})\n------\n晚到({$tanHung['teamLateCount']}):{$tanHung['teamLateList']}\n請假({$tanHung['teamLeaveCount']}):{$tanHung['teamLeaveList']}\n\n-------蓮慕:({$linMo['teamCount']})\n------\n晚到({$linMo['teamLateCount']}):{$linMo['teamLateList']}\n請假({$linMo['teamLeaveCount']}):{$linMo['teamLeaveList']}\n\n-------塞羅:({$choiLo['teamCount']})\n------\n晚到({$choiLo['teamLateCount']}):{$choiLo['teamLateList']}\n請假({$choiLo['teamLeaveCount']}):{$choiLo['teamLeaveList']}\n\n-------大豪:({$taiHo['teamCount']})\n------\n晚到({$taiHo['teamLateCount']}):{$taiHo['teamLateList']}\n請假({$taiHo['teamLeaveCount']}):{$taiHo['teamLeaveList']}\n\n-------鬼怪:({$buff['teamCount']})\n------\n晚到({$buff['teamLateCount']}):{$buff['teamLateList']}\n請假({$buff['teamLeaveCount']}):{$buff['teamLeaveList']}";
 
 
         // Team Count
