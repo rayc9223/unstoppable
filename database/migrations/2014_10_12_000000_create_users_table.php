@@ -26,11 +26,13 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('level')->default(1);
             $table->integer('capability')->default(0);
             $table->integer('roll_qty')->default(0);
+            $table->string('guild',20)->default('');
             $table->integer('guildwar_times')->default(0);
             $table->string('email')->unique();
             $table->integer('last_update')->default(0);
             $table->string('password');
             $table->rememberToken();
+            $table->string('line_userid', 255)->default('');
             // $table->timestamps();
         });
     }
