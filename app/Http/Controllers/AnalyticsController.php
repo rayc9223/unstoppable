@@ -15,7 +15,7 @@ class AnalyticsController extends Controller
         if(!Auth::user()->isAdmin()){
             return redirect('index');
         }
-        $users = User::select('uid', 'gameid')->get();
+        $users = User::select('uid', 'gameid')->where('guild','無與倫比')->get();
         return view('guildwar_data', ['users'=>$users]);
     }
 
@@ -62,7 +62,7 @@ class AnalyticsController extends Controller
         if(!Auth::user()){
             return redirect('login');
         }
-        $data = Guildwar::where('is_delete', '<>', 1)->orderBy('guildwar_date','DESC')->orderBy('rank','ASC')->get();
+        $data = Guildwar::where(['is_delete', '<>', 1], ['guild','無與倫比'])->orderBy('guildwar_date','DESC')->orderBy('rank','ASC')->get();
         return view('guildwar_data_list', ['records'=>$data]);
     }
 
