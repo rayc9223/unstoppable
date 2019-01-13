@@ -43,13 +43,13 @@ class LoginController extends Controller
 
     public function postForgot(Request $request){
         $email = $request->email;
-        $validate = DB::table('users')->where('email', $email)->firstOrFail();
+        $validate = DB::table('users')->where('email', $email)->first();
         if(!$validate){
             Session::flash('error_msg','電郵地址錯誤，請確認後重新輸入');
             return back()->withInput($request->input());
         }else{
             $token = $this->genToken(18);
-            $credentials = DB::table('credentials')->select('username', 'password')->firstOrFail();
+            $credentials = DB::table('credentials')->select('username', 'password')->first();
             Session::put('reset_password_token', $token);
             $body = "請透過以下連結重置密碼<br>" . url('reset_password') . '?email=' . $email .'&token=' . $token;
             $mail = new Message;
