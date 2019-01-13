@@ -190,7 +190,7 @@
                         @if($members)
                             <div style="margin-bottom: 10px;">
                                 <select name="gameid" id="filter-by-gameid" class="form-control" style="margin-right: 10px;">
-                                    <option value="0">檢視個人缺席紀錄</option>
+                                    <option value="0">檢視個人缺席記錄</option>
                                         @foreach($members as $member)
                                             <option value="{{ $member->gameid }}">{{ $member->gameid }}</option>
                                         @endforeach
