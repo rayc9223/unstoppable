@@ -185,7 +185,25 @@
                 </div>
 
                 <div class="row flex-center">
+                    <form action="{{ url('filter-by-lineid') }}" method="post" class="form-inline">
+                        @csrf
+                        @if($members)
+                            <div style="margin-bottom: 10px;">
+                                <select name="gameid" id="filter-by-gameid" class="form-control" style="margin-right: 10px;">
+                                    <option value="0">檢視個人缺席紀錄</option>
+                                        @foreach($members as $member)
+                                            <option value="{{ $member->gameid }}">{{ $member->gameid }}</option>
+                                        @endforeach
+                                </select>
+
+                                <button type="submit" class="btn btn-primary form-control" style="width:80px;margin-right: 10px;">確認</button>
+                                <a class="btn btn-success" href="{{ url('leave/list') }}" style="width:80px;color:white;">返回</a>
+                            </div>
+                        @endif
+                    </form>
+
                     <div class="row flex-center" style="width: 100%;box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.15);padding:0px;margin-bottom: 10px;">
+
                     <table class="table" style="font-weight: 600;">
                         <thead>
                             <tr>

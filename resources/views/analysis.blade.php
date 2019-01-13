@@ -381,7 +381,7 @@
                             </td>
                             <td class="text-left">
                                 @if($taiho['teamLeaveCount'])
-                                    ( {{ $taihoTeamLeaveCount }} ) {{ $taiho['teamLeaveList']}}
+                                    ( {{ $taiho['teamLeaveCount'] }} ) {{ $taiho['teamLeaveList']}}
                                 @endif
                             </td>
                             <td class="text-left">

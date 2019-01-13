@@ -106,28 +106,7 @@ class AnalyticsController extends Controller
 
         $analysisData = $helpers->analysis();
 
-        return view('analysis', [
-                                'data'=>$analysisData,
-                                // 'total_users'=>$total_users,
-                                // 'ontime'=>$approx_case_1,
-                                // 'approx_case_2'=>$approx_case_2,
-                                // 'approx_case_3'=>$approx_case_3,
-                                // 'approx_case_4'=>$approx_case_4,
-                                // 'absent'=>$approx_case_5,
-                                // 'approx_undefined'=>$approx_case_6,
-                                // 'guildwar_p1_registered'=>$guildwar_p1,
-                                // 'guildwar_p1_buff'=>$guildwar_p1_buff,
-                                // 'tanhung'=>$guildwar_p1_tanhung,
-                                // 'linmo'=>$guildwar_p1_linmo,
-                                // 'choilo'=>$guildwar_p1_choilo,
-                                // 'taiho'=>$guildwar_p1_taiho,
-                                // 'guildwar_p1_undefined'=>$guildwar_p1_undefined,
-                                // 'guildwar_p2_registered'=>$guildwar_p2,
-                                // 'guildwar_p2_urban'=>$guildwar_p2_urban,
-                                // 'guildwar_p2_forbidden'=>$guildwar_p2_forbidden,
-                                // 'guildwar_p2_palace'=>$guildwar_p2_palace,
-                                // 'guildwar_p2_undefined'=>$guildwar_p2_undefined,
-
+        return view('analysis',['data'=>$analysisData,
                                 'tanhung'=>$tanHung,
                                 'linmo'=>$linMo,
                                 'choilo'=>$choiLo,
