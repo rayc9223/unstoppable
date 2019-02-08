@@ -397,7 +397,7 @@
                     <div style="height: 30px;"></div>
 
         <div class="links">
-            <a href="{{ url('index') }}">無與倫比 | 赤焰 ｜ 夜雨花落 &copy; 2018</a>
+            <a href="{{ url('index') }}">無與倫比 | 赤焰 | 夜雨花落 &copy; 2018</a>
         </div>
 
             </div>
