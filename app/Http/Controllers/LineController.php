@@ -86,6 +86,10 @@ class LineController extends Controller
             if (!$user) {
                 $response = $bot->replyText($replyToken, "您的LINE_USER_ID為: " . $userId . "\n此ID尚未與門派網站帳號綁定，請聯繫門派管理員");
             }
+
+            if ($user && !$user->guild) {
+                $response = $bot->replyText($replyToken, "網站帳號: " . $user->lineid . " 尚未設定門派，請先往網站完成設定");
+            }
         }
 
         if ($type == 'message') {
@@ -108,11 +112,11 @@ class LineController extends Controller
                 $data = array();
                 // Use array when more than one addressee
                 $data['to'] = $userId;
-                $json = $helpers->assembleFlex(20);
+                $json = $helpers->assembleFlex(20, 0, $user->guild);
                 $data['messages'] = [['type'=>'flex', 'altText' => '戰力排行前20名', 'contents'=>json_decode($json, true)]];
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
 
-                $json = $helpers->assembleFlex(20, 20);
+                $json = $helpers->assembleFlex(20, 20, $user->guild);
                 $data['messages'] = [['type'=>'flex', 'altText' => '戰力排行', 'contents'=>json_decode($json, true)]];
                 $response = $client->post('https://api.line.me/v2/bot/message/push', $data);
 
@@ -135,7 +139,7 @@ class LineController extends Controller
 
             // Approx Entry Time empty member list
             } elseif ($msgText == '進場統計') {
-                $response = $bot->replyText($replyToken, $helpers->statistics());
+                $response = $bot->replyText($replyToken, $helpers->statistics($user->guild));
 
             /*
              * ===============================
@@ -151,7 +155,7 @@ class LineController extends Controller
                 
                 // $msgText = str_replace('：', ':', $msgText);
                 $newCapability = $helpers->getValue($msgText);
-                if ($newCapability > 0 && $newCapability < 5000000) {
+                if ($newCapability > 0 && $newCapability < 7000000) {
                     // Update DB
                     $user->capability = $newCapability;
                     $user->save();
@@ -212,7 +216,7 @@ class LineController extends Controller
                 $response = $bot->replyText($replyToken, "請輸入: 確認清除\n以完成本次數據抹除請求");
             } elseif ($msgText == '確認清除') {
                 if (in_array($user->uid, array(1,2,3,12,13,27,45))) {
-                    $allUsers = User::get();
+                    $allUsers = User::where('guild', $user->guild)->get();
                     foreach ($allUsers as $singleUser) {
                         $singleUser->update(['approx_entry_time' => '']);
                     }
@@ -222,7 +226,7 @@ class LineController extends Controller
                 }
 
             // Website Link
-            } elseif ($msgText == '無與倫比門派網站') {
+            } elseif ($msgText == '門派網站') {
                 $response = $bot->replyText($replyToken, "https://unstoppable1122.com");
 
             // Help Information

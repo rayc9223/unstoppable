@@ -31,7 +31,7 @@ class IndexController extends Controller
             return redirect('login');
         }
         if(Auth::user()){
-            $guilds = array('無與倫比', '夜雨花落');
+            $guilds = array('無與倫比', '赤焰', '夜雨花落');
             $titles = array('門派成員', '長老', '幹部','副門主', '門主');
             $guildwar_phase_1 = array('增益：鬼怪組', '丹紅城', '蓮慕城', '塞羅城','大豪城', '支援組');
             $guildwar_phase_2 = array('皇宮組', '皇城內組', '城外郊區組');
@@ -58,6 +58,10 @@ class IndexController extends Controller
         }
         if(!$request->filled('gameid') || !$request->filled('lineid')){
             Session::flash('error_msg','請填寫遊戲ID及LINE-ID');
+            return back()->withInput($request->input());
+        }
+        if(!$request->filled('guild')){
+            Session::flash('error_msg','請選擇所屬門派');
             return back()->withInput($request->input());
         }
         $user->gameid            = $request->filled('gameid') ? $request->gameid : '';
@@ -87,7 +91,8 @@ class IndexController extends Controller
 
     public function capability(){
         if(Auth::user()){
-            $ranking = User::select('uid', 'gameid', 'lineid','guild', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->where('guild', '無與倫比')->get();
+            $user = Auth::user();
+            $ranking = User::select('uid', 'gameid', 'lineid','guild', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->where('guild', $user->guild)->get();
             $announcement = Announcement::where('type', 1)->select('content', 'last_update')->orderBy('last_update', 'DESC')->first();
             return view('capability', ['ranking'=>$ranking, 'announcement'=>$announcement]);
         }else{
@@ -173,7 +178,7 @@ class IndexController extends Controller
             return back();
         }
         $user = User::find($request->uid);
-        $guilds = array('無與倫比', '夜雨花落');
+        $guilds = array('無與倫比', '赤焰', '夜雨花落');
         $titles = array('門派成員', '長老', '幹部','副門主', '門主');
         $guildwar_phase_1 = array('增益：鬼怪組', '丹紅城', '蓮慕城', '塞羅城', '大豪城', '支援組');
         $guildwar_phase_2 = array('皇宮組', '皇城內組', '城外郊區組');

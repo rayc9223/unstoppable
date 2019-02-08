@@ -23,7 +23,8 @@ class Helpers
                     "哈囉，今天小幫手休假哦\n{$this->emoji('0x100085')}小幫手怎麼會有休假?!\n好像說得也對吼{$this->emoji('0x10007C')}",
                     "請確認指令後重試",
                     "等一下，我打個電話給會長看看是不是把我的電源給踢掉了...",
-                    "我在看水行俠，等下看完回你哦{$this->emoji('0x100095')}"
+                    "我在看廉政風雲，等下看完回你哦{$this->emoji('0x100095')}",
+                    "新年好，恭喜發財"
                 ];
         return $randomText[mt_rand(0, count($randomText)-1)];
 	}
@@ -37,11 +38,11 @@ class Helpers
         }
     }
 
-    public function assembleFlex($take, $offset = 0)
+    public function assembleFlex($take, $offset = 0, $guild)
     {
         $jsonTemplate = '{"type":"bubble","hero":{"type":"image","url":"https:\/\/unstoppable1122.com\/images\/rankings.png","size":"full","aspectRatio":"20:4","aspectMode":"cover"},"body":{"type":"box","layout":"vertical","spacing":"md","contents":[{"type":"text","text":"\u6230\u529b\u6392\u884c","size":"md","weight":"bold"},%s]},"footer":{"type":"box","layout":"vertical","contents":[{"type":"spacer","size":"sm"}]}}';
 
-        $rankings = User::select('gameid', 'capability')->where('guild', '無與倫比')->orderBy('capability', 'DESC')->skip($offset)->take($take)->get();
+        $rankings = User::select('gameid', 'capability')->where('guild', $guild)->orderBy('capability', 'DESC')->skip($offset)->take($take)->get();
 
         $content = '';
         foreach ($rankings as $ranking) {
@@ -64,40 +65,40 @@ class Helpers
         return $json;
     }
 
-    public function statistics()
+    public function statistics($guild)
     {
-    	$members = User::where([['guild','無與倫比'],['approx_entry_time', '']])->get();
+    	$members = User::where([['guild', $guild],['approx_entry_time', '']])->get();
         $memberCount = $members->count();
         $memberList = '';
         foreach ($members as $member) {
             $memberList .= "{$member->lineid}\n";
         }
 
-        $tanHung = $this->getTeamData('丹紅城');
-        $linMo = $this->getTeamData('蓮慕城');
-        $choiLo = $this->getTeamData('塞羅城');
-        $taiHo = $this->getTeamData('大豪城');
-        $buff = $this->getTeamData('增益：鬼怪組');
+        $tanHung = $this->getTeamData('丹紅城', $guild);
+        $linMo = $this->getTeamData('蓮慕城', $guild);
+        $choiLo = $this->getTeamData('塞羅城', $guild);
+        $taiHo = $this->getTeamData('大豪城', $guild);
+        $buff = $this->getTeamData('增益：鬼怪組', $guild);
 
         $response = "未設定進場狀態({$memberCount}): \n{$memberList}\n各分組登記狀態: \n-------丹紅:({$tanHung['teamCount']})------\n晚到({$tanHung['teamLateCount']}):{$tanHung['teamLateList']}\n請假({$tanHung['teamLeaveCount']}):{$tanHung['teamLeaveList']}\n\n-------蓮慕:({$linMo['teamCount']})------\n晚到({$linMo['teamLateCount']}):{$linMo['teamLateList']}\n請假({$linMo['teamLeaveCount']}):{$linMo['teamLeaveList']}\n\n-------塞羅:({$choiLo['teamCount']})------\n晚到({$choiLo['teamLateCount']}):{$choiLo['teamLateList']}\n請假({$choiLo['teamLeaveCount']}):{$choiLo['teamLeaveList']}\n\n-------大豪:({$taiHo['teamCount']})------\n晚到({$taiHo['teamLateCount']}):{$taiHo['teamLateList']}\n請假({$taiHo['teamLeaveCount']}):{$taiHo['teamLeaveList']}\n\n-------鬼怪:({$buff['teamCount']})------\n晚到({$buff['teamLateCount']}):{$buff['teamLateList']}\n請假({$buff['teamLeaveCount']}):{$buff['teamLeaveList']}";
 
         return $response;
     }
 
-    public function getTeamData($teamName)
+    public function getTeamData($teamName, $guild)
     {
         $teamData = [];
-        $teamData['teamCount'] = User::where([['guild','無與倫比'],['guildwar_phase_1', $teamName], ['approx_entry_time', '<>', ''], ['approx_entry_time', '準時參加']])->count();
-        $teamData['teamLateCount'] = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', $teamName]])->count();
-        $teamLate = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild','無與倫比'],['guildwar_phase_1', $teamName]])->get();
+        $teamData['teamCount'] = User::where([['guild', $guild],['guildwar_phase_1', $teamName], ['approx_entry_time', '<>', ''], ['approx_entry_time', '準時參加']])->count();
+        $teamData['teamLateCount'] = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild', $guild],['guildwar_phase_1', $teamName]])->count();
+        $teamLate = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where([['guild', $guild],['guildwar_phase_1', $teamName]])->get();
         $teamLateList = '';
         foreach ($teamLate as $member) {
             $teamLateList .= "{$member->lineid}|";
         }
         $teamData['teamLateList'] = rtrim($teamLateList, '|');
 
-        $teamLeave = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', $teamName]])->get();
-        $teamData['teamLeaveCount'] = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild','無與倫比'],['guildwar_phase_1', $teamName]])->count();
+        $teamLeave = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild', $guild],['guildwar_phase_1', $teamName]])->get();
+        $teamData['teamLeaveCount'] = User::where([['approx_entry_time', '無法參加本次爭奪'], ['guild', $guild],['guildwar_phase_1', $teamName]])->count();
         $teamLeaveList = '';
         foreach ($teamLeave as $leaveMember) {
             $teamLeaveList .= "{$leaveMember->lineid}|";
@@ -107,48 +108,48 @@ class Helpers
         return $teamData;
     }
 
-    public function analysis()
+    public function analysis($guild)
     {
         $data = [];
-        $data['total_users'] = User::where('guild', '無與倫比')->count();
+        $data['total_users'] = User::where('guild',  $guild)->count();
 
-        $data['ontime'] = User::where([['guild','無與倫比'],['approx_entry_time','準時參加']])->get();
+        $data['ontime'] = User::where([['guild', $guild],['approx_entry_time','準時參加']])->get();
 
-        $data['late'] = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where('guild','無與倫比')->count();
+        $data['late'] = User::whereIn('approx_entry_time', array('晚到10分鐘', '晚到11~20分鐘', '晚到30分鐘以上'))->where('guild', $guild)->count();
 
-        $data['late_by_10'] = User::where([['guild','無與倫比'],['approx_entry_time','晚到10分鐘']])->get();
+        $data['late_by_10'] = User::where([['guild', $guild],['approx_entry_time','晚到10分鐘']])->get();
 
-        $data['late_by_20'] = User::where([['guild','無與倫比'],['approx_entry_time','晚到11~20分鐘']])->get();
+        $data['late_by_20'] = User::where([['guild', $guild],['approx_entry_time','晚到11~20分鐘']])->get();
 
-        $data['late_by_30'] = User::where([['guild','無與倫比'],['approx_entry_time','晚到30分鐘以上']])->get();
+        $data['late_by_30'] = User::where([['guild', $guild],['approx_entry_time','晚到30分鐘以上']])->get();
 
-        $data['absent'] = User::where([['guild','無與倫比'],['approx_entry_time','無法參加本次爭奪']])->get();
+        $data['absent'] = User::where([['guild', $guild],['approx_entry_time','無法參加本次爭奪']])->get();
 
-        $data['approx_undefined'] = User::where([['guild','無與倫比'],['approx_entry_time', '']])->get();
+        $data['approx_undefined'] = User::where([['guild', $guild],['approx_entry_time', '']])->get();
 
-        $data['guildwar_p1'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '<>', '']])->get();
+        $data['guildwar_p1'] = User::where([['guild', $guild],['guildwar_phase_1', '<>', '']])->get();
 
-        $data['guildwar_p1_buff'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '增益：鬼怪組']])->get();
+        $data['guildwar_p1_buff'] = User::where([['guild', $guild],['guildwar_phase_1', '增益：鬼怪組']])->get();
 
-        $data['guildwar_p1_tanhung'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '丹紅城']])->get();
+        $data['guildwar_p1_tanhung'] = User::where([['guild', $guild],['guildwar_phase_1', '丹紅城']])->get();
 
-        $data['guildwar_p1_taiho'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '大豪城']])->get();
+        $data['guildwar_p1_taiho'] = User::where([['guild', $guild],['guildwar_phase_1', '大豪城']])->get();
 
-        $data['guildwar_p1_linmo'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '蓮慕城']])->get();
+        $data['guildwar_p1_linmo'] = User::where([['guild', $guild],['guildwar_phase_1', '蓮慕城']])->get();
 
-        $data['guildwar_p1_choilo'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '塞羅城']])->get();
+        $data['guildwar_p1_choilo'] = User::where([['guild', $guild],['guildwar_phase_1', '塞羅城']])->get();
 
-        $data['guildwar_p1_undefined'] = User::where([['guild','無與倫比'],['guildwar_phase_1', '']])->get();
+        $data['guildwar_p1_undefined'] = User::where([['guild', $guild],['guildwar_phase_1', '']])->get();
 
-        $data['guildwar_p2'] = User::where([['guild','無與倫比'],['guildwar_phase_2', '<>', '']])->get();
+        $data['guildwar_p2'] = User::where([['guild', $guild],['guildwar_phase_2', '<>', '']])->get();
 
-        $data['guildwar_p2_urban'] = User::where([['guild','無與倫比'],['guildwar_phase_2', '城外郊區組']])->get();
+        $data['guildwar_p2_urban'] = User::where([['guild', $guild],['guildwar_phase_2', '城外郊區組']])->get();
 
-        $data['guildwar_p2_forbidden'] = User::where([['guild','無與倫比'],['guildwar_phase_2', '皇城內組']])->get();
+        $data['guildwar_p2_forbidden'] = User::where([['guild', $guild],['guildwar_phase_2', '皇城內組']])->get();
 
-        $data['guildwar_p2_palace'] = User::where([['guild','無與倫比'],['guildwar_phase_2', '皇宮組']])->get();
+        $data['guildwar_p2_palace'] = User::where([['guild', $guild],['guildwar_phase_2', '皇宮組']])->get();
 
-        $data['guildwar_p2_undefined'] = User::where([['guild','無與倫比'],['guildwar_phase_2', '']])->get();
+        $data['guildwar_p2_undefined'] = User::where([['guild', $guild],['guildwar_phase_2', '']])->get();
 
         return $data;
     }

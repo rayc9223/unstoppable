@@ -16,7 +16,11 @@ class AnalyticsController extends Controller
         if(!Auth::user()->isAdmin()){
             return redirect('index');
         }
-        $users = User::select('uid', 'gameid')->where('guild','無與倫比')->get();
+        if (Auth::user()) {
+            $user = Auth::user();
+        }
+        $guild = $user->guild ? $user->guild : '無與倫比';
+        $users = User::select('uid', 'gameid')->where('guild', $guild)->get();
         return view('guildwar_data', ['users'=>$users]);
     }
 
@@ -63,7 +67,11 @@ class AnalyticsController extends Controller
         if(!Auth::user()){
             return redirect('login');
         }
-        $data = Guildwar::where([['is_delete', '<>', 1], ['guild','無與倫比']])->orderBy('guildwar_date','DESC')->orderBy('rank','ASC')->get();
+        if (Auth::user()) {
+            $user = Auth::user();
+        }
+        $guild = $user->guild ? $user->guild : '無與倫比';
+        $data = Guildwar::where([['is_delete', '<>', 1], ['guild', $guild]])->orderBy('guildwar_date','DESC')->orderBy('rank','ASC')->get();
         return view('guildwar_data_list', ['records'=>$data]);
     }
 
@@ -97,14 +105,18 @@ class AnalyticsController extends Controller
     }
 
     public function analysisAll(Helpers $helpers){
+        if (Auth::user()) {
+            $user = Auth::user();
+        }
+        $guild = $user->guild ? $user->guild : '無與倫比';
         // Get Team Data
-        $tanHung = $helpers->getTeamData('丹紅城');
-        $linMo = $helpers->getTeamData('蓮慕城');
-        $choiLo = $helpers->getTeamData('塞羅城');
-        $taiHo = $helpers->getTeamData('大豪城');
-        $buff = $helpers->getTeamData('增益：鬼怪組');
+        $tanHung = $helpers->getTeamData('丹紅城', $guild);
+        $linMo = $helpers->getTeamData('蓮慕城', $guild);
+        $choiLo = $helpers->getTeamData('塞羅城', $guild);
+        $taiHo = $helpers->getTeamData('大豪城', $guild);
+        $buff = $helpers->getTeamData('增益：鬼怪組', $guild);
 
-        $analysisData = $helpers->analysis();
+        $analysisData = $helpers->analysis($guild);
 
         return view('analysis',['data'=>$analysisData,
                                 'tanhung'=>$tanHung,
