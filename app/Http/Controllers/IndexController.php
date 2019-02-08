@@ -95,7 +95,7 @@ class IndexController extends Controller
             $guild = $user->guild ? $user->guild : '無與倫比';
             $ranking = User::select('uid', 'gameid', 'lineid','guild', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->where('guild', $user->guild)->get();
             $announcement = Announcement::where([['type', 1], ['guild', $guild]])->select('content', 'last_update')->orderBy('last_update', 'DESC')->first();
-            return view('capability', ['ranking'=>$ranking, 'announcement'=>$announcement]);
+            return view('capability', ['ranking'=>$ranking, 'announcement'=>$announcement, 'guild'=>$user->guild]);
         }else{
             return redirect('login');
         }  

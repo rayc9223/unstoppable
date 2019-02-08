@@ -197,8 +197,8 @@
         <div class="row">
             <div class="col-12">
                 <ul id="tabsJustified" class="nav nav-tabs">
-                    <li class="nav-item"><a href="" data-target="#home1" data-toggle="tab" class="nav-link small text-uppercase active">無與倫比</a></li>
-                    <li class="nav-item"><a href="" data-target="#profile1" data-toggle="tab" class="nav-link small text-uppercase">夜雨花落</a></li>
+                    <li class="nav-item"><a href="" data-target="#home1" data-toggle="tab" class="nav-link small text-uppercase active">{{ $guild }}</a></li>
+                    <!-- <li class="nav-item"><a href="" data-target="#profile1" data-toggle="tab" class="nav-link small text-uppercase">夜雨花落</a></li> -->
                     <!-- <li class="nav-item"><a href="" data-target="#messages1" data-toggle="tab" class="nav-link small text-uppercase">Messages</a></li> -->
                 </ul>
                 <br>
