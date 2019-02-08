@@ -109,7 +109,7 @@ class IndexController extends Controller
         Session::put('contact_sent', 'true');
 
         $credentials = DB::table('credentials')->select('username', 'password')->first();
-        $sendTo = 'icheng0117@gmail.com';
+        $sendTo = 'rayc9856@gmail.com';
 
         $body = "申請人資料:<br>電郵: $request->email<br>遊戲ID: $request->gameid<br>LineID: $request->lineid<br>戰力: number_format($request->capability)<br>所屬地區: $request->area<br>留言內容: $request->message";
         $mail = new Message;
@@ -161,7 +161,7 @@ class IndexController extends Controller
         $mailer->send($mail);
 
         // uncomment the following snippet to automatically grant invitations
-        // $mailer->send($mailToCandidate);
+        $mailer->send($mailToCandidate);
         return redirect('contact_us');
     }
 
@@ -237,6 +237,7 @@ class IndexController extends Controller
         $announcement = new Announcement();
         $announcement->type = $request->type;
         $announcement->uid  = Auth::user()->uid;
+        $announcement->guild  = Auth::user()->guild;
         $announcement->content = strip_tags(str_replace(["\r\n", "\n", "\r"], '<br>', $request->content), '<p><a><b><br>');
         $announcement->updated_by = $author;
         $announcement->last_update = time();
