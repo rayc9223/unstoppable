@@ -137,10 +137,8 @@
                         {{ $user->lineid }}, 
                     @endif
                     歡迎回到
-                    @if($user->guild=='無與倫比')
-                        無與倫比
-                    @elseif($user->guild=='夜雨花落')
-                        夜雨花落
+                    @if($user->guild)
+                        {{ $user->guild }}
                     @else
                         門派專頁
                     @endif

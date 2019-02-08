@@ -17,6 +17,7 @@ class CreateAnnouncementsTable extends Migration
             $table->increments('aid');
             $table->tinyInteger('uid');
             $table->tinyInteger('type');
+            $table->string('guild')->default('');
             $table->text('content');
             $table->string('updated_by')->default('');
             $table->integer('last_update');

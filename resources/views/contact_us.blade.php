@@ -85,10 +85,10 @@
             <div class="content">
                 <img src="/images/final_blade_title.png" class="img-fluid" width="50%">
                 <div class="title m-b-md">
-                    聯繫無與倫比
+                    聯繫我們
                 </div>
                 <div class="notice m-b-md">
-                    無與倫比門派招收350萬戰力以上<br>熱衷參與爭奪|配合指揮(券買滿)|願意加入LINE群的玩家<br>
+                    門派招收400萬戰力以上<br>熱衷參與爭奪|配合指揮(券買滿)|願意加入LINE群的玩家<br>
                     <span style="font-size: 13px;"> *邀請碼並非自動發放，我們在收到您的加入請求後將會盡快透過電郵（或LINE）回覆</span><br>
                 </div>
 

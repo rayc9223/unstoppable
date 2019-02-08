@@ -80,7 +80,7 @@
             <div class="content">
                 <img src="/images/final_blade_title.png" class="img-fluid" width="50%">
                 <div class="title m-b-md">
-                    無與倫比 | 會員註冊
+                    會員註冊
                 </div>
 
                 @if(Session::has('error_msg')) 
@@ -118,8 +118,8 @@
                     <input type="text" class="form-control text-center" id="invitation_code" name="invitation_code" value="{{ old('invitation_code') }}">
                   </div>
 
-                  <a href="{{ url('contact_us') }}" target="_blank" title="申請加入無與倫比" class="btn btn-success col-lg-4 col-md-4 col-sm-6 col-xs-8" style="width: 300px;">申請邀請碼</a>
-                  {{-- <a href="http://line.me/ti/g/E0tuhiJXuX" target="_blank" title="申請加入無與倫比LINE群組" class="btn btn-success col-lg-4 col-md-4 col-sm-6 col-xs-8 disabled" style="width: 300px;">申請邀請碼</a> --}}
+                  <a href="{{ url('contact_us') }}" target="_blank" title="申請加入我們" class="btn btn-success col-lg-4 col-md-4 col-sm-6 col-xs-8" style="width: 300px;">申請邀請碼</a>
+                  {{-- <a href="http://line.me/ti/g/E0tuhiJXuX" target="_blank" title="申請加入LINE群組" class="btn btn-success col-lg-4 col-md-4 col-sm-6 col-xs-8 disabled" style="width: 300px;">申請邀請碼</a> --}}
 
                   <div style="height: 20px;"></div>
                   <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-6 col-xs-8" style="width: 300px;">確認註冊</button>

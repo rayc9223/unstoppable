@@ -92,8 +92,9 @@ class IndexController extends Controller
     public function capability(){
         if(Auth::user()){
             $user = Auth::user();
+            $guild = $user->guild ? $user->guild : '無與倫比';
             $ranking = User::select('uid', 'gameid', 'lineid','guild', 'title', 'guildwar_phase_1', 'guildwar_phase_2', 'capability', 'level','thumbnail', 'roll_qty', 'approx_entry_time', 'guildwar_times')->orderBy('capability', 'DESC')->where('guild', $user->guild)->get();
-            $announcement = Announcement::where('type', 1)->select('content', 'last_update')->orderBy('last_update', 'DESC')->first();
+            $announcement = Announcement::where([['type', 1], ['guild', $guild]])->select('content', 'last_update')->orderBy('last_update', 'DESC')->first();
             return view('capability', ['ranking'=>$ranking, 'announcement'=>$announcement]);
         }else{
             return redirect('login');
@@ -165,10 +166,14 @@ class IndexController extends Controller
     }
 
     public function adminModify(){
-        if(!Auth::user()->isAdmin()){
+        if(!Auth::user()->isAdmin() || !Auth::user()->guild){
             return redirect('capability');
         }
-        $users = User::select('uid', 'gameid')->orderBy('capability', 'DESC')->get();
+        if (Auth::user()) {
+            $user = Auth::user();
+        }
+        $guild = $user->guild;
+        $users = User::select('uid', 'gameid')->where('guild', $guild)->orderBy('capability', 'DESC')->get();
         return view('modify', ['users'=>$users]);
     }
 

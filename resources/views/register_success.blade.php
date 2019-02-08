@@ -79,11 +79,11 @@
             <div class="content">
                 <img src="/images/final_blade_title.png" class="img-fluid" width="50%">
                 <div class="title m-b-md">
-                    無與倫比 | 會員註冊成功
+                    會員註冊成功
                 </div>
                 <i class="fas fa-check-circle lg text-success" style="font-size: 80px;"></i><br>
                 <div style="height: 40px;"></div>
-                您已成功註冊無與倫比門派專頁賬號
+                您已成功註冊門派專頁賬號
 
                 <div style="height: 40px;"></div>
 
