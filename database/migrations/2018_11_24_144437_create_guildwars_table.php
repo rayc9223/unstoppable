@@ -18,6 +18,7 @@ class CreateGuildwarsTable extends Migration
             $table->tinyInteger('uid');
             $table->tinyInteger('rank');
             $table->string('gameid',40)->default('');
+            $table->string('guild',191)->default('');
             $table->integer('attack_times')->default(0);
             $table->integer('contribution')->default(0);
             $table->integer('reward')->default(0);
