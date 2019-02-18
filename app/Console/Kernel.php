@@ -39,8 +39,7 @@ class Kernel extends ConsoleKernel
                 $leave->call_leave_time = time();
                 $leave->save();
             }        
-        // })->weekly()->tuesdays()->thursdays()->saturdays()->at('21:00');
-        })->mondays()->at('21:35');
+        })->mondays()->at('21:40');
     }
 
     /**

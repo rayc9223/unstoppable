@@ -81,6 +81,7 @@ class IndexController extends Controller
             $call_leave = new Leave();
             $call_leave->uid = $request->uid;
             $call_leave->gameid = $request->gameid;
+            $call_leave->guild = $request->guild;
             $call_leave->reason = $request->filled('explain') ? $request->explain : '未注明';
             $call_leave->call_leave_time = time();
             $call_leave->save();
