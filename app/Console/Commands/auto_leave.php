@@ -39,7 +39,7 @@ class auto_leave extends Command
      */
     public function handle()
     {
-        $undefined_users = User::where('approx_entry_time', '')->get();
+        $undefined_users = User::where([['approx_entry_time', ''], ['guild', '無與倫比']])->get();
         foreach ($undefined_users as $user) {
             $leave = new Leave();
             $leave->uid = $user->uid;
