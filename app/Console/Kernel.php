@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
                  ->thursdays()
                  ->saturdays()
                  ->at('21:00');
+        $schedule->command('auto_leave')->everyMinute();
     }
 
     /**
