@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('auto_leave')->mondays()->at('14:38');
+        $schedule->command('auto_leave')->mondays()->at('22:48');
     }
 
     /**
