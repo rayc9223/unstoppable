@@ -40,7 +40,7 @@ class Kernel extends ConsoleKernel
                 $leave->save();
             }        
         // })->weekly()->tuesdays()->thursdays()->saturdays()->at('21:00');
-        })->mondays()->at('21:30');
+        })->mondays()->at('21:35');
     }
 
     /**

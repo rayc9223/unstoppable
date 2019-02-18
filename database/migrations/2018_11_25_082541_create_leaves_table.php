@@ -17,6 +17,7 @@ class CreateLeavesTable extends Migration
             $table->increments('lid');
             $table->integer('uid');
             $table->string('gameid',40)->default('');
+            $table->string('guild',191)->default('');
             $table->string('reason')->default('');
             $table->integer('call_leave_time');
             // $table->timestamps();
