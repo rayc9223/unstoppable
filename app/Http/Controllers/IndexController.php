@@ -112,7 +112,9 @@ class IndexController extends Controller
         $credentials = DB::table('credentials')->select('username', 'password')->first();
         $sendTo = 'rayc9856@gmail.com';
 
-        $body = "申請人資料:<br>電郵: $request->email<br>遊戲ID: $request->gameid<br>LineID: $request->lineid<br>戰力: number_format($request->capability)<br>所屬地區: $request->area<br>留言內容: $request->message";
+        $capability = str_replace('萬', '0000', $request->capability);
+
+        $body = "申請人資料:<br>電郵: $request->email<br>遊戲ID: $request->gameid<br>LineID: $request->lineid<br>戰力: " . number_format($capability) . "<br>所屬地區: $request->area<br>留言內容: $request->message";
         $mail = new Message;
         $mail->setFrom("無與倫比門派網站 <". $credentials->username . ">")
              ->addTo($sendTo)
