@@ -155,7 +155,7 @@ class LineController extends Controller
                 
                 // $msgText = str_replace('：', ':', $msgText);
                 $newCapability = $helpers->getValue($msgText);
-                if ($newCapability > 0 && $newCapability < 7000000) {
+                if ($newCapability > 0 && $newCapability < 15000000) {
                     // Update DB
                     $user->capability = $newCapability;
                     $user->save();
@@ -168,7 +168,7 @@ class LineController extends Controller
             } elseif (in_array(mb_substr($msgText, 0, 5), ['更新卷數:', '更新卷數：', '更新券數:', '更新券數：'])) {
                 // $msgText = str_replace('：', ':', $msgText);
                 $newRollQty = $helpers->getValue($msgText);
-                if ($newRollQty > 0 && $newRollQty < 500) {
+                if ($newRollQty > 0 && $newRollQty < 1000) {
                     // Update DB
                     $user->roll_qty = $newRollQty;
                     $user->save();
